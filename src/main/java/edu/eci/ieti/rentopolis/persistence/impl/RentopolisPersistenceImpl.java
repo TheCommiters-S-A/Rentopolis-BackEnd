@@ -10,7 +10,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public void addUser(User user) throws RentopolisPersistenceException {
-
     }
 
     @Override

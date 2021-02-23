@@ -25,6 +25,10 @@ public class Property {
     public String description;
     public float reputation;
 
+    public Property() {
+    }
+    
+
     public Property(int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRomms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furnature, String description, float reputation) {
         this.area = area;
         this.price = price;

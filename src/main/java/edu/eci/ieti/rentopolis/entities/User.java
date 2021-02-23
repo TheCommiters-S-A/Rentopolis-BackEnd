@@ -10,7 +10,7 @@ public class User {
     public String phoneNumber;
     public String email;
     public String passwd;
-    List<String> Lesses;
+    
 
     /**
      *
@@ -19,7 +19,13 @@ public class User {
      * @param Email
      * @param passwd
      */
-    public User(String Name,String phoneNumber,String Email,String passwd){
+    
+    
+    public User(){
+    }
+    
+
+    public User(String Name, String phoneNumber, String Email, String passwd) {
         this.Name = Name;
         this.phoneNumber = phoneNumber;
         this.email = email;

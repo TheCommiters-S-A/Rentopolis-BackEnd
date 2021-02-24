@@ -1,6 +1,7 @@
 package edu.eci.ieti.rentopolis.controller;
 
 
+import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
@@ -49,6 +50,28 @@ public class RentopolisController {
     public ResponseEntity<?> getUserById(@PathVariable int id) {
         try {
             return new ResponseEntity<>(rentopolisServices.getUserById(id), HttpStatus.ACCEPTED);
+        } catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @PostMapping("/property")
+    public ResponseEntity<?> addProperty(@RequestBody Property property) {
+        try {
+            rentopolisServices.addProperty(property);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+    
+    
+    @GetMapping("/Property")
+    public ResponseEntity<?> getUserProperties(User user) {
+        try {
+            return new ResponseEntity<>(rentopolisServices.getUserProperties(user), HttpStatus.ACCEPTED);
         } catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

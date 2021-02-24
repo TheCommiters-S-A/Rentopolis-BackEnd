@@ -1,5 +1,6 @@
 package edu.eci.ieti.rentopolis.services.impl;
 
+import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
@@ -36,6 +37,26 @@ public class RentopolisServicesImpl implements RentopolisServices {
     public User getUserById(int id) throws RentopolisServicesException {
         try {
             return rentopolisPersistence.getUserById(id);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+    
+    @Override
+    public void addProperty(Property property) throws RentopolisServicesException {
+        try {
+            rentopolisPersistence.addProperty(property);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+    
+    
+    
+    @Override
+    public Property getUserProperties(User user) throws RentopolisServicesException {
+        try {
+            rentopolisPersistence.getUserProperties(user);
         } catch (RentopolisPersistenceException e) {
             throw new RentopolisServicesException(e.getMessage(), e);
         }

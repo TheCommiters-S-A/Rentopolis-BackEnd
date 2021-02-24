@@ -1,5 +1,6 @@
 package edu.eci.ieti.rentopolis.services;
 
+import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,22 @@ public interface RentopolisServices {
      * @throws RentopolisServicesException
      */
     User getUserById(int id) throws RentopolisServicesException;
+    
+    
+    /**
+     *
+     * @param property
+     * @throws RentopolisServicesException
+     */
+    void addProperty(Property property) throws RentopolisServicesException;
+    
+    /**
+     *
+     * @param user
+     * @return Property
+     * @throws RentopolisServicesException
+     */
+    Property getUserProperties(User user) throws RentopolisServicesException;
+    
 
 }

@@ -14,7 +14,9 @@
 
 ## Descripción de la aplicación
 Rentopolis es una aplicación web realizada como proyecto para la asignatura **Innovación y Emprendimiento con TI (IETI)** de la Escuela Colombiana de Ingeniería Julio Garavito.
-Su propósito es ser una plataforma segura en la cual las personas pueden ofrecer sus inmuebles para que otros usuarios puedan rentarlos.
+Su propósito es ser una plataforma segura con el objetivo de facilitar a las personas que buscan rentar sus inmuebles al permitirles 
+publicar los inmuebles en la aplicacion de tal manera que otras personas que buscan y les interesen puedan de una manera facil 
+contactar y llegar a un acuerdo con el propietario. Como clientes potenciales estan las empresas y personas naturales que tengan inmuebles queno esten en uso y quieran tener un beneficio economico o que esten en busqueda de rentar un inmueble que cumpla sus criterios 
 
 ### Tipos de inmuebles:
 -	Apartamento
@@ -32,7 +34,7 @@ Su propósito es ser una plataforma segura en la cual las personas pueden ofrece
 
 ## Descripción detallada
 
-*   Rentopolis se queda con el 10% del pago alquiler de productos.
+*   Rentopolis se queda con el 10% del pago alquiler de productos publicados y rentados.
 
 *   El usuario arrendador deberá proporcionar las pruebas fotográficas del inmueble que desea publicar, al igual que el precio y la ubicación de este.
 También deberá proporcionar el área en m2, y si tiene alguno de los siguientes elementos:

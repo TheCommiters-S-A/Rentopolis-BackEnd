@@ -1,5 +1,6 @@
 package edu.eci.ieti.rentopolis.persistence;
 
+import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
@@ -43,6 +44,35 @@ public interface RentopolisPersistence {
      */
     void addProperty(Property property) throws RentopolisPersistenceException;
     
-    
+    /**
+     *
+     * @param user
+     * @return
+     * @throws RentopolisPersistenceException
+     */
     Property getUserProperties(User user) throws RentopolisPersistenceException;
+    
+    /**
+     *
+     * @param lease
+     * @throws RentopolisPersistenceException
+     */
+    void addLease(Lease lease) throws RentopolisPersistenceException;
+    
+    /**
+     *
+     * @param user
+     * @param leaseId
+     * @return
+     * @throws RentopolisPersistenceException
+     */
+    Lease getUserLease(User user, Long leaseId) throws RentopolisPersistenceException;
+    
+    /**
+     *
+     * @param user
+     * @return
+     * @throws RentopolisPersistenceException
+     */
+    Lease getUserLeases(User user) throws RentopolisPersistenceException;
 }

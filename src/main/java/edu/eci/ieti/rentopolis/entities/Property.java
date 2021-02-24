@@ -11,6 +11,7 @@ package edu.eci.ieti.rentopolis.entities;
  */
 public class Property {
     
+    public long id;
     public int area;
     public long price;
     public Location location;
@@ -29,7 +30,8 @@ public class Property {
     }
     
 
-    public Property(int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRomms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furnature, String description, float reputation) {
+    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRomms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furnature, String description, float reputation) {
+        this.id = id;
         this.area = area;
         this.price = price;
         this.location = location;

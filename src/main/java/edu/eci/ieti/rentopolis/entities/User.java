@@ -5,11 +5,14 @@ import java.util.List;
 
 
 public class User {
-
+    
+    public long id;
     public String Name;
     public String phoneNumber;
     public String email;
     public String passwd;
+    public List<Lease> leases;
+    public List<Property> properties;
     
 
     /**
@@ -18,6 +21,7 @@ public class User {
      * @param phoneNumber
      * @param Email
      * @param passwd
+     * @param id
      */
     
     
@@ -25,7 +29,7 @@ public class User {
     }
     
 
-    public User(String Name, String phoneNumber, String Email, String passwd) {
+    public User(long id,String Name, String phoneNumber, String Email, String passwd) {
         this.Name = Name;
         this.phoneNumber = phoneNumber;
         this.email = email;

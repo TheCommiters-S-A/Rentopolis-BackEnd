@@ -5,6 +5,7 @@ import java.util.Date;
 
 
 public class Lease {
+    public long id;
     public Property propety;
     public Lessee lessee;
     public Lessor lessor;
@@ -13,6 +14,17 @@ public class Lease {
 
     public Lease() {
     }
+
+    public Lease(long id, Property propety, Lessee lessee, Lessor lessor, Date startDate, Date endDate) {
+        this.id = id;
+        this.propety = propety;
+        this.lessee = lessee;
+        this.lessor = lessor;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    
+    
     
     public Property getPropety() {
         return propety;
@@ -54,11 +66,4 @@ public class Lease {
         this.endDate = endDate;
     }
 
-    public Lease(Property propety, Lessee lessee, Lessor lessor, Date startDate, Date endDate) {
-        this.propety = propety;
-        this.lessee = lessee;
-        this.lessor = lessor;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 }

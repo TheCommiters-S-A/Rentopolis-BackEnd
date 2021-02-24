@@ -19,8 +19,8 @@ public class Lessor extends User{
     public Lessor() {
     }
     
-    public Lessor(String Name, String phoneNumber, String Email, String passwd) {
-        super(Name, phoneNumber, Email, passwd);
+    public Lessor(long id, String Name, String phoneNumber, String Email, String passwd) {
+        super(id,Name, phoneNumber, Email, passwd);
     }
 
     public List<Property> getProperties() {

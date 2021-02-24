@@ -1,5 +1,6 @@
 package edu.eci.ieti.rentopolis.services.impl;
 
+import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
@@ -56,7 +57,36 @@ public class RentopolisServicesImpl implements RentopolisServices {
     @Override
     public Property getUserProperties(User user) throws RentopolisServicesException {
         try {
-            rentopolisPersistence.getUserProperties(user);
+            return rentopolisPersistence.getUserProperties(user);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+    
+    @Override
+    public void addLease(Lease lease) throws RentopolisServicesException {
+        try {
+            rentopolisPersistence.addLease(lease);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+    
+    
+    @Override
+    public Lease getUserLease(User user,Long leaseId) throws RentopolisServicesException {
+        try {
+            return rentopolisPersistence.getUserLease(user,leaseId);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+    
+    
+    @Override
+    public Lease getUserLeases(User user) throws RentopolisServicesException {
+        try {
+            return rentopolisPersistence.getUserLeases(user);
         } catch (RentopolisPersistenceException e) {
             throw new RentopolisServicesException(e.getMessage(), e);
         }

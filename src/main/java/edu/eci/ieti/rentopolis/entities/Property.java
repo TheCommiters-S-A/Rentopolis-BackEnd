@@ -14,38 +14,39 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Properties")
 public class Property {
     
-    public long id;
-    public int area;
-    public long price;
-    public Location location;
-    public PropertyType type;
-    public int numberOfRooms;
-    public int numberOfBathRomms;
-    public boolean Elevator;
-    public boolean Surveillance;
-    public boolean Gym;
-    public boolean CommunityRoom;
-    public boolean Furnature;
-    public String description;
-    public float reputation;
+    private long id;
+    private int area;
+    private long price;
+    private Location location;
+    private PropertyType type;
+    private int numberOfRooms;
+    private boolean communityRoom;
+    private boolean furniture;
+    private String description;
+    private float reputation;
+    private int numberOfBathRooms;
+    private boolean elevator;
+    private boolean surveillance;
+    private boolean gym;
+
 
     public Property() {
     }
     
 
-    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRomms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furnature, String description, float reputation) {
+    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, float reputation) {
         this.id = id;
         this.area = area;
         this.price = price;
         this.location = location;
         this.type = type;
         this.numberOfRooms = numberOfRooms;
-        this.numberOfBathRomms = numberOfBathRomms;
-        this.Elevator = Elevator;
-        this.Surveillance = Surveillance;
-        this.Gym = Gym;
-        this.CommunityRoom = CommunityRoom;
-        this.Furnature = Furnature;
+        this.numberOfBathRooms = numberOfBathRooms;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.gym = gym;
+        this.communityRoom = communityRoom;
+        this.furniture = furniture;
         this.description = description;
         this.reputation = reputation;
     }
@@ -90,52 +91,34 @@ public class Property {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public int getNumberOfBathRomms() {
-        return numberOfBathRomms;
+    public int getNumberOfBathRooms() {
+        return numberOfBathRooms;
     }
 
-    public void setNumberOfBathRomms(int numberOfBathRomms) {
-        this.numberOfBathRomms = numberOfBathRomms;
+    public void setNumberOfBathRooms(int numberOfBathRomms) {
+        this.numberOfBathRooms = numberOfBathRomms;
     }
 
-    public boolean isElevator() {
-        return Elevator;
+
+    public void setElevator(boolean elevator) {
+        this.elevator = elevator;
     }
 
-    public void setElevator(boolean Elevator) {
-        this.Elevator = Elevator;
+
+    public void setSurveillance(boolean surveillance) {
+        this.surveillance = surveillance;
     }
 
-    public boolean isSurveillance() {
-        return Surveillance;
+    public void setGym(boolean gym) {
+        this.gym = gym;
     }
 
-    public void setSurveillance(boolean Surveillance) {
-        this.Surveillance = Surveillance;
+    public void setCommunityRoom(boolean communityRoom) {
+        this.communityRoom = communityRoom;
     }
 
-    public boolean isGym() {
-        return Gym;
-    }
-
-    public void setGym(boolean Gym) {
-        this.Gym = Gym;
-    }
-
-    public boolean isCommunityRoom() {
-        return CommunityRoom;
-    }
-
-    public void setCommunityRoom(boolean CommunityRoom) {
-        this.CommunityRoom = CommunityRoom;
-    }
-
-    public boolean isFurnature() {
-        return Furnature;
-    }
-
-    public void setFurnature(boolean Furnature) {
-        this.Furnature = Furnature;
+    public void setFurniture(boolean furniture) {
+        this.furniture = furniture;
     }
 
     public String getDescription() {
@@ -156,5 +139,25 @@ public class Property {
 
     public long getId() {
         return id;
+    }
+
+    public boolean isGym() {
+        return gym;
+    }
+
+    public boolean isFurniture() {
+        return furniture;
+    }
+
+    public boolean isCommunityRoom() {
+        return communityRoom;
+    }
+
+    public boolean isElevator() {
+        return elevator;
+    }
+
+    public boolean isSurveillance() {
+        return surveillance;
     }
 }

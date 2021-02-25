@@ -6,11 +6,13 @@ import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
-import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
+import edu.eci.ieti.rentopolis.exception.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component("RentopolisServicesImpl")
 public class RentopolisServicesImpl implements RentopolisServices {
 
     @Autowired

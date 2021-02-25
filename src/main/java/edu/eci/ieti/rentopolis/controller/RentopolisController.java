@@ -4,9 +4,10 @@ package edu.eci.ieti.rentopolis.controller;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
-import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
+import edu.eci.ieti.rentopolis.exception.RentopolisServicesException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class RentopolisController {
 
 
     @Autowired
+    @Qualifier("RentopolisServicesImpl")
     private RentopolisServices rentopolisServices;
 
 

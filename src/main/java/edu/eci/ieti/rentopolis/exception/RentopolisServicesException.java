@@ -1,4 +1,4 @@
-package edu.eci.ieti.rentopolis.services;
+package edu.eci.ieti.rentopolis.exception;
 
 public class RentopolisServicesException extends Exception{
 

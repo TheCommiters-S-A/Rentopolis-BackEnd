@@ -103,7 +103,7 @@ public class PropertyDTO {
     }
 
     public void setCommunityRoom(boolean communityRoom) {
-        communityRoom = communityRoom;
+        this.communityRoom = communityRoom;
     }
 
     public void setDescription(String description) {
@@ -111,15 +111,15 @@ public class PropertyDTO {
     }
 
     public void setElevator(boolean elevator) {
-        elevator = elevator;
+        this.elevator = elevator;
     }
 
     public void setFurniture(boolean furniture) {
-        furniture = furniture;
+        this.furniture = furniture;
     }
 
     public void setGym(boolean gym) {
-        gym = gym;
+        this.gym = gym;
     }
 
     public void setLocation(Location location) {
@@ -143,7 +143,7 @@ public class PropertyDTO {
     }
 
     public void setSurveillance(boolean surveillance) {
-        surveillance = surveillance;
+        this.surveillance = surveillance;
     }
 
     public void setType(PropertyType type) {

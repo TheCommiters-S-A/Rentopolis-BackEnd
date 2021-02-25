@@ -48,7 +48,7 @@ public class UserDTO {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public void setPasswd(String passwd) {

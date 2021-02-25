@@ -1,6 +1,8 @@
 package edu.eci.ieti.rentopolis.controller;
 
 
+import edu.eci.ieti.rentopolis.dto.PropertyDTO;
+import edu.eci.ieti.rentopolis.dto.UserDTO;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
@@ -24,7 +26,8 @@ public class RentopolisController {
 
 
     @PostMapping("/users")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
+    public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO) {
+        User user= userDTO.convertToEntity(userDTO);
         System.out.println("OK---------------------------------------------------- "+user.Name);
         rentopolisServices.addUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -52,7 +55,8 @@ public class RentopolisController {
     }
 
     @PostMapping("/property")
-    public ResponseEntity<Object> addProperty(@RequestBody Property property) {
+    public ResponseEntity<Object> addProperty(@RequestBody PropertyDTO propertyDTO) {
+        Property property= propertyDTO.convertToEntity(propertyDTO);
         rentopolisServices.addProperty(property);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

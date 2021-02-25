@@ -1,6 +1,8 @@
 package edu.eci.ieti.rentopolis.entities;
 
 import java.util.List;
+
+import edu.eci.ieti.rentopolis.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -71,5 +73,13 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public UserDTO convertToDTO(User user){
+        return new UserDTO(user.getId(),
+                user.getName(),
+                user.getPhoneNumber(),
+                user.getEmail(),
+                user.getPasswd());
     }
 }

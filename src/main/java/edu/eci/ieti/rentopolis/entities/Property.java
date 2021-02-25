@@ -5,6 +5,8 @@
  */
 package edu.eci.ieti.rentopolis.entities;
 
+import edu.eci.ieti.rentopolis.dto.PropertyDTO;
+import edu.eci.ieti.rentopolis.dto.UserDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -20,12 +22,12 @@ public class Property {
     public Location location;
     public PropertyType type;
     public int numberOfRooms;
-    public int numberOfBathRomms;
+    public int numberOfBathRooms;
     public boolean Elevator;
     public boolean Surveillance;
     public boolean Gym;
     public boolean CommunityRoom;
-    public boolean Furnature;
+    public boolean Furniture;
     public String description;
     public float reputation;
 
@@ -33,19 +35,19 @@ public class Property {
     }
     
 
-    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRomms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furnature, String description, float reputation) {
+    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furniture, String description, float reputation) {
         this.id = id;
         this.area = area;
         this.price = price;
         this.location = location;
         this.type = type;
         this.numberOfRooms = numberOfRooms;
-        this.numberOfBathRomms = numberOfBathRomms;
+        this.numberOfBathRooms = numberOfBathRooms;
         this.Elevator = Elevator;
         this.Surveillance = Surveillance;
         this.Gym = Gym;
         this.CommunityRoom = CommunityRoom;
-        this.Furnature = Furnature;
+        this.Furniture = Furniture;
         this.description = description;
         this.reputation = reputation;
     }
@@ -90,52 +92,34 @@ public class Property {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public int getNumberOfBathRomms() {
-        return numberOfBathRomms;
+    public int getNumberOfBathRooms() {
+        return numberOfBathRooms;
     }
 
-    public void setNumberOfBathRomms(int numberOfBathRomms) {
-        this.numberOfBathRomms = numberOfBathRomms;
+    public void setNumberOfBathRooms(int numberOfBathRomms) {
+        this.numberOfBathRooms = numberOfBathRomms;
     }
 
-    public boolean isElevator() {
-        return Elevator;
-    }
 
     public void setElevator(boolean Elevator) {
         this.Elevator = Elevator;
     }
 
-    public boolean isSurveillance() {
-        return Surveillance;
-    }
 
     public void setSurveillance(boolean Surveillance) {
         this.Surveillance = Surveillance;
-    }
-
-    public boolean isGym() {
-        return Gym;
     }
 
     public void setGym(boolean Gym) {
         this.Gym = Gym;
     }
 
-    public boolean isCommunityRoom() {
-        return CommunityRoom;
-    }
-
     public void setCommunityRoom(boolean CommunityRoom) {
         this.CommunityRoom = CommunityRoom;
     }
 
-    public boolean isFurnature() {
-        return Furnature;
-    }
-
-    public void setFurnature(boolean Furnature) {
-        this.Furnature = Furnature;
+    public void setFurniture(boolean Furniture) {
+        this.Furniture = Furniture;
     }
 
     public String getDescription() {
@@ -156,5 +140,33 @@ public class Property {
 
     public long getId() {
         return id;
+    }
+
+    public boolean hasElevator() {
+        return Elevator;
+    }
+
+    public boolean hasCommunityRoom() {
+        return CommunityRoom;
+    }
+
+    public boolean hasFurniture() {
+        return Furniture;
+    }
+
+    public boolean hasGym() {
+        return Gym;
+    }
+
+    public boolean hasSurveillance() {
+        return Surveillance;
+    }
+
+    public PropertyDTO convertToDTO(Property property){
+        return new PropertyDTO(property.getId(),property.getArea(),property.getPrice(),
+                property.getLocation(),property.getType(),property.getNumberOfRooms(),
+                property.getNumberOfBathRooms(), property.hasElevator(),property.hasSurveillance(),
+                property.hasGym(),property.hasCommunityRoom(), property.hasFurniture(),
+                property.getDescription(),property.getReputation());
     }
 }

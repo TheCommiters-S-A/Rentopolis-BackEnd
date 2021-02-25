@@ -6,7 +6,6 @@
 package edu.eci.ieti.rentopolis.entities;
 
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
-import edu.eci.ieti.rentopolis.dto.UserDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -16,26 +15,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Properties")
 public class Property {
     
-    public long id;
-    public int area;
-    public long price;
-    public Location location;
-    public PropertyType type;
-    public int numberOfRooms;
-    public int numberOfBathRooms;
-    public boolean Elevator;
-    public boolean Surveillance;
-    public boolean Gym;
-    public boolean CommunityRoom;
-    public boolean Furniture;
-    public String description;
-    public float reputation;
+    private long id;
+    private int area;
+    private long price;
+    private Location location;
+    private PropertyType type;
+    private int numberOfRooms;
+    private int numberOfBathRooms;
+    private boolean elevator;
+    private boolean surveillance;
+    private boolean gym;
+    private boolean communityRoom;
+    private boolean furniture;
+    private String description;
+    private float reputation;
 
     public Property() {
     }
     
 
-    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furniture, String description, float reputation) {
+    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, float reputation) {
         this.id = id;
         this.area = area;
         this.price = price;
@@ -43,11 +42,11 @@ public class Property {
         this.type = type;
         this.numberOfRooms = numberOfRooms;
         this.numberOfBathRooms = numberOfBathRooms;
-        this.Elevator = Elevator;
-        this.Surveillance = Surveillance;
-        this.Gym = Gym;
-        this.CommunityRoom = CommunityRoom;
-        this.Furniture = Furniture;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.gym = gym;
+        this.communityRoom = communityRoom;
+        this.furniture = furniture;
         this.description = description;
         this.reputation = reputation;
     }
@@ -101,25 +100,25 @@ public class Property {
     }
 
 
-    public void setElevator(boolean Elevator) {
-        this.Elevator = Elevator;
+    public void setElevator(boolean elevator) {
+        this.elevator = elevator;
     }
 
 
-    public void setSurveillance(boolean Surveillance) {
-        this.Surveillance = Surveillance;
+    public void setSurveillance(boolean surveillance) {
+        this.surveillance = surveillance;
     }
 
-    public void setGym(boolean Gym) {
-        this.Gym = Gym;
+    public void setGym(boolean gym) {
+        this.gym = gym;
     }
 
-    public void setCommunityRoom(boolean CommunityRoom) {
-        this.CommunityRoom = CommunityRoom;
+    public void setCommunityRoom(boolean communityRoom) {
+        this.communityRoom = communityRoom;
     }
 
-    public void setFurniture(boolean Furniture) {
-        this.Furniture = Furniture;
+    public void setFurniture(boolean furniture) {
+        this.furniture = furniture;
     }
 
     public String getDescription() {
@@ -143,23 +142,23 @@ public class Property {
     }
 
     public boolean hasElevator() {
-        return Elevator;
+        return elevator;
     }
 
     public boolean hasCommunityRoom() {
-        return CommunityRoom;
+        return communityRoom;
     }
 
     public boolean hasFurniture() {
-        return Furniture;
+        return furniture;
     }
 
     public boolean hasGym() {
-        return Gym;
+        return gym;
     }
 
     public boolean hasSurveillance() {
-        return Surveillance;
+        return surveillance;
     }
 
     public PropertyDTO convertToDTO(Property property){

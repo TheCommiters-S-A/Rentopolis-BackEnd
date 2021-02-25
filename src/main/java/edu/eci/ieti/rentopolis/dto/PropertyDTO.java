@@ -13,15 +13,15 @@ public class PropertyDTO {
     private PropertyType type;
     private int numberOfRooms;
     private int numberOfBathRooms;
-    private boolean Elevator;
-    private boolean Surveillance;
-    private boolean Gym;
-    private boolean CommunityRoom;
-    private boolean Furniture;
+    private boolean elevator;
+    private boolean surveillance;
+    private boolean gym;
+    private boolean communityRoom;
+    private boolean furniture;
     private String description;
     private float reputation;
 
-    public PropertyDTO(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean Elevator, boolean Surveillance, boolean Gym, boolean CommunityRoom, boolean Furniture, String description, float reputation) {
+    public PropertyDTO(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, float reputation) {
         this.id = id;
         this.area = area;
         this.price = price;
@@ -29,11 +29,11 @@ public class PropertyDTO {
         this.type = type;
         this.numberOfRooms = numberOfRooms;
         this.numberOfBathRooms = numberOfBathRooms;
-        this.Elevator = Elevator;
-        this.Surveillance = Surveillance;
-        this.Gym = Gym;
-        this.CommunityRoom = CommunityRoom;
-        this.Furniture = Furniture;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.gym = gym;
+        this.communityRoom = communityRoom;
+        this.furniture = furniture;
         this.description = description;
         this.reputation = reputation;
     }
@@ -75,23 +75,23 @@ public class PropertyDTO {
     }
 
     public boolean hasElevator() {
-        return Elevator;
+        return elevator;
     }
 
     public boolean hasCommunityRoom() {
-        return CommunityRoom;
+        return communityRoom;
     }
 
     public boolean hasFurniture() {
-        return Furniture;
+        return furniture;
     }
 
     public boolean hasGym() {
-        return Gym;
+        return gym;
     }
 
     public boolean hasSurveillance() {
-        return Surveillance;
+        return surveillance;
     }
 
     public void setId(long id) {
@@ -103,7 +103,7 @@ public class PropertyDTO {
     }
 
     public void setCommunityRoom(boolean communityRoom) {
-        CommunityRoom = communityRoom;
+        communityRoom = communityRoom;
     }
 
     public void setDescription(String description) {
@@ -111,15 +111,15 @@ public class PropertyDTO {
     }
 
     public void setElevator(boolean elevator) {
-        Elevator = elevator;
+        elevator = elevator;
     }
 
     public void setFurniture(boolean furniture) {
-        Furniture = furniture;
+        furniture = furniture;
     }
 
     public void setGym(boolean gym) {
-        Gym = gym;
+        gym = gym;
     }
 
     public void setLocation(Location location) {
@@ -143,7 +143,7 @@ public class PropertyDTO {
     }
 
     public void setSurveillance(boolean surveillance) {
-        Surveillance = surveillance;
+        surveillance = surveillance;
     }
 
     public void setType(PropertyType type) {

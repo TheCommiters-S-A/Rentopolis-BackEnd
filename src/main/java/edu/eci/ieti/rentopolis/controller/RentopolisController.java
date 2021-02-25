@@ -26,7 +26,7 @@ public class RentopolisController {
 
 
     @PostMapping("/users")
-    public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO) {
         User user= userDTO.convertToEntity(userDTO);
         System.out.println("OK---------------------------------------------------- "+user.Name);
         rentopolisServices.addUser(user);

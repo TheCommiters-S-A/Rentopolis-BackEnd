@@ -1,7 +1,5 @@
 package edu.eci.ieti.rentopolis.services;
 
-import edu.eci.ieti.rentopolis.entities.Lease;
-import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import org.springframework.stereotype.Service;
 

@@ -20,14 +20,15 @@ public class Property {
     private Location location;
     private PropertyType type;
     private int numberOfRooms;
-    private int numberOfBathRooms;
-    private boolean elevator;
-    private boolean surveillance;
-    private boolean gym;
     private boolean communityRoom;
     private boolean furniture;
     private String description;
     private float reputation;
+    private int numberOfBathRooms;
+    private boolean elevator;
+    private boolean surveillance;
+    private boolean gym;
+
 
     public Property() {
     }
@@ -47,6 +48,92 @@ public class Property {
         this.communityRoom = communityRoom;
         this.furniture = furniture;
         this.description = description;
+        this.reputation = reputation;
+    }
+
+    public int getArea() {
+        return area;
+    }
+
+    public void setArea(int area) {
+        this.area = area;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public PropertyType getType() {
+        return type;
+    }
+
+    public void setType(PropertyType type) {
+        this.type = type;
+    }
+
+    public int getNumberOfRooms() {
+        return numberOfRooms;
+    }
+
+    public void setNumberOfRooms(int numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
+    }
+
+    public int getNumberOfBathRooms() {
+        return numberOfBathRooms;
+    }
+
+    public void setNumberOfBathRooms(int numberOfBathRomms) {
+        this.numberOfBathRooms = numberOfBathRomms;
+    }
+
+
+    public void setElevator(boolean elevator) {
+        this.elevator = elevator;
+    }
+
+
+    public void setSurveillance(boolean surveillance) {
+        this.surveillance = surveillance;
+    }
+
+    public void setGym(boolean gym) {
+        this.gym = gym;
+    }
+
+    public void setCommunityRoom(boolean communityRoom) {
+        this.communityRoom = communityRoom;
+    }
+
+    public void setFurniture(boolean furniture) {
+        this.furniture = furniture;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(float reputation) {
         this.reputation = reputation;
     }
 

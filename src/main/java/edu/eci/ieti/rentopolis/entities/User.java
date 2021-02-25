@@ -1,18 +1,19 @@
 package edu.eci.ieti.rentopolis.entities;
 
 import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-
+@Document(collection = "Usuarios")
 public class User {
-    
-    public long id;
+    @Id
+    public Long id;
     public String Name;
     public String phoneNumber;
     public String email;
     public String passwd;
     public List<Lease> leases;
-    public List<Property> properties;
     
 
     /**
@@ -29,7 +30,7 @@ public class User {
     }
     
 
-    public User(long id,String Name, String phoneNumber, String Email, String passwd) {
+    public User(Long id,String Name, String phoneNumber, String Email, String passwd) {
         this.Name = Name;
         this.phoneNumber = phoneNumber;
         this.email = email;

@@ -11,15 +11,15 @@ import java.util.List;
  *
  * @author diego
  */
-
 public class Lessor extends User{
+    
     
     List<Property> properties;
 
     public Lessor() {
     }
     
-    public Lessor(long id, String Name, String phoneNumber, String Email, String passwd) {
+    public Lessor(Long id, String Name, String phoneNumber, String Email, String passwd) {
         super(id,Name, phoneNumber, Email, passwd);
     }
 

@@ -10,7 +10,10 @@ import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RentopolisServicesImpl implements RentopolisServices {
 
     @Autowired
@@ -18,77 +21,18 @@ public class RentopolisServicesImpl implements RentopolisServices {
 
     @Override
     public void addUser(User user) throws RentopolisServicesException {
-        try {
-            rentopolisPersistence.addUser(user);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
+        this.rentopolisPersistence.insert(user);
     }
 
     @Override
     public List<User> getAllUsers() throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getAllUsers();
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
+        return rentopolisPersistence.findAll();
     }
 
     @Override
-    public User getUserById(int id) throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getUserById(id);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
+    public Optional<User> getUserById(Long id) throws RentopolisServicesException {
+        return rentopolisPersistence.findById(id);
     }
     
-    @Override
-    public void addProperty(Property property) throws RentopolisServicesException {
-        try {
-            rentopolisPersistence.addProperty(property);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
-    
-    
-    
-    @Override
-    public Property getUserProperties(User user) throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getUserProperties(user);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
-    
-    @Override
-    public void addLease(Lease lease) throws RentopolisServicesException {
-        try {
-            rentopolisPersistence.addLease(lease);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
-    
-    
-    @Override
-    public Lease getUserLease(User user,Long leaseId) throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getUserLease(user,leaseId);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
-    
-    
-    @Override
-    public Lease getUserLeases(User user) throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getUserLeases(user);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
+   
 }

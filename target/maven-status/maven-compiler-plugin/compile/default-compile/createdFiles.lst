@@ -1,0 +1,16 @@
+edu/eci/ieti/rentopolis/persistence/impl/RentopolisPersistenceImpl.class
+edu/eci/ieti/rentopolis/persistence/RentopolisPersistence.class
+edu/eci/ieti/rentopolis/RentopolisApplication.class
+edu/eci/ieti/rentopolis/entities/User.class
+edu/eci/ieti/rentopolis/entities/Lease.class
+edu/eci/ieti/rentopolis/entities/Provider.class
+edu/eci/ieti/rentopolis/services/RentopolisServicesException.class
+edu/eci/ieti/rentopolis/entities/PropertyType.class
+edu/eci/ieti/rentopolis/persistence/RentopolisPersistenceException.class
+edu/eci/ieti/rentopolis/entities/Property.class
+edu/eci/ieti/rentopolis/entities/Location.class
+edu/eci/ieti/rentopolis/controller/RentopolisController.class
+edu/eci/ieti/rentopolis/entities/Lessee.class
+edu/eci/ieti/rentopolis/services/impl/RentopolisServicesImpl.class
+edu/eci/ieti/rentopolis/entities/Lessor.class
+edu/eci/ieti/rentopolis/services/RentopolisServices.class

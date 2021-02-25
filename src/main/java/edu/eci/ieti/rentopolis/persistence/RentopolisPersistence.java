@@ -1,12 +1,24 @@
 package edu.eci.ieti.rentopolis.persistence;
 
+import edu.eci.ieti.rentopolis.entities.Lessor;
+import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
+import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
+import org.springframework.stereotype.Service;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
 
+@Service
+public interface RentopolisPersistence {
 
+    Optional<User> getUserById(Long userId) throws RentopolisPersistenceException ;
+    List<User> getAllUsers() throws RentopolisPersistenceException;
+    void addUser(User user);
 
-@Repository
-public interface RentopolisPersistence extends MongoRepository<User, Long> {
+    void addProperty(Property property);
+    List<Property> getAllProperty() throws RentopolisPersistenceException;
+    Optional<Property> getPropertyById(Long id) throws RentopolisPersistenceException;
+    List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException;
+    void deleteProperty(Property property) throws RentopolisPersistenceException;
 }

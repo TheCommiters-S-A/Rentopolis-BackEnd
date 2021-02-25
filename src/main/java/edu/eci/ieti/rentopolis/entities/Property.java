@@ -153,7 +153,8 @@ public class Property {
     public void setReputation(float reputation) {
         this.reputation = reputation;
     }
-    
-    
-    
+
+    public long getId() {
+        return id;
+    }
 }

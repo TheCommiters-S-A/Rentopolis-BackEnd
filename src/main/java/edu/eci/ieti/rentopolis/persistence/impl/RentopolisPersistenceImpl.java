@@ -7,7 +7,6 @@ import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.repository.PropertyRepository;
 import edu.eci.ieti.rentopolis.repository.UserRepository;
-import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<User> getAllUsers() throws RentopolisPersistenceException{
-        if(userRepository.findAll().size()==0){
+        if(userRepository.findAll().isEmpty()){
             throw new RentopolisPersistenceException("No hay usuarios");
         }
         return userRepository.findAll();
@@ -52,7 +51,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<Property> getAllProperty() throws RentopolisPersistenceException{
-        if(propertyRepository.findAll().size()==0){
+        if(propertyRepository.findAll().isEmpty()){
             throw new RentopolisPersistenceException("No hay propiedades");
         }
         return propertyRepository.findAll();
@@ -68,9 +67,8 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException{
-        List<Property> properties= getAllProperty();
-        //TODO
-        return properties;
+        return getAllProperty();
+
 
     }
 

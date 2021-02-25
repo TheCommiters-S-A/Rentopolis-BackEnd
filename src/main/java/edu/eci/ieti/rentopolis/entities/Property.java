@@ -141,6 +141,23 @@ public class Property {
         return id;
     }
 
+    public boolean isGym() {
+        return gym;
+    }
 
+    public boolean isFurniture() {
+        return furniture;
+    }
 
+    public boolean isCommunityRoom() {
+        return communityRoom;
+    }
+
+    public boolean isElevator() {
+        return elevator;
+    }
+
+    public boolean isSurveillance() {
+        return surveillance;
+    }
 }

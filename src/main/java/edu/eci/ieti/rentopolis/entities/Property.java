@@ -5,10 +5,13 @@
  */
 package edu.eci.ieti.rentopolis.entities;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  *
  * @author diego
  */
+@Document(collection = "Properties")
 public class Property {
     
     public long id;

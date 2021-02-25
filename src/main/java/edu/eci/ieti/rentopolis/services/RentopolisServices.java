@@ -1,11 +1,10 @@
 package edu.eci.ieti.rentopolis.services;
 
-import edu.eci.ieti.rentopolis.entities.Lease;
-import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,46 +34,8 @@ public interface RentopolisServices {
      * @return Usuario
      * @throws RentopolisServicesException
      */
-    User getUserById(int id) throws RentopolisServicesException;
+    Optional<User>  getUserById(Long id) throws RentopolisServicesException;
     
-    
-    /**
-     *
-     * @param property
-     * @throws RentopolisServicesException
-     */
-    void addProperty(Property property) throws RentopolisServicesException;
-    
-    /**
-     *
-     * @param user
-     * @return Property
-     * @throws RentopolisServicesException
-     */
-    Property getUserProperties(User user) throws RentopolisServicesException;
-    
-    /**
-     *
-     * @param lease
-     * @throws RentopolisServicesException
-     */
-    void addLease(Lease lease) throws RentopolisServicesException;
-    
-    /**
-     *
-     * @param user
-     * @param leaseId
-     * @return
-     * @throws RentopolisServicesException
-     */
-    Lease getUserLease(User user,Long leaseId) throws RentopolisServicesException;  
-    
-    /**
-     *
-     * @param user
-     * @return
-     * @throws RentopolisServicesException
-     */
-    Lease getUserLeases(User user) throws RentopolisServicesException;  
+
 
 }

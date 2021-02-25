@@ -21,23 +21,6 @@ public class PropertyDTO {
     private String description;
     private float reputation;
 
-    public PropertyDTO(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, float reputation) {
-        this.id = id;
-        this.area = area;
-        this.price = price;
-        this.location = location;
-        this.type = type;
-        this.numberOfRooms = numberOfRooms;
-        this.numberOfBathRooms = numberOfBathRooms;
-        this.elevator = elevator;
-        this.surveillance = surveillance;
-        this.gym = gym;
-        this.communityRoom = communityRoom;
-        this.furniture = furniture;
-        this.description = description;
-        this.reputation = reputation;
-    }
-
     public long getId() {
         return id;
     }

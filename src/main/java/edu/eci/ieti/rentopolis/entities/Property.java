@@ -5,7 +5,6 @@
  */
 package edu.eci.ieti.rentopolis.entities;
 
-import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -51,121 +50,10 @@ public class Property {
         this.reputation = reputation;
     }
 
-    public int getArea() {
-        return area;
-    }
-
-    public void setArea(int area) {
-        this.area = area;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public void setPrice(long price) {
-        this.price = price;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public PropertyType getType() {
-        return type;
-    }
-
-    public void setType(PropertyType type) {
-        this.type = type;
-    }
-
-    public int getNumberOfRooms() {
-        return numberOfRooms;
-    }
-
-    public void setNumberOfRooms(int numberOfRooms) {
-        this.numberOfRooms = numberOfRooms;
-    }
-
-    public int getNumberOfBathRooms() {
-        return numberOfBathRooms;
-    }
-
-    public void setNumberOfBathRooms(int numberOfBathRomms) {
-        this.numberOfBathRooms = numberOfBathRomms;
-    }
-
-
-    public void setElevator(boolean elevator) {
-        this.elevator = elevator;
-    }
-
-
-    public void setSurveillance(boolean surveillance) {
-        this.surveillance = surveillance;
-    }
-
-    public void setGym(boolean gym) {
-        this.gym = gym;
-    }
-
-    public void setCommunityRoom(boolean communityRoom) {
-        this.communityRoom = communityRoom;
-    }
-
-    public void setFurniture(boolean furniture) {
-        this.furniture = furniture;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public float getReputation() {
-        return reputation;
-    }
-
-    public void setReputation(float reputation) {
-        this.reputation = reputation;
-    }
-
     public long getId() {
         return id;
     }
 
-    public boolean hasElevator() {
-        return elevator;
-    }
 
-    public boolean hasCommunityRoom() {
-        return communityRoom;
-    }
 
-    public boolean hasFurniture() {
-        return furniture;
-    }
-
-    public boolean hasGym() {
-        return gym;
-    }
-
-    public boolean hasSurveillance() {
-        return surveillance;
-    }
-
-    public PropertyDTO convertToDTO(Property property){
-        return new PropertyDTO(property.getId(),property.getArea(),property.getPrice(),
-                property.getLocation(),property.getType(),property.getNumberOfRooms(),
-                property.getNumberOfBathRooms(), property.hasElevator(),property.hasSurveillance(),
-                property.hasGym(),property.hasCommunityRoom(), property.hasFurniture(),
-                property.getDescription(),property.getReputation());
-    }
 }

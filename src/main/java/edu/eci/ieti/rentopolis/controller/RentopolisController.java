@@ -52,15 +52,15 @@ public class RentopolisController {
     }
 
     @PostMapping("/property")
-    public ResponseEntity<?> addProperty(@RequestBody Property property) {
+    public ResponseEntity<Object> addProperty(@RequestBody Property property) {
         rentopolisServices.addProperty(property);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<Object>(HttpStatus.CREATED);
     }
 
     @GetMapping("/properties")
-    public ResponseEntity<?> getProperties() {
+    public ResponseEntity<Object> getProperties() {
         try {
-            return new ResponseEntity<>(rentopolisServices.getAllProperty(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<Object>(rentopolisServices.getAllProperty(), HttpStatus.ACCEPTED);
         } catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -68,12 +68,12 @@ public class RentopolisController {
     }
 
     @GetMapping("/property/{id}")
-    public ResponseEntity<?> getPropertyById(@PathVariable Long id) {
+    public ResponseEntity<Object> getPropertyById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(rentopolisServices.getPropertyById(id), HttpStatus.ACCEPTED);
+            return new ResponseEntity<Object>(rentopolisServices.getPropertyById(id), HttpStatus.ACCEPTED);
         } catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }

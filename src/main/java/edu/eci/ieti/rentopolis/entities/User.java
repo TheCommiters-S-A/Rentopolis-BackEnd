@@ -82,4 +82,6 @@ public class User {
                 user.getEmail(),
                 user.getPasswd());
     }
+
+    
 }

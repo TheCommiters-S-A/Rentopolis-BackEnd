@@ -3,6 +3,8 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id "org.sonarqube" version "3.1.1"
+	id 'application'
+    id 'jacoco'
 }
 
 group = 'edu.eci.ieti'
@@ -26,9 +28,6 @@ dependencies {
 
 }
 
-test {
-	useJUnitPlatform()
-}
 
 sonarqube {
   properties {
@@ -36,4 +35,20 @@ sonarqube {
     property "sonar.organization", "thecommiters-s-a"
     property "sonar.host.url", "https://sonarcloud.io"
   }
+}
+
+jacocoTestReport {
+    afterEvaluate {
+	getClassDirectories().setFrom(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/rentopolis/RentopolisApplication**',
+                                        '**/rentopolis/repository/**',
+					                    '**/rentopolis/controller**',
+										'**/rentopolis/entities**',
+                                        '**/rentopolis/dto/**'])
+        })
+    }
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
 }

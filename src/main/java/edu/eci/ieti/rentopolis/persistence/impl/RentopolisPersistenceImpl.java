@@ -3,9 +3,11 @@ package edu.eci.ieti.rentopolis.persistence.impl;
 import edu.eci.ieti.rentopolis.entities.Lessor;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
+import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.repository.PropertyRepository;
+import edu.eci.ieti.rentopolis.repository.LeaseRepository;
 import edu.eci.ieti.rentopolis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Autowired
     private PropertyRepository propertyRepository;
+
+    @Autowired
+    private LeaseRepository leaseRepository;
 
     @Override
     public Optional<User> getUserById(Long userId) throws RentopolisPersistenceException {
@@ -78,6 +83,11 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
             throw new RentopolisPersistenceException("Propiedad no existe");
         }
         propertyRepository.delete(property);
+    }
+
+    @Override
+    public void addLease(Lease lease){
+        leaseRepository.insert(lease);
     }
 
 

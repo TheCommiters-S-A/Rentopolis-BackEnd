@@ -24,7 +24,8 @@ public class Lease {
         this.endDate = endDate;
     }
     
-    
+
+    public long getId(){return id;}
     
     public Property getPropety() {
         return propety;

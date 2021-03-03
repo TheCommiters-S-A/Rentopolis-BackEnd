@@ -22,7 +22,16 @@ public class Lessor extends User{
     public Lessor(Long id, String Name, String phoneNumber, String Email, String passwd) {
         super(id,Name, phoneNumber, Email, passwd);
     }
-
+    
+    public void addProperty(Property property){
+        properties.add(property);
+    }
+    
+    
+    public void removeProperty(Property property){
+        properties.removeIf(i ->(property.getId() == i.getId()));
+    }
+    
     public List<Property> getProperties() {
         return properties;
     }

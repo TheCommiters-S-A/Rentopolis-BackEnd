@@ -3,6 +3,7 @@ package edu.eci.ieti.rentopolis.services;
 import edu.eci.ieti.rentopolis.entities.Lessor;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
+import edu.eci.ieti.rentopolis.entities.Lease;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +49,7 @@ public interface RentopolisServices {
     List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException;
 
     void deleteProperty(Property property) throws RentopolisServicesException;
+
+    void addLease(Lease lease);
 
 }

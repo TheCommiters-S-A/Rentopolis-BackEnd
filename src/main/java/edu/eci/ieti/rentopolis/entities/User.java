@@ -15,7 +15,6 @@ public class User {
     public String phoneNumber;
     public String email;
     public String passwd;
-    public List<Lease> leases;
     
 
     /**
@@ -38,6 +37,7 @@ public class User {
         this.email = email;
         this.passwd = email;
     }
+
 
     public String getName() {
         return Name;
@@ -74,7 +74,8 @@ public class User {
     public Long getId() {
         return id;
     }
-
+    
+    
     public UserDTO convertToDTO(User user){
         return new UserDTO(user.getId(),
                 user.getName(),

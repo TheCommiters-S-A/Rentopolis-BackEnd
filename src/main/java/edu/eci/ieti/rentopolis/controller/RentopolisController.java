@@ -3,8 +3,10 @@ package edu.eci.ieti.rentopolis.controller;
 
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
+import edu.eci.ieti.rentopolis.dto.LeaseDTO;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
+import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,6 @@ public class RentopolisController {
     @PostMapping("/users")
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO) {
         User user= userDTO.convertToEntity(userDTO);
-        System.out.println("OK---------------------------------------------------- "+user.Name);
         rentopolisServices.addUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -80,4 +81,12 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/lease")
+    public ResponseEntity<Object> addLease(@RequestBody LeaseDTO leaseDTO) {
+        Lease lease = leaseDTO.convertToEntity(leaseDTO);
+        rentopolisServices.addLease(lease);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
+

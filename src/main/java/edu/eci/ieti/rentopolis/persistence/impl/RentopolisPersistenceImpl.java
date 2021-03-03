@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * The type Rentopolis persistence.
+ */
 @Service
 public class RentopolisPersistenceImpl implements RentopolisPersistence {
 

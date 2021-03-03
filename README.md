@@ -91,6 +91,11 @@ También deberá proporcionar el área en m2, y si tiene alguno de los siguiente
 
 
 
+## License
+
+Este proyecto es de libre uso y distribución, para más detalles vea el archivo [LICENSE.md](LICENSE.md).
+
+
 
 
 

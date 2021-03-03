@@ -5,24 +5,15 @@
  */
 package edu.eci.ieti.rentopolis.entities;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  *
  * @author diego
  */
-public class PropertyType {
-    public String type;
-
-    public PropertyType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+@Document(collection = "PropertyType")
+public enum PropertyType {
+    CASA,CABANA,OFICINA,APARTAMENTO,CUARTO,APARTAESTUDIO,EDIFICIO,LOTE;
     
     
     

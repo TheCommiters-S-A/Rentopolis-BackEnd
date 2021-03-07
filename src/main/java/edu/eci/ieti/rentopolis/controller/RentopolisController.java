@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RentopolisController {
 
-
     @Autowired
     private RentopolisServices rentopolisServices;
 
@@ -35,7 +34,7 @@ public class RentopolisController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<?> getUsers() {
+    public ResponseEntity<Object> getUsers() {
         try {
             return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.ACCEPTED);
         } catch (RentopolisServicesException e) {

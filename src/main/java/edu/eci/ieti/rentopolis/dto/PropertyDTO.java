@@ -10,7 +10,7 @@ public class PropertyDTO {
     private int area;
     private long price;
     private Location location;
-    private PropertyType type;
+    private PropertyType typeProperty;
     private int numberOfRooms;
     private int numberOfBathRooms;
     private boolean elevator;
@@ -20,6 +20,28 @@ public class PropertyDTO {
     private boolean furniture;
     private String description;
     private float reputation;
+
+
+    public PropertyDTO(){
+        // Se necesita para las pruebas
+    }
+
+    public PropertyDTO(Property property){
+        this.id= property.getId();
+        this.area =  property.getArea();
+        this.price =  property.getPrice();
+        this.location =  property.getLocation();
+        this.typeProperty =  property.getType();
+        this.numberOfRooms =  property.getNumberOfRooms();
+        this.numberOfBathRooms =  property.getNumberOfBathRooms();
+        this.elevator =  property.isElevator();
+        this.surveillance =  property.isSurveillance();
+        this.gym = property.isGym();
+        this.communityRoom = property.isCommunityRoom();
+        this.furniture = property.isFurniture();
+        this.description = property.getDescription();
+        this.reputation = property.getReputation();
+    }
 
     public long getId() {
         return id;
@@ -46,7 +68,7 @@ public class PropertyDTO {
     }
 
     public PropertyType getType() {
-        return type;
+        return typeProperty;
     }
 
     public float getReputation() {
@@ -129,8 +151,8 @@ public class PropertyDTO {
         this.surveillance = surveillance;
     }
 
-    public void setType(PropertyType type) {
-        this.type = type;
+    public void setType(PropertyType typeProperty) {
+        this.typeProperty = typeProperty;
     }
 
     public Property convertToEntity(PropertyDTO propertyDTO){

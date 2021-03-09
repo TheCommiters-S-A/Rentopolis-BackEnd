@@ -15,7 +15,7 @@ public class Lessee extends User{
     }
     
     
-    public Lessee(Long id, String Name, String phoneNumber, String Email, String passwd) {
+    public Lessee(String id, String Name, String phoneNumber, String Email, String passwd) {
         super(id,Name, phoneNumber, Email, passwd);
     }
     

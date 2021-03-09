@@ -7,18 +7,17 @@ import edu.eci.ieti.rentopolis.entities.Lease;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface RentopolisPersistence {
 
-    Optional<User> getUserById(Long userId) throws RentopolisPersistenceException ;
+    User getUserById(String userId) throws RentopolisPersistenceException ;
     List<User> getAllUsers() throws RentopolisPersistenceException;
     void addUser(User user);
 
     void addProperty(Property property);
     List<Property> getAllProperty() throws RentopolisPersistenceException;
-    Optional<Property> getPropertyById(Long id) throws RentopolisPersistenceException;
+    Property getPropertyById(long id) throws RentopolisPersistenceException;
     List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException;
     void deleteProperty(Property property) throws RentopolisPersistenceException;
     void addLease(Lease lease);

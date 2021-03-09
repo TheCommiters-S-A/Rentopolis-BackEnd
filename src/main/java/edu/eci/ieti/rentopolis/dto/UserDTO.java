@@ -4,13 +4,13 @@ import edu.eci.ieti.rentopolis.entities.User;
 
 public class UserDTO {
 
-    private Long id;
+    private String id;
     private String name;
     private String phoneNumber;
     private String email;
     private String passwd;
 
-    public UserDTO(Long id, String name, String phoneNumber, String email, String passwd) {
+    public UserDTO(String id, String name, String phoneNumber, String email, String passwd) {
         this.id=id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -19,7 +19,7 @@ public class UserDTO {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -39,7 +39,7 @@ public class UserDTO {
         return phoneNumber;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -11,7 +11,6 @@ import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,7 +34,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public Optional<User> getUserById(Long id) throws RentopolisServicesException {
+    public User getUserById(String id) throws RentopolisServicesException {
         try {
             return rentopolisPersistence.getUserById(id);
         } catch (RentopolisPersistenceException e) {
@@ -60,7 +59,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public Optional<Property> getPropertyById(Long id) throws RentopolisServicesException{
+    public Property getPropertyById(long id) throws RentopolisServicesException{
         try {
             return rentopolisPersistence.getPropertyById(id);
         } catch (RentopolisPersistenceException e) {

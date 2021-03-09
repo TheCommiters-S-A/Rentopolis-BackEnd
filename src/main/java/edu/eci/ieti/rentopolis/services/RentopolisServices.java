@@ -7,7 +7,6 @@ import edu.eci.ieti.rentopolis.entities.Lease;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -37,14 +36,14 @@ public interface RentopolisServices {
      * @return Usuario
      * @throws RentopolisServicesException
      */
-    Optional<User>  getUserById(Long id) throws RentopolisServicesException;
+    User  getUserById(String id) throws RentopolisServicesException;
 
 
     void addProperty(Property property);
 
     List<Property> getAllProperty() throws RentopolisServicesException;
 
-    Optional<Property> getPropertyById(Long id) throws RentopolisServicesException;
+    Property getPropertyById(long id) throws RentopolisServicesException;
 
     List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException;
 

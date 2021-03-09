@@ -5,12 +5,12 @@ import java.util.Date;
 
 
 public class Lease {
-    public long id;
-    public Property property;
-    public Lessee lessee;
-    public Lessor lessor;
-    public Date startDate;
-    public Date endDate;
+    private long id;
+    private Property property;
+    private Lessee lessee;
+    private Lessor lessor;
+    private Date startDate;
+    private Date endDate;
 
     public Lease() {
     }

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -30,10 +29,12 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public User getUserById(String userId) throws RentopolisPersistenceException {
-        if(!userRepository.findById(userId).isPresent()){
+        if(userRepository.findById(userId).isPresent()){
+            return userRepository.findById(userId).get();
+
+        }else{
             throw new RentopolisPersistenceException("Usuario no existe");
         }
-        return userRepository.findById(userId).get();
     }
 
     @Override
@@ -65,9 +66,10 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     @Override
     public Property getPropertyById(long id) throws RentopolisPersistenceException{
         if(propertyRepository.findById(id).isPresent()){
+            return propertyRepository.findById(id).get();
+        }else {
             throw new RentopolisPersistenceException("Propiedad no existe");
         }
-        return propertyRepository.findById(id).get() ;
     }
 
     @Override

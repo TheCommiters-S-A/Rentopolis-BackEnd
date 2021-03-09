@@ -105,7 +105,7 @@ class RentopolisApplicationTests {
 		UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
 		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
 	}
-	
+
 	@Test
 	void shouldAddProperty() throws Exception{
 		Location location= new Location(1,1);

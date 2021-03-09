@@ -10,6 +10,8 @@ import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
+import edu.eci.ieti.rentopolis.dto.UserDTO;
+import edu.eci.ieti.rentopolis.entities.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +25,9 @@ import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -61,6 +65,48 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldNotGetAUserById() throws Exception{
+		MvcResult response= mvcMock.perform(get("/home/user/14"))
+				.andExpect(status().isNotFound()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("Usuario no existe", responseBody);
+	}
+
+	/*
+	@Test
+	void shouldNotGetUsers() throws Exception{
+		MvcResult response= mvcMock.perform(get("/home/users"))
+				.andExpect(status().isNotFound()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("No hay usuarios", responseBody);
+	}
+	*/
+
+	@Test
+	void shouldAddUser() throws Exception{
+		UserDTO userDTO= new UserDTO("13","Sara Perez", "123","sara@gmail.com","123");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+	}
+
+	@Test
+	void shouldGetAUserById() throws Exception{
+		UserDTO userDTO= new UserDTO("12","Sara Perez", "123","sara@gmail.com","123");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated());
+
+		MvcResult response= mvcMock.perform(get("/home/user/12"))
+				.andExpect(status().isAccepted()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
+		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
+	}
+	
+	@Test
 	void shouldAddProperty() throws Exception{
 		Location location= new Location(1,1);
 		PropertyType propertyType= new PropertyType("Apartamento");
@@ -71,5 +117,7 @@ class RentopolisApplicationTests {
 				.content(gson.toJson(propertyDTO)))
 				.andExpect(status().isCreated()).andDo(print());
 	}
+
+
 
 }

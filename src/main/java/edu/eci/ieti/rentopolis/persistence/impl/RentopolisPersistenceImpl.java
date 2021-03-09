@@ -29,11 +29,11 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     private LeaseRepository leaseRepository;
 
     @Override
-    public Optional<User> getUserById(Long userId) throws RentopolisPersistenceException {
-        if(userRepository.findById(userId).isPresent()){
+    public User getUserById(String userId) throws RentopolisPersistenceException {
+        if(!userRepository.findById(userId).isPresent()){
             throw new RentopolisPersistenceException("Usuario no existe");
         }
-        return userRepository.findById(userId);
+        return userRepository.findById(userId).get();
     }
 
     @Override
@@ -63,11 +63,11 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     }
 
     @Override
-    public Optional<Property> getPropertyById(Long id) throws RentopolisPersistenceException{
+    public Property getPropertyById(long id) throws RentopolisPersistenceException{
         if(propertyRepository.findById(id).isPresent()){
             throw new RentopolisPersistenceException("Propiedad no existe");
         }
-        return propertyRepository.findById(id) ;
+        return propertyRepository.findById(id).get() ;
     }
 
     @Override

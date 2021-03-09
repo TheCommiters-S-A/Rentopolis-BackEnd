@@ -26,7 +26,7 @@ public class RentopolisController {
     private RentopolisServices rentopolisServices;
 
 
-    @PostMapping("/users")
+    @PostMapping("/user")
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO) {
         User user= userDTO.convertToEntity(userDTO);
         rentopolisServices.addUser(user);
@@ -44,8 +44,8 @@ public class RentopolisController {
     }
 
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Object> getUserById(@PathVariable String id) {
         try {
             return new ResponseEntity<>(rentopolisServices.getUserById(id), HttpStatus.ACCEPTED);
         } catch (RentopolisServicesException e) {
@@ -72,7 +72,7 @@ public class RentopolisController {
     }
 
     @GetMapping("/property/{id}")
-    public ResponseEntity<Object> getPropertyById(@PathVariable Long id) {
+    public ResponseEntity<Object> getPropertyById(@PathVariable long id) {
         try {
             return new ResponseEntity<>(rentopolisServices.getPropertyById(id), HttpStatus.ACCEPTED);
         } catch (RentopolisServicesException e) {

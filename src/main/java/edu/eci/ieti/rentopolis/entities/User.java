@@ -10,8 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Usuarios")
 public class User {
     @Id
-    public Long id;
-    public String Name;
+    public String id;
+    public String name;
     public String phoneNumber;
     public String email;
     public String passwd;
@@ -31,20 +31,28 @@ public class User {
     }
     
 
-    public User(Long id,String Name, String phoneNumber, String Email, String passwd) {
-        this.Name = Name;
+    public User(String id,String name, String phoneNumber, String email, String passwd) {
+        this.id=id;
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.passwd = email;
+        this.passwd = passwd;
+    }
+
+    public User(String name, String phoneNumber, String email, String passwd) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.passwd = passwd;
     }
 
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhoneNumber() {
@@ -71,7 +79,7 @@ public class User {
         this.passwd = passwd;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
     

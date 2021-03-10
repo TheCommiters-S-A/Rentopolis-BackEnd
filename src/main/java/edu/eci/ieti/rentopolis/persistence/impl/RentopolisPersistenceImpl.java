@@ -30,72 +30,71 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public User getUserById(String userId) throws RentopolisPersistenceException {
-        Optional<User> optional= userRepository.findById(userId);
-        if(optional.isPresent()){
+        Optional<User> optional = userRepository.findById(userId);
+        if (optional.isPresent()) {
             return optional.get();
 
-        }else{
+        } else {
             throw new RentopolisPersistenceException("Usuario no existe");
         }
     }
 
     @Override
-    public List<User> getAllUsers() throws RentopolisPersistenceException{
-        if(userRepository.findAll().isEmpty()){
+    public List<User> getAllUsers() throws RentopolisPersistenceException {
+        if (userRepository.findAll().isEmpty()) {
             throw new RentopolisPersistenceException("No hay usuarios");
         }
         return userRepository.findAll();
     }
 
     @Override
-    public void addUser(User user){
+    public void addUser(User user) {
         userRepository.insert(user);
     }
 
     @Override
-    public void addProperty(Property property){
+    public void addProperty(Property property) {
         propertyRepository.insert(property);
     }
 
     @Override
-    public List<Property> getAllProperty() throws RentopolisPersistenceException{
-        if(propertyRepository.findAll().isEmpty()){
+    public List<Property> getAllProperty() throws RentopolisPersistenceException {
+        if (propertyRepository.findAll().isEmpty()) {
             throw new RentopolisPersistenceException("No hay propiedades");
         }
         return propertyRepository.findAll();
     }
 
     @Override
-    public Property getPropertyById(long id) throws RentopolisPersistenceException{
+    public Property getPropertyById(long id) throws RentopolisPersistenceException {
 
-        Optional<Property> optional =propertyRepository.findById(id);
-        if(optional.isPresent()){
+        Optional<Property> optional = propertyRepository.findById(id);
+        if (optional.isPresent()) {
             return optional.get();
-        }else {
+        } else {
             throw new RentopolisPersistenceException("Propiedad no existe");
         }
     }
 
     @Override
-    public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException{
+    public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException {
         return getAllProperty();
 
 
     }
 
     @Override
-    public void deleteProperty(Property property) throws RentopolisPersistenceException{
-        if(propertyRepository.findById(property.getId()).isPresent()){
+    public void deleteProperty(Property property) throws RentopolisPersistenceException {
+        if (propertyRepository.findById(property.getId()).isPresent()) {
             throw new RentopolisPersistenceException("Propiedad no existe");
         }
         propertyRepository.delete(property);
     }
 
     @Override
-    public void addLease(Lease lease){
+    public void addLease(Lease lease) {
         leaseRepository.insert(lease);
     }
-
 
 
 }

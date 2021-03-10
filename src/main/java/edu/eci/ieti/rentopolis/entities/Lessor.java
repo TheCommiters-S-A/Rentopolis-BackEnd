@@ -8,30 +8,29 @@ package edu.eci.ieti.rentopolis.entities;
 import java.util.List;
 
 /**
- *
  * @author diego
  */
-public class Lessor extends User{
-    
-    
+public class Lessor extends User {
+
+
     List<Property> properties;
 
     public Lessor() {
     }
-    
+
     public Lessor(String id, String name, String phoneNumber, String email, String passwd) {
-        super(id,name, phoneNumber, email, passwd);
+        super(id, name, phoneNumber, email, passwd);
     }
-    
-    public void addProperty(Property property){
+
+    public void addProperty(Property property) {
         properties.add(property);
     }
-    
-    
-    public void removeProperty(Property property){
-        properties.removeIf(i ->(property.getId() == i.getId()));
+
+
+    public void removeProperty(Property property) {
+        properties.removeIf(i -> (property.getId() == i.getId()));
     }
-    
+
     public List<Property> getProperties() {
         return properties;
     }
@@ -39,9 +38,6 @@ public class Lessor extends User{
     public void setProperties(List<Property> properties) {
         this.properties = properties;
     }
-    
-    
-    
-    
-    
+
+
 }

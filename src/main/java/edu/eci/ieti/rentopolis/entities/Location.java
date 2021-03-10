@@ -6,7 +6,6 @@
 package edu.eci.ieti.rentopolis.entities;
 
 /**
- *
  * @author diego
  */
 public class Location {
@@ -33,5 +32,5 @@ public class Location {
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
-    
+
 }

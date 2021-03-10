@@ -11,6 +11,7 @@ import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +21,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     private RentopolisPersistence rentopolisPersistence;
 
     @Override
-    public void addUser(User user)  {
+    public void addUser(User user) {
         this.rentopolisPersistence.addUser(user);
     }
 
@@ -44,13 +45,13 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public void addProperty(Property property){
+    public void addProperty(Property property) {
         this.rentopolisPersistence.addProperty(property);
     }
 
     @Override
-    public List<Property> getAllProperty() throws RentopolisServicesException{
-        try{
+    public List<Property> getAllProperty() throws RentopolisServicesException {
+        try {
             return rentopolisPersistence.getAllProperty();
         } catch (RentopolisPersistenceException e) {
             throw new RentopolisServicesException(e.getMessage(), e);
@@ -59,7 +60,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public Property getPropertyById(long id) throws RentopolisServicesException{
+    public Property getPropertyById(long id) throws RentopolisServicesException {
         try {
             return rentopolisPersistence.getPropertyById(id);
         } catch (RentopolisPersistenceException e) {
@@ -68,7 +69,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException{
+    public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException {
         try {
             return rentopolisPersistence.getPropertyByLessor(lessor);
         } catch (RentopolisPersistenceException e) {
@@ -77,7 +78,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public void deleteProperty(Property property) throws RentopolisServicesException{
+    public void deleteProperty(Property property) throws RentopolisServicesException {
         try {
             rentopolisPersistence.deleteProperty(property);
         } catch (RentopolisPersistenceException e) {
@@ -86,7 +87,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public void addLease(Lease lease){
+    public void addLease(Lease lease) {
         this.rentopolisPersistence.addLease(lease);
     }
 }

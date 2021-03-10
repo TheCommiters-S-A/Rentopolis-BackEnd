@@ -109,8 +109,7 @@ class RentopolisApplicationTests {
 	@Test
 	void shouldAddProperty() throws Exception{
 		Location location= new Location(1,1);
-		PropertyType propertyType= new PropertyType("Apartamento");
-		Property property= new Property(16,50, 5000000,location, propertyType,4, 2, true, true, false, true, true, "", 4);
+		Property property= new Property(16,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
 		PropertyDTO propertyDTO= new PropertyDTO(property);
 		mvcMock.perform(post("/home/property")
 				.contentType(MediaType.APPLICATION_JSON)

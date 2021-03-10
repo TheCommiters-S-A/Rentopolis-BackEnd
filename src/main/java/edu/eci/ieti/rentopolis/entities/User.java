@@ -6,33 +6,22 @@ import edu.eci.ieti.rentopolis.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document(collection = "Usuarios")
 public class User {
+
     @Id
     private String id;
     private String name;
     private String phoneNumber;
     private String email;
     private String passwd;
-    
 
-    /**
-     *
-     * @param Name
-     * @param phoneNumber
-     * @param Email
-     * @param passwd
-     * @param id
-     */
-    
-    
-    public User(){
+
+    public User() {
     }
-    
 
-    public User(String id,String name, String phoneNumber, String email, String passwd) {
-        this.id=id;
+    public User(String id, String name, String phoneNumber, String email, String passwd) {
+        this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -82,9 +71,9 @@ public class User {
     public String getId() {
         return id;
     }
-    
-    
-    public UserDTO convertToDTO(User user){
+
+
+    public UserDTO convertToDTO(User user) {
         return new UserDTO(user.getId(),
                 user.getName(),
                 user.getPhoneNumber(),

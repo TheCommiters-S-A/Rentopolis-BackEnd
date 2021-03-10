@@ -11,7 +11,7 @@ public class UserDTO {
     private String passwd;
 
     public UserDTO(String id, String name, String phoneNumber, String email, String passwd) {
-        this.id=id;
+        this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -59,7 +59,7 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public User convertToEntity(UserDTO userDTO){
+    public User convertToEntity(UserDTO userDTO) {
         return new User(userDTO.getId(),
                 userDTO.getName(),
                 userDTO.getPhoneNumber(),

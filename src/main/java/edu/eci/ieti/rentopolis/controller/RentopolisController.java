@@ -28,7 +28,7 @@ public class RentopolisController {
 
     @PostMapping("/user")
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO) {
-        User user= userDTO.convertToEntity(userDTO);
+        User user = userDTO.convertToEntity(userDTO);
         rentopolisServices.addUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -56,7 +56,7 @@ public class RentopolisController {
 
     @PostMapping("/property")
     public ResponseEntity<Object> addProperty(@RequestBody PropertyDTO propertyDTO) {
-        Property property= propertyDTO.convertToEntity(propertyDTO);
+        Property property = propertyDTO.convertToEntity(propertyDTO);
         rentopolisServices.addProperty(property);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

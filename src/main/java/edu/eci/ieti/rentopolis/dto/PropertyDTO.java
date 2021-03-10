@@ -22,20 +22,20 @@ public class PropertyDTO {
     private float reputation;
 
 
-    public PropertyDTO(){
+    public PropertyDTO() {
         // Se necesita para las pruebas
     }
 
-    public PropertyDTO(Property property){
-        this.id= property.getId();
-        this.area =  property.getArea();
-        this.price =  property.getPrice();
-        this.location =  property.getLocation();
-        this.typeProperty =  property.getType();
-        this.numberOfRooms =  property.getNumberOfRooms();
-        this.numberOfBathRooms =  property.getNumberOfBathRooms();
-        this.elevator =  property.isElevator();
-        this.surveillance =  property.isSurveillance();
+    public PropertyDTO(Property property) {
+        this.id = property.getId();
+        this.area = property.getArea();
+        this.price = property.getPrice();
+        this.location = property.getLocation();
+        this.typeProperty = property.getType();
+        this.numberOfRooms = property.getNumberOfRooms();
+        this.numberOfBathRooms = property.getNumberOfBathRooms();
+        this.elevator = property.isElevator();
+        this.surveillance = property.isSurveillance();
         this.gym = property.isGym();
         this.communityRoom = property.isCommunityRoom();
         this.furniture = property.isFurniture();
@@ -155,12 +155,12 @@ public class PropertyDTO {
         this.typeProperty = typeProperty;
     }
 
-    public Property convertToEntity(PropertyDTO propertyDTO){
-        return new Property(propertyDTO.getId(),propertyDTO.getArea(),propertyDTO.getPrice(),
-                propertyDTO.getLocation(),propertyDTO.getType(),propertyDTO.getNumberOfRooms(),
-                propertyDTO.getNumberOfBathRooms(), propertyDTO.hasElevator(),propertyDTO.hasSurveillance(),
-                propertyDTO.hasGym(),propertyDTO.hasCommunityRoom(), propertyDTO.hasFurniture(),
-                propertyDTO.getDescription(),propertyDTO.getReputation());
+    public Property convertToEntity(PropertyDTO propertyDTO) {
+        return new Property(propertyDTO.getId(), propertyDTO.getArea(), propertyDTO.getPrice(),
+                propertyDTO.getLocation(), propertyDTO.getType(), propertyDTO.getNumberOfRooms(),
+                propertyDTO.getNumberOfBathRooms(), propertyDTO.hasElevator(), propertyDTO.hasSurveillance(),
+                propertyDTO.hasGym(), propertyDTO.hasCommunityRoom(), propertyDTO.hasFurniture(),
+                propertyDTO.getDescription(), propertyDTO.getReputation());
     }
 }
 

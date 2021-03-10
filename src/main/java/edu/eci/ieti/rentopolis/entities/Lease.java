@@ -3,7 +3,6 @@ package edu.eci.ieti.rentopolis.entities;
 import java.util.Date;
 
 
-
 public class Lease {
     private long id;
     private Property property;
@@ -23,10 +22,12 @@ public class Lease {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-    
 
-    public long getId(){return id;}
-    
+
+    public long getId() {
+        return id;
+    }
+
     public Property getPropety() {
         return property;
     }

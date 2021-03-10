@@ -6,17 +6,16 @@
 package edu.eci.ieti.rentopolis.entities;
 
 /**
- *
  * @author diego
  */
-public class Lessee extends User{
+public class Lessee extends User {
 
     public Lessee() {
     }
-    
-    
-    public Lessee(String id, String Name, String phoneNumber, String Email, String passwd) {
-        super(id,Name, phoneNumber, Email, passwd);
+
+
+    public Lessee(String id, String name, String phoneNumber, String email, String passwd) {
+        super(id, name, phoneNumber, email, passwd);
     }
-    
+
 }

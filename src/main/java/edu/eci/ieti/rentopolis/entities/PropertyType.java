@@ -7,23 +7,10 @@ package edu.eci.ieti.rentopolis.entities;
 
 /**
  *
- * @author diego
+ * @author diego, juanFrasica
  */
-public class PropertyType {
-    public String type;
+public enum PropertyType {
 
-    public PropertyType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-    
-    
+    Apartamento, Apartaestudio, Casa, Oficina, Bodega, Lote, Finca, Consultorio
     
 }

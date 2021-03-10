@@ -8,12 +8,11 @@ package edu.eci.ieti.rentopolis.entities;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- *
  * @author diego
  */
 @Document(collection = "Properties")
 public class Property {
-    
+
     private long id;
     private int area;
     private long price;
@@ -32,9 +31,9 @@ public class Property {
 
     public Property() {
     }
-    
 
-    public Property(long id,int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, float reputation) {
+
+    public Property(long id, int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, float reputation) {
         this.id = id;
         this.area = area;
         this.price = price;

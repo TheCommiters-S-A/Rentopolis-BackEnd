@@ -11,7 +11,6 @@
 *   Diego Chinchilla
 
 
-
 ## Descripción de la aplicación
 Rentopolis es una aplicación web realizada como proyecto para la asignatura **Innovación y Emprendimiento con TI (IETI)** de la Escuela Colombiana de Ingeniería Julio Garavito.
 Su propósito es ser una plataforma segura con el objetivo de facilitar a las personas que buscan rentar sus inmuebles al permitirles 
@@ -52,44 +51,12 @@ También deberá proporcionar el área en m2, y si tiene alguno de los siguiente
 
 ## Despliegue en Heroku
  
-[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)]()
+[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://rentopolis.herokuapp.com/home)
  
  
  ## Integración continua
  
- [![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://app.circleci.com/pipelines/github/TheCommiters-S-A)
-
- 
- ## SonarCloud
-
- 
-
-
-
-## Historias de usuario
-
-### 1.	COMO Usuario QUIERO Iniciar Sesión PARA PODER autenticarme ante el sistema satisfactoriamente.
-
-
-## Mockups
-
-
-
-
-
-# Arquitectura y diseño detallado de la aplicación
-
-## Diagrama de casos de uso
-
-## Diagrama de clases
-
-## Diagrama de datos
-
-## Diagrama de componentes
-
-## Diagrama de despliegue
-
-
+ [![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://app.circleci.com/pipelines/github/TheCommiters-S-A/Rentopolis-BackEnd)
 
 
 

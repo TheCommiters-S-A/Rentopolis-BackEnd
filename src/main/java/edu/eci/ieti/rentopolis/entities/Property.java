@@ -27,6 +27,10 @@ public class Property {
     private boolean elevator;
     private boolean surveillance;
     private boolean gym;
+    private String image;
+    private String address;
+    private String neighborhood;
+    private String stratum;
 
 
     public Property() {
@@ -49,6 +53,45 @@ public class Property {
         this.description = description;
         this.reputation = reputation;
     }
+
+    public Property(int area, long price, Location location, PropertyType type, int numberOfRooms, boolean communityRoom, String description, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, String image, String address, String neighborhood, String stratum) {
+        this.area = area;
+        this.price = price;
+        this.location = location;
+        this.type = type;
+        this.numberOfRooms = numberOfRooms;
+        this.communityRoom = communityRoom;
+        this.description = description;
+        this.numberOfBathRooms = numberOfBathRooms;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.gym = gym;
+        this.image = image;
+        this.address = address;
+        this.neighborhood = neighborhood;
+        this.stratum = stratum;
+    }
+
+    public Property(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, String stratum) {
+        this.id = id;
+        this.area = area;
+        this.price = price;
+        this.location = location;
+        this.type = typeProperty;
+        this.numberOfRooms = numberOfRooms;
+        this.communityRoom = communityRoom;
+        this.description = description;
+        this.numberOfBathRooms = numberOfBathRooms;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.gym = gym;
+        this.furniture = furniture;
+        this.image = image;
+        this.address = address;
+        this.neighborhood = neighborhood;
+        this.stratum = stratum;
+    }
+
 
     public int getArea() {
         return area;
@@ -158,5 +201,37 @@ public class Property {
 
     public boolean isSurveillance() {
         return surveillance;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public String getStratum() {
+        return stratum;
+    }
+
+    public void setStratum(String stratum) {
+        this.stratum = stratum;
     }
 }

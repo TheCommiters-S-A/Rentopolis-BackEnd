@@ -5,6 +5,7 @@
  */
 package edu.eci.ieti.rentopolis.entities;
 
+import javax.persistence.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -13,6 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Properties")
 public class Property {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private int area;
     private long price;
@@ -74,6 +77,25 @@ public class Property {
 
     public Property(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, String stratum) {
         this.id = id;
+        this.area = area;
+        this.price = price;
+        this.location = location;
+        this.type = typeProperty;
+        this.numberOfRooms = numberOfRooms;
+        this.communityRoom = communityRoom;
+        this.description = description;
+        this.numberOfBathRooms = numberOfBathRooms;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.gym = gym;
+        this.furniture = furniture;
+        this.image = image;
+        this.address = address;
+        this.neighborhood = neighborhood;
+        this.stratum = stratum;
+    }
+
+    public Property( int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, String stratum) {
         this.area = area;
         this.price = price;
         this.location = location;
@@ -233,5 +255,29 @@ public class Property {
 
     public void setStratum(String stratum) {
         this.stratum = stratum;
+    }
+
+    @Override
+    public String toString() {
+        return "Property{" +
+                "id=" + id +
+                ", area=" + area +
+                ", price=" + price +
+                ", location=" + location +
+                ", type=" + type +
+                ", numberOfRooms=" + numberOfRooms +
+                ", communityRoom=" + communityRoom +
+                ", furniture=" + furniture +
+                ", description='" + description + '\'' +
+                ", reputation=" + reputation +
+                ", numberOfBathRooms=" + numberOfBathRooms +
+                ", elevator=" + elevator +
+                ", surveillance=" + surveillance +
+                ", gym=" + gym +
+                ", image='" + image + '\'' +
+                ", address='" + address + '\'' +
+                ", neighborhood='" + neighborhood + '\'' +
+                ", stratum='" + stratum + '\'' +
+                '}';
     }
 }

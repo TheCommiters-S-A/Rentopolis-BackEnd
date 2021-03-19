@@ -35,6 +35,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot
 	compile group: 'org.springframework.boot', name: 'spring-boot', version: '2.4.2'
 
+	// https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
+	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+
+
 }
 
 

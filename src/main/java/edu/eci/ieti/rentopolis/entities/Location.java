@@ -33,4 +33,11 @@ public class Location {
         this.longitude = longitude;
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
 }

@@ -87,5 +87,17 @@ public class RentopolisController {
         rentopolisServices.addLease(lease);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/property/{id}")
+    public ResponseEntity<?> deleteProperty(@PathVariable long id) {
+        try {
+            rentopolisServices.deleteProperty(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
 

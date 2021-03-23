@@ -12,6 +12,8 @@ import de.flapdoodle.embed.process.runtime.Network;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
 import edu.eci.ieti.rentopolis.entities.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,8 +29,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,41 +37,41 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class RentopolisApplicationTests {
 
-	@Autowired
-	MockMvc mvcMock;
+    @Autowired
+    MockMvc mvcMock;
 
-	private static Gson gson = new Gson();
+    private static Gson gson = new Gson();
 
-	private static final String CONNECTION_STRING = "mongodb://%s:%d";
+    private static final String CONNECTION_STRING = "mongodb://%s:%d";
 
-	private MongodExecutable mongodExecutable;
-	private MongoTemplate mongoTemplate;
+    private MongodExecutable mongodExecutable;
+    private MongoTemplate mongoTemplate;
 
-	@AfterEach
-	void clean() {
-		mongodExecutable.stop();
-	}
+    @AfterEach
+    void clean() {
+        mongodExecutable.stop();
+    }
 
-	@BeforeEach
-	void setup() throws Exception {
-		String ip = "localhost";
-		int port = 27017;
-		IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
-				.net(new Net(ip, port, Network.localhostIsIPv6()))
-				.build();
-		MongodStarter starter = MongodStarter.getDefaultInstance();
-		mongodExecutable = starter.prepare(mongodConfig);
-		mongodExecutable.start();
-		mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION_STRING, ip, port)), "test");
-	}
+    @BeforeEach
+    void setup() throws Exception {
+        String ip = "localhost";
+        int port = 27017;
+        IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
+                .net(new Net(ip, port, Network.localhostIsIPv6()))
+                .build();
+        MongodStarter starter = MongodStarter.getDefaultInstance();
+        mongodExecutable = starter.prepare(mongodConfig);
+        mongodExecutable.start();
+        mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION_STRING, ip, port)), "test");
+    }
 
-	@Test
-	void shouldNotGetAUserById() throws Exception{
-		MvcResult response= mvcMock.perform(get("/home/user/14"))
-				.andExpect(status().isNotFound()).andReturn();
-		String responseBody = response.getResponse().getContentAsString();
-		Assertions.assertEquals("Usuario no existe", responseBody);
-	}
+    @Test
+    void shouldNotGetAUserById() throws Exception {
+        MvcResult response = mvcMock.perform(get("/home/user/14"))
+                .andExpect(status().isNotFound()).andReturn();
+        String responseBody = response.getResponse().getContentAsString();
+        Assertions.assertEquals("Usuario no existe", responseBody);
+    }
 
 	/*
 	@Test
@@ -82,40 +83,71 @@ class RentopolisApplicationTests {
 	}
 	*/
 
-	@Test
-	void shouldAddUser() throws Exception{
-		UserDTO userDTO= new UserDTO("13","Sara Perez", "123","sara@gmail.com","123");
-		mvcMock.perform(post("/home/user")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(userDTO)))
-				.andExpect(status().isCreated()).andDo(print());
-	}
+    @Test
+    void shouldAddUser() throws Exception {
+        UserDTO userDTO = new UserDTO("13", "Sara Perez", "123", "sara@gmail.com", "123");
+        mvcMock.perform(post("/home/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(userDTO)))
+                .andExpect(status().isCreated()).andDo(print());
+    }
 
-	@Test
-	void shouldGetAUserById() throws Exception{
-		UserDTO userDTO= new UserDTO("12","Sara Perez", "123","sara@gmail.com","123");
-		mvcMock.perform(post("/home/user")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(userDTO)))
-				.andExpect(status().isCreated());
+    @Test
+    void shouldGetAUserById() throws Exception {
+        UserDTO userDTO = new UserDTO("12", "Sara Perez", "123", "sara@gmail.com", "123");
+        mvcMock.perform(post("/home/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(userDTO)))
+                .andExpect(status().isCreated());
 
-		MvcResult response= mvcMock.perform(get("/home/user/12"))
-				.andExpect(status().isAccepted()).andReturn();
-		String responseBody = response.getResponse().getContentAsString();
-		UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
-		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
-	}
+        MvcResult response = mvcMock.perform(get("/home/user/12"))
+                .andExpect(status().isAccepted()).andReturn();
+        String responseBody = response.getResponse().getContentAsString();
+        UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
+        Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
+    }
 
-	@Test
-	void shouldAddProperty() throws Exception{
-		Location location= new Location(1,1);
-		Property property= new Property(16,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
-		PropertyDTO propertyDTO= new PropertyDTO(property);
-		mvcMock.perform(post("/home/property")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(propertyDTO)))
-				.andExpect(status().isCreated()).andDo(print());
-	}
+    @Test
+    void shouldAddProperty() throws Exception {
+        Location location = new Location(1, 1);
+        Property property = new Property(16, 50, 5000000, location, PropertyType.Apartaestudio, 4, 2, true, true, false, true, true, "", 4);
+        PropertyDTO propertyDTO = new PropertyDTO(property);
+        mvcMock.perform(post("/home/property")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(propertyDTO)))
+                .andExpect(status().isCreated()).andDo(print());
+    }
+
+//    @Test
+//    void shouldNotDeletePropertyBecauseNotExist() throws Exception {
+//        UserDTO user = new UserDTO("12", "Sara Perez", "123", "sara@gmail.com", "123");
+//        mvcMock.perform(post("/home/user")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(gson.toJson(user)))
+//                .andExpect(status().isCreated());
+//
+//        Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+//        PropertyDTO propertyDTO = new PropertyDTO(property);
+//
+//        mvcMock.perform(post("/home/property")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(gson.toJson(propertyDTO)))
+//                .andExpect(status().isCreated())
+//                .andReturn();
+//        MvcResult result = mvcMock.perform(get("/home/property/"+ propertyDTO.getId()))
+//                .andExpect(status().isOk())
+//                .andReturn();
+//        String bodyResult = result.getResponse().getContentAsString();
+//        JSONObject object = new JSONArray(bodyResult).getJSONObject(0);
+//
+//        PropertyDTO propertyDTO1 = gson.fromJson(object.toString(), PropertyDTO.class);
+//        long id = propertyDTO1.getId();
+//        MvcResult ans = mvcMock.perform(delete("/home/property/" + id))
+//                .andExpect(status().isNotFound())
+//                .andReturn();
+//        String responseBody = ans.getResponse().getContentAsString();
+//        Assertions.assertEquals("Propiedad no existe", responseBody);
+//    }
 
 
 

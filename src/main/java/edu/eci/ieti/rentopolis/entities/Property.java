@@ -33,7 +33,7 @@ public class Property {
     private String image;
     private String address;
     private String neighborhood;
-    private String stratum;
+    private int stratum;
 
 
     public Property() {
@@ -57,7 +57,7 @@ public class Property {
         this.reputation = reputation;
     }
 
-    public Property(int area, long price, Location location, PropertyType type, int numberOfRooms, boolean communityRoom, String description, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, String image, String address, String neighborhood, String stratum) {
+    public Property(int area, long price, Location location, PropertyType type, int numberOfRooms, boolean communityRoom, String description, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, String image, String address, String neighborhood, int stratum) {
         this.area = area;
         this.price = price;
         this.location = location;
@@ -75,7 +75,7 @@ public class Property {
         this.stratum = stratum;
     }
 
-    public Property(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, String stratum) {
+    public Property(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
         this.id = id;
         this.area = area;
         this.price = price;
@@ -95,7 +95,7 @@ public class Property {
         this.stratum = stratum;
     }
 
-    public Property( int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, String stratum) {
+    public Property( int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
         this.area = area;
         this.price = price;
         this.location = location;
@@ -249,11 +249,11 @@ public class Property {
         this.neighborhood = neighborhood;
     }
 
-    public String getStratum() {
+    public int getStratum() {
         return stratum;
     }
 
-    public void setStratum(String stratum) {
+    public void setStratum(int stratum) {
         this.stratum = stratum;
     }
 

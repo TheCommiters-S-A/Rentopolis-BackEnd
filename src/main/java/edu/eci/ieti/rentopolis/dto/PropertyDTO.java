@@ -23,7 +23,7 @@ public class PropertyDTO {
     private String image;
     private String address;
     private String neighborhood;
-    private String stratum;
+    private int stratum;
 
 
     public PropertyDTO() {
@@ -46,7 +46,7 @@ public class PropertyDTO {
         this.description = property.getDescription();
         this.reputation = property.getReputation();
     }
-    public PropertyDTO(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, String stratum) {
+    public PropertyDTO(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
         this.id = id;
         this.area = area;
         this.price = price;
@@ -203,11 +203,11 @@ public class PropertyDTO {
         this.neighborhood = neighborhood;
     }
 
-    public String getStratum() {
+    public int getStratum() {
         return stratum;
     }
 
-    public void setStratum(String stratum) {
+    public void setStratum(int stratum) {
         this.stratum = stratum;
     }
 

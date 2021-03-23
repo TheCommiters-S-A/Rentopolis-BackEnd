@@ -56,6 +56,7 @@ sonarqube {
 		property "sonar.projectKey", "TheCommiters-S-A_Rentopolis-BackEnd"
 		property "sonar.organization", "thecommiters-s-a"
 		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.coverage.exclusions", ['**/RentopolisApplication.java']
 	}
 }
 

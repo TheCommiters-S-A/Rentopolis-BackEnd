@@ -8,9 +8,14 @@ import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.repository.PropertyRepository;
 import edu.eci.ieti.rentopolis.repository.LeaseRepository;
+import edu.eci.ieti.rentopolis.repository.PictureRepository;
 import edu.eci.ieti.rentopolis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import edu.eci.ieti.rentopolis.entities.Picture;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +32,9 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Autowired
     private LeaseRepository leaseRepository;
+
+    @Autowired
+    private PictureRepository pictureRepository;
 
     @Override
     public User getUserById(String userId) throws RentopolisPersistenceException {
@@ -96,5 +104,11 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
         leaseRepository.insert(lease);
     }
 
+   @Override
+   public void addPicture(String title, MultipartFile file){
+       Picture picture = new Picture(title);
+       picture.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+       picture = pictureRepository.insert(picture);
+   } 
 
 }

@@ -10,6 +10,9 @@ import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.web.multipart.MultipartFile;
+import edu.eci.ieti.rentopolis.entities.Picture;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -90,4 +93,12 @@ public class RentopolisServicesImpl implements RentopolisServices {
     public void addLease(Lease lease) {
         this.rentopolisPersistence.addLease(lease);
     }
+
+   @Override
+   public void addPicture(String title, MultipartFile file) {
+       this.rentopolisPersistence.addPicture(tittle, file);
+   }
+
+
+
 }

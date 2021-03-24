@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import edu.eci.ieti.rentopolis.entities.Picture;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,5 +90,11 @@ public class RentopolisController {
         rentopolisServices.addLease(lease);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+   @PostMapping("/picture") 
+   public ResponseEntity<Object> addPicture(@RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
+       rentopolisServices.addPicture(title, file);
+       return new ResponseEntity<>(HttpStatus.CREATED);
+   }
 }
 

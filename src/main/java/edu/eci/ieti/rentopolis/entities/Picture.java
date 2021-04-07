@@ -1,8 +1,9 @@
 package edu.eci.ieti.rentopolis.entities;
 
+
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java;
 
 @Document(collection = "photos")
 public class Picture {

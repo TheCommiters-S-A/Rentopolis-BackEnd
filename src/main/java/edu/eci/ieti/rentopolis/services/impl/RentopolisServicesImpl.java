@@ -6,11 +6,13 @@ import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
+import edu.eci.ieti.rentopolis.repository.PictureRepository;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import edu.eci.ieti.rentopolis.entities.Picture;
 
 import java.util.List;
@@ -95,10 +97,16 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
    @Override
-   public void addPicture(String title, MultipartFile file) {
-       this.rentopolisPersistence.addPicture(tittle, file);
+   public void addPicture(MultipartFile file) throws IOException{
+       this.rentopolisPersistence.addPicture(file);
    }
 
+   @Override
+   public Picture getImageById(String id) {
+       return rentopolisPersistence.getPictureById(id);
+   }
+
+   
 
 
 }

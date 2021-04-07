@@ -11,12 +11,16 @@ import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import edu.eci.ieti.rentopolis.entities.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -91,10 +95,19 @@ public class RentopolisController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-   @PostMapping("/picture") 
-   public ResponseEntity<Object> addPicture(@RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
-       rentopolisServices.addPicture(title, file);
+   @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<Object> addPicture(@RequestParam("file") MultipartFile file) throws IOException {
+       rentopolisServices.addPicture(file);
        return new ResponseEntity<>(HttpStatus.CREATED);
+   }
+
+   @GetMapping("/picture/{id}")
+   public ResponseEntity<Object> getPicture(@PathVariable String id, Model model){
+       Picture picture = rentopolisServices.getImageById(id);
+       model.addAttribute("Title", picture.getTitle());
+       model.addAttribute("image",Base64.getEncoder().encodeToString(picture.getImage().getData()));
+       return new ResponseEntity<>(picture, HttpStatus.ACCEPTED);
+                    
    }
 }
 

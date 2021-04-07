@@ -5,7 +5,7 @@ import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import org.springframework.stereotype.Service;
-
+import java.io.IOException;
 import org.springframework.web.multipart.MultipartFile;
 import edu.eci.ieti.rentopolis.entities.Picture;
 
@@ -54,6 +54,7 @@ public interface RentopolisServices {
 
     void addLease(Lease lease);
 
-    void addPicture(String title, MultipartFile file);
+    void addPicture(MultipartFile file) throws IOException;
+    Picture getImageById (String id);
 
 }

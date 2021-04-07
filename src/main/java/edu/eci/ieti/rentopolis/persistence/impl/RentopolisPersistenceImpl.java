@@ -10,9 +10,15 @@ import edu.eci.ieti.rentopolis.repository.PropertyRepository;
 import edu.eci.ieti.rentopolis.repository.LeaseRepository;
 import edu.eci.ieti.rentopolis.repository.PictureRepository;
 import edu.eci.ieti.rentopolis.repository.UserRepository;
+import java.io.IOException;
+
+
+
+import org.bson.BsonBinarySubType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.bson.types.Binary;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.eci.ieti.rentopolis.entities.Picture;
@@ -105,10 +111,18 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     }
 
    @Override
-   public void addPicture(String title, MultipartFile file){
-       Picture picture = new Picture(title);
+   public void addPicture(MultipartFile file) throws IOException{
+       Picture picture = new Picture("title");
        picture.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
        picture = pictureRepository.insert(picture);
-   } 
+
+       System.out.println("----------------------------------------------------------------");
+       System.out.println(file.getBytes()[1]);
+       System.out.println("----------------------------------------------------------------");
+   }
+   @Override
+   public Picture getPictureById(String id) {
+    return pictureRepository.findById(id).get();
+} 
 
 }

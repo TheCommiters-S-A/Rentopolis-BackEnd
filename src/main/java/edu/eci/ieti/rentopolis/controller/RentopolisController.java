@@ -103,10 +103,15 @@ public class RentopolisController {
 
    @GetMapping("/picture/{id}")
    public ResponseEntity<Object> getPicture(@PathVariable String id, Model model){
-       Picture picture = rentopolisServices.getImageById(id);
-       model.addAttribute("Title", picture.getTitle());
-       model.addAttribute("image",Base64.getEncoder().encodeToString(picture.getImage().getData()));
-       return new ResponseEntity<>(picture, HttpStatus.ACCEPTED);
+       try{
+           Picture picture = rentopolisServices.getImageById(id);
+           model.addAttribute("Title", picture.getTitle());
+           model.addAttribute("image",Base64.getEncoder().encodeToString(picture.getImage().getData()));
+           return new ResponseEntity<>(picture, HttpStatus.ACCEPTED);
+        }catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
                     
    }
 }

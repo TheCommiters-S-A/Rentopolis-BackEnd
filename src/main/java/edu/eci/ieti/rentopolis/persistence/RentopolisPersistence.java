@@ -35,5 +35,5 @@ public interface RentopolisPersistence {
 
     void addPicture(MultipartFile file) throws IOException;
 
-    Picture getPictureById(String id);
+    Picture getPictureById(String id)throws RentopolisPersistenceException;
 }

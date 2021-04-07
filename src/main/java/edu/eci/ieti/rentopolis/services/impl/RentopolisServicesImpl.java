@@ -6,7 +6,6 @@ import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
-import edu.eci.ieti.rentopolis.repository.PictureRepository;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,8 +101,12 @@ public class RentopolisServicesImpl implements RentopolisServices {
    }
 
    @Override
-   public Picture getImageById(String id) {
-       return rentopolisPersistence.getPictureById(id);
+   public Picture getImageById(String id) throws RentopolisServicesException{
+       try{
+           return rentopolisPersistence.getPictureById(id);
+        }catch(RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
    }
 
    

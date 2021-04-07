@@ -114,15 +114,17 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
    public void addPicture(MultipartFile file) throws IOException{
        Picture picture = new Picture("title");
        picture.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-       picture = pictureRepository.insert(picture);
-
-       System.out.println("----------------------------------------------------------------");
-       System.out.println(file.getBytes()[1]);
-       System.out.println("----------------------------------------------------------------");
+       pictureRepository.insert(picture);
    }
    @Override
-   public Picture getPictureById(String id) {
-    return pictureRepository.findById(id).get();
+   public Picture getPictureById(String id) throws RentopolisPersistenceException{
+    Optional<Picture> picture = pictureRepository.findById(id);
+       if(picture.isPresent()){
+           return picture.get();
+        }
+        else{
+            throw new RentopolisPersistenceException("La fotografia no existe");
+       }
 } 
 
 }

@@ -4,7 +4,6 @@ import edu.eci.ieti.rentopolis.entities.Lessor;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.entities.Lease;
-import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

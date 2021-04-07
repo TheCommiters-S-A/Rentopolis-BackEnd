@@ -45,6 +45,24 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
+    public void updateUser(User user, String id) throws RentopolisServicesException {
+        try {
+            rentopolisPersistence.updateUser( user, id);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void deleteUser(String id) throws RentopolisServicesException{
+        try {
+            rentopolisPersistence.deleteUser(id);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public void addProperty(Property property) {
         this.rentopolisPersistence.addProperty(property);
     }

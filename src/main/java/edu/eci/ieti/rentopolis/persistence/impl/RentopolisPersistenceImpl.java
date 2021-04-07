@@ -33,7 +33,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
         Optional<User> optional = userRepository.findById(userId);
         if (optional.isPresent()) {
             return optional.get();
-
         } else {
             throw new RentopolisPersistenceException("Usuario no existe");
         }
@@ -45,6 +44,30 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
             throw new RentopolisPersistenceException("No hay usuarios");
         }
         return userRepository.findAll();
+    }
+
+    @Override
+    public void updateUser(User user, String id) throws RentopolisPersistenceException {
+        if (user.getId().equals(id)) {
+            User userToReplace= getUserById(id);
+            userToReplace.setEmail(user.getEmail());
+            userToReplace.setName(user.getName());
+            userToReplace.setPasswd(user.getPasswd());
+            userToReplace.setPhoneNumber(user.getPhoneNumber());
+            userRepository.save(userToReplace);
+        }else {
+            throw new RentopolisPersistenceException("El id no concuerda con el usuario");
+        }
+    }
+
+    @Override
+    public void deleteUser(String id) throws RentopolisPersistenceException {
+        Optional<User> optional = userRepository.findById(id);
+        if (optional.isPresent()) {
+            userRepository.delete(optional.get());
+        } else {
+            throw new RentopolisPersistenceException("Usuario no existe");
+        }
     }
 
     @Override

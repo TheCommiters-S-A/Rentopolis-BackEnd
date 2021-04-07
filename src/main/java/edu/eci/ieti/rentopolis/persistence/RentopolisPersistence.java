@@ -4,6 +4,7 @@ import edu.eci.ieti.rentopolis.entities.Lessor;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.entities.Lease;
+import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,10 @@ public interface RentopolisPersistence {
     User getUserById(String userId) throws RentopolisPersistenceException;
 
     List<User> getAllUsers() throws RentopolisPersistenceException;
+
+    void updateUser(User user, String id) throws RentopolisPersistenceException;
+
+    void deleteUser(String id) throws RentopolisPersistenceException;
 
     void addUser(User user);
 

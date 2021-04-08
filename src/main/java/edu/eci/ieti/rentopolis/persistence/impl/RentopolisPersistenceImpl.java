@@ -135,7 +135,12 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
    @Override
    public void addPicture(String id, String title, MultipartFile file) throws IOException{
-       Picture picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+       Picture picture = null;
+       if(id.equals("null")){
+        picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+       }else{
+        picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+       }
        pictureRepository.insert(picture);
    }
    @Override

@@ -135,8 +135,7 @@ public class RentopolisController {
         }catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-                    
+        }             
    }
 }
 

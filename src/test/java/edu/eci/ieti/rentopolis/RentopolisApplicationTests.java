@@ -137,6 +137,14 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldAddImage2() throws Exception{
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
+								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","null").param("title","image.txt")).andExpect(status().isCreated());
+	}
+
+	@Test
 	void shouldGetImage() throws Exception{
 		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
 								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());

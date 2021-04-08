@@ -32,15 +32,28 @@ public interface RentopolisServices {
      */
     List<User> getAllUsers() throws RentopolisServicesException;
 
-
     /**
      * Trae un usuario por ID
      * @param id
      * @return Usuario
      * @throws RentopolisServicesException
      */
-    User  getUserById(String id) throws RentopolisServicesException;
+    User getUserById(String id) throws RentopolisServicesException;
 
+    /**
+     * Actualiza un usuario por ID
+     * @param id
+     * @param user
+     * @throws RentopolisServicesException
+     */
+    void updateUser(User user, String id) throws RentopolisServicesException;
+
+    /**
+     * Borra un usuario por ID
+     * @param id
+     * @throws RentopolisServicesException
+     */
+    void deleteUser(String id) throws RentopolisServicesException;
 
     void addProperty(Property property);
 

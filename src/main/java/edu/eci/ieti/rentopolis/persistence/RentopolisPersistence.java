@@ -19,6 +19,10 @@ public interface RentopolisPersistence {
 
     List<User> getAllUsers() throws RentopolisPersistenceException;
 
+    void updateUser(User user, String id) throws RentopolisPersistenceException;
+
+    void deleteUser(String id) throws RentopolisPersistenceException;
+
     void addUser(User user);
 
     void addProperty(Property property);

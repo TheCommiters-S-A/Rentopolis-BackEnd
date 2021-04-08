@@ -11,7 +11,6 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
-import edu.eci.ieti.rentopolis.entities.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,8 +34,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -137,4 +135,61 @@ class RentopolisApplicationTests {
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file)).andExpect(status().isCreated());
 	}
+
+	@Test
+	void shouldUpdateUser() throws Exception{
+		UserDTO userDTO= new UserDTO("30","Carlos Perez", "1235","carlos@gmail.com","1235");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+		UserDTO userDTO1 = new UserDTO("30","Carlos Perez", "12345","carlos@gmail.com","12345");
+		MvcResult response= mvcMock.perform(put("/home/"+userDTO1.getId())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO1)))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		Assertions.assertEquals(202, response.getResponse().getStatus());
+	}
+
+	@Test
+	void shouldNotUpdateUser() throws Exception{
+		UserDTO userDTO= new UserDTO("31","David Perez", "12345","david@gmail.com","12345");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+		UserDTO userDTO1 = new UserDTO("31","David Perez", "1234","david@gmail.com","1234");
+		MvcResult response= mvcMock.perform(put("/home/3")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO1)))
+				.andExpect(status().isNotAcceptable())
+				.andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("El id no concuerda con el usuario", responseBody);
+	}
+
+	@Test
+	void shouldDeleteUser() throws Exception{
+		UserDTO userDTO= new UserDTO("35","Juan Jose Perez", "45678","jjose@gmail.com","2342");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated());
+		MvcResult response= mvcMock.perform(delete("/home/"+userDTO.getId()))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		Assertions.assertEquals(202, response.getResponse().getStatus());
+	}
+
+	@Test
+	void shouldNotDeleteUser() throws Exception{
+		MvcResult response= mvcMock.perform(delete("/home/3"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("Usuario no existe", responseBody);
+	}
+
+
 }

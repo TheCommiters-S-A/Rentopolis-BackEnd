@@ -172,9 +172,9 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     
            propertyRepository.save(property);
     } catch (NumberFormatException e) {
-        e.printStackTrace();
+        picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
     } catch (RentopolisPersistenceException e) {
-        e.printStackTrace();
+        picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
     }
        
    }

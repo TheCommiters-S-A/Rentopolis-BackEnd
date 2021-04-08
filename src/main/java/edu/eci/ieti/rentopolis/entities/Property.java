@@ -196,10 +196,13 @@ public class Property {
     }
     
     public  void addImages(String imageId){
-        if(this.images.equals(null)){
+        try {
+            this.images.add(imageId);
+        } catch (Exception e) {
             this.images = new ArrayList<String>();
+            this.images.add(imageId);
         }
-        this.images.add(imageId);
+        
     }
 
 }

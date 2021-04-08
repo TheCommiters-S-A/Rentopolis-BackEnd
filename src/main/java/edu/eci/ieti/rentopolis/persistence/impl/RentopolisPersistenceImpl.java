@@ -159,30 +159,24 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
    public void addPictureToProperty(String propertyId, String id, String title, MultipartFile file) throws IOException{
        Picture picture = null;
        Property property = null;
-       System.out.println("-------------------------------------------------------------------");
-       System.out.println(propertyId);
-       System.out.println("-------------------------------------------------------------------");
        try {
         property = getPropertyById(Long.parseLong(propertyId));
+
+        if(id.equals("null")){
+            picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+           }else{
+            picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+           }
+           pictureRepository.insert(picture);    
+           property.addImages(picture.getId());
+    
+           propertyRepository.save(property);
     } catch (NumberFormatException e) {
         e.printStackTrace();
     } catch (RentopolisPersistenceException e) {
         e.printStackTrace();
     }
-       if(id.equals("null")){
-        picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-       }else{
-        picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-       }
-       pictureRepository.insert(picture);
-
-       System.out.println("-------------------------------------------------------------------");
-       System.out.println(property);
-       System.out.println("-------------------------------------------------------------------");
-
-       property.addImages(picture.getId());
-
-       propertyRepository.save(property);
+       
    }
 
 }

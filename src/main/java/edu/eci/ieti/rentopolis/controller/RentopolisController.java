@@ -121,7 +121,7 @@ public class RentopolisController {
 
    @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    public ResponseEntity<Object> addPicture(@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException {
-       rentopolisServices.addPicture(id,title,file);
+       rentopolisServices.addPicture(null,title,file);
        return new ResponseEntity<>(HttpStatus.CREATED);
    }
 

@@ -20,12 +20,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import edu.eci.ieti.rentopolis.entities.Location;
+import edu.eci.ieti.rentopolis.entities.Picture;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -43,14 +51,19 @@ class RentopolisApplicationTests {
 
 	private static final String CONNECTION_STRING = "mongodb://%s:%d";
 
+	@Autowired
 	private MongodExecutable mongodExecutable;
 	private MongoTemplate mongoTemplate;
+
+	@Autowired
+	private WebApplicationContext webApplicationContext;
 
 	@AfterEach
 	void clean() {
 		mongodExecutable.stop();
 	}
 
+	
 	@BeforeEach
 	void setup() throws Exception {
 		String ip = "localhost";
@@ -117,6 +130,11 @@ class RentopolisApplicationTests {
 				.andExpect(status().isCreated()).andDo(print());
 	}
 
-
-
+	@Test
+	void shouldAddImage() throws Exception{
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
+								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file)).andExpect(status().isCreated());
+	}
 }

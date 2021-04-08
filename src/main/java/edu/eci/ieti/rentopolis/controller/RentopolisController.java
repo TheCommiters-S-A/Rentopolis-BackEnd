@@ -6,6 +6,7 @@ import edu.eci.ieti.rentopolis.dto.UserDTO;
 import edu.eci.ieti.rentopolis.dto.LeaseDTO;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
+import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
@@ -67,7 +68,7 @@ public class RentopolisController {
     @GetMapping("/users")
     public ResponseEntity<Object> getUsers() {
         try {
-            return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.OK);
         } catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -122,6 +123,12 @@ public class RentopolisController {
    @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    public ResponseEntity<Object> addPicture(@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException {
        rentopolisServices.addPicture(id,title,file);
+       return new ResponseEntity<>(HttpStatus.CREATED);
+   }
+
+   @PostMapping(value="/property/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<Object> addPictureToProperty(@RequestParam("propertyId") String propertyId,@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException, RentopolisPersistenceException {
+       rentopolisServices.addPictureToProperty(propertyId,id,title,file);
        return new ResponseEntity<>(HttpStatus.CREATED);
    }
 

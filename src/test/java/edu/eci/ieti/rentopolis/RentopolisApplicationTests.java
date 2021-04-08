@@ -33,10 +33,13 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -48,6 +51,8 @@ class RentopolisApplicationTests {
 	private static Gson gson = new Gson();
 
 	private static final String CONNECTION_STRING = "mongodb://%s:%d";
+
+	private static final int ArrayList = 0;
 
 	@Autowired
 	private MongodExecutable mongodExecutable;
@@ -83,15 +88,25 @@ class RentopolisApplicationTests {
 		Assertions.assertEquals("Usuario no existe", responseBody);
 	}
 
-	/*
+
 	@Test
-	void shouldNotGetUsers() throws Exception{
-		MvcResult response= mvcMock.perform(get("/home/users"))
-				.andExpect(status().isNotFound()).andReturn();
-		String responseBody = response.getResponse().getContentAsString();
-		Assertions.assertEquals("No hay usuarios", responseBody);
+	void shouldNotGetProperty() throws Exception{
+		mvcMock.perform(get("/home/property/404"))
+				.andExpect(status().isNotFound());
 	}
-	*/
+
+	@Test
+	void shouldGetUsers() throws Exception{
+		mvcMock.perform(get("/home/users"))
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	void shouldGetProperties() throws Exception{
+		mvcMock.perform(get("/home/properties"))
+				.andExpect(status().isAccepted());
+	}
+
 
 	@Test
 	void shouldAddUser() throws Exception{
@@ -120,7 +135,23 @@ class RentopolisApplicationTests {
 	@Test
 	void shouldAddProperty() throws Exception{
 		Location location= new Location(1,1);
-		Property property= new Property(16,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
+		Property property= new Property();
+		property.setId(6);
+		property.setArea(50); 
+		property.setPrice(5000000); 
+		property.setLocation(location);
+		property.setType(PropertyType.Apartaestudio);
+		property.setNumberOfRooms(4); 
+		property.setNumberOfBathRooms(2);
+		property.setElevator(true);
+		property.setSurveillance(true);
+		property.setGym(false);
+		property.setCommunityRoom(true);
+		property.setFurniture(true);
+		property.setDescription("");
+		property.setReputation(4);
+		List<String> images = new ArrayList<>();
+		property.setImages(images);
 		PropertyDTO propertyDTO= new PropertyDTO(property);
 		mvcMock.perform(post("/home/property")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -142,6 +173,24 @@ class RentopolisApplicationTests {
 								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","null").param("title","image.txt")).andExpect(status().isCreated());
+	}
+
+
+	@Test
+	void shouldAddImageToProperty() throws Exception{
+
+		Location location= new Location(1,1);
+		Property property= new Property(163,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
+		PropertyDTO propertyDTO= new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated());
+
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
+								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/property/picture").file(file).param("propertyId","163").param("id","null").param("title","image.txt")).andExpect(status().isCreated());
 	}
 
 	@Test

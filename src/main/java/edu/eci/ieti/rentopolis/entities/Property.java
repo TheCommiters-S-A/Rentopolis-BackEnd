@@ -5,6 +5,9 @@
  */
 package edu.eci.ieti.rentopolis.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -27,6 +30,7 @@ public class Property {
     private boolean elevator;
     private boolean surveillance;
     private boolean gym;
+    private List<String> images;
 
 
     public Property() {
@@ -50,8 +54,17 @@ public class Property {
         this.reputation = reputation;
     }
 
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public int getArea() {
-        return area;
+        return this.area;
     }
 
     public void setArea(int area) {
@@ -59,7 +72,7 @@ public class Property {
     }
 
     public long getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(long price) {
@@ -67,7 +80,7 @@ public class Property {
     }
 
     public Location getLocation() {
-        return location;
+        return this.location;
     }
 
     public void setLocation(Location location) {
@@ -75,7 +88,7 @@ public class Property {
     }
 
     public PropertyType getType() {
-        return type;
+        return this.type;
     }
 
     public void setType(PropertyType type) {
@@ -83,37 +96,31 @@ public class Property {
     }
 
     public int getNumberOfRooms() {
-        return numberOfRooms;
+        return this.numberOfRooms;
     }
 
     public void setNumberOfRooms(int numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public int getNumberOfBathRooms() {
-        return numberOfBathRooms;
+    public boolean isCommunityRoom() {
+        return this.communityRoom;
     }
 
-    public void setNumberOfBathRooms(int numberOfBathRomms) {
-        this.numberOfBathRooms = numberOfBathRomms;
-    }
-
-
-    public void setElevator(boolean elevator) {
-        this.elevator = elevator;
-    }
-
-
-    public void setSurveillance(boolean surveillance) {
-        this.surveillance = surveillance;
-    }
-
-    public void setGym(boolean gym) {
-        this.gym = gym;
+    public boolean getCommunityRoom() {
+        return this.communityRoom;
     }
 
     public void setCommunityRoom(boolean communityRoom) {
         this.communityRoom = communityRoom;
+    }
+
+    public boolean isFurniture() {
+        return this.furniture;
+    }
+
+    public boolean getFurniture() {
+        return this.furniture;
     }
 
     public void setFurniture(boolean furniture) {
@@ -121,7 +128,7 @@ public class Property {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -129,34 +136,69 @@ public class Property {
     }
 
     public float getReputation() {
-        return reputation;
+        return this.reputation;
     }
 
     public void setReputation(float reputation) {
         this.reputation = reputation;
     }
 
-    public long getId() {
-        return id;
+    public int getNumberOfBathRooms() {
+        return this.numberOfBathRooms;
     }
 
-    public boolean isGym() {
-        return gym;
-    }
-
-    public boolean isFurniture() {
-        return furniture;
-    }
-
-    public boolean isCommunityRoom() {
-        return communityRoom;
+    public void setNumberOfBathRooms(int numberOfBathRooms) {
+        this.numberOfBathRooms = numberOfBathRooms;
     }
 
     public boolean isElevator() {
-        return elevator;
+        return this.elevator;
+    }
+
+    public boolean getElevator() {
+        return this.elevator;
+    }
+
+    public void setElevator(boolean elevator) {
+        this.elevator = elevator;
     }
 
     public boolean isSurveillance() {
-        return surveillance;
+        return this.surveillance;
     }
+
+    public boolean getSurveillance() {
+        return this.surveillance;
+    }
+
+    public void setSurveillance(boolean surveillance) {
+        this.surveillance = surveillance;
+    }
+
+    public boolean isGym() {
+        return this.gym;
+    }
+
+    public void setGym(boolean gym) {
+        this.gym = gym;
+    }
+
+    public List<String> getImages() {
+        return this.images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+    
+    public  void addImages(String imageId){
+        try {
+            this.images.add(imageId);
+        } catch (Exception e) {
+            this.images = new ArrayList<>();
+            this.images.add(imageId);
+        }
+        
+    }
+
 }

@@ -3,6 +3,7 @@ package edu.eci.ieti.rentopolis.services;
 import edu.eci.ieti.rentopolis.entities.Lessor;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
+import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
@@ -69,5 +70,6 @@ public interface RentopolisServices {
 
     void addPicture(String id,String title,MultipartFile file) throws IOException;
     Picture getImageById (String id) throws RentopolisServicesException;
+    void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException, RentopolisPersistenceException;
 
 }

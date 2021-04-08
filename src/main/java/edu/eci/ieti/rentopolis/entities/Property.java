@@ -199,7 +199,7 @@ public class Property {
         try {
             this.images.add(imageId);
         } catch (Exception e) {
-            this.images = new ArrayList<String>();
+            this.images = new ArrayList<>();
             this.images.add(imageId);
         }
         

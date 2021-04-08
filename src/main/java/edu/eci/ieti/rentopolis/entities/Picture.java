@@ -20,9 +20,16 @@ public class Picture {
         this.title = title;
     }
     
+    public Binary getImage() {
+        return this.image;
+    }
 
     public void setImage(Binary image) {
         this.image = image;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
         
     

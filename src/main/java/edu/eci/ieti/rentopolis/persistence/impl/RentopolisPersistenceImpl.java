@@ -114,6 +114,16 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     }
 
     @Override
+    public Lease getLeaseById(long id) throws RentopolisPersistenceException {
+        Optional<Lease> optional = leaseRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new RentopolisPersistenceException("Lease no existe");
+        }
+    }
+
+    @Override
     public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException {
         return getAllProperty();
 
@@ -152,6 +162,17 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
         else{
             throw new RentopolisPersistenceException("La fotografia no existe");
        }
-} 
+}
+
+    @Override
+    public void deleteLease(long id) throws RentopolisPersistenceException {
+        Lease lease = getLeaseById(id);
+        if (!leaseRepository.findById(lease.getId()).isPresent()) {
+            throw new RentopolisPersistenceException("Alquiler no existe");
+        } else {
+            leaseRepository.delete(lease);
+        }
+
+    }
 
 }

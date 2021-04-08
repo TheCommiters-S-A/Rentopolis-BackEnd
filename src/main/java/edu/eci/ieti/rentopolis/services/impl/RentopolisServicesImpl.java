@@ -127,7 +127,23 @@ public class RentopolisServicesImpl implements RentopolisServices {
         }
    }
 
-   
+    @Override
+    public void deleteLease(long id) throws RentopolisServicesException {
+        try {
+            rentopolisPersistence.deleteLease(id);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Lease getLeaseById(long id) throws RentopolisServicesException {
+        try {
+            return rentopolisPersistence.getLeaseById(id);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
 
 
 }

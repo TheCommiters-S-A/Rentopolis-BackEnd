@@ -18,6 +18,16 @@ public class LeaseDTO {
     public Date startDate;
     public Date endDate;
 
+    public LeaseDTO(Lease lease) {
+        this.id = lease.getId();
+        this.property = lease.getPropety();
+        this.lessee= (Lessee) lease.getLessee();
+        this.lessor = (Lessor) lease.getLessor();
+        this.startDate = lease.getStartDate();
+        this.endDate = lease.getEndDate();
+
+    }
+
 
     public Property getProperty(){
         return property;

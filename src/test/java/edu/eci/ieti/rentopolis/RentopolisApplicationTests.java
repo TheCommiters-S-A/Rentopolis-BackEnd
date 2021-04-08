@@ -9,8 +9,11 @@ import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
+import edu.eci.ieti.rentopolis.dto.LeaseDTO;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
+import edu.eci.ieti.rentopolis.entities.*;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,10 +21,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import edu.eci.ieti.rentopolis.entities.Location;
-import edu.eci.ieti.rentopolis.entities.Picture;
-import edu.eci.ieti.rentopolis.entities.Property;
-import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -33,6 +32,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -216,5 +217,42 @@ class RentopolisApplicationTests {
 				.andReturn();
 		String responseBody = response.getResponse().getContentAsString();
 		Assertions.assertEquals("Usuario no existe", responseBody);
+	}
+
+	@Test
+	void shouldDeleteLease() throws Exception {
+		Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		Lessee lessee = new Lessee();
+		Lessor lessor = new Lessor();
+
+		Lease lease = new Lease(1, property, lessee,lessor, new Date(12, 12, 2021), new Date(12, 12, 2022));
+
+		LeaseDTO leaseDTO = new LeaseDTO(lease);
+
+
+		mvcMock.perform(post("/home/lease")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(leaseDTO)))
+				.andExpect(status().isCreated())
+				.andReturn();
+		MvcResult result = mvcMock.perform(get("/home/property/"+ leaseDTO.getId()))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		String bodyResult = result.getResponse().getContentAsString();
+		JSONObject object = new JSONObject(bodyResult);
+
+		LeaseDTO leaseDTO1 = gson.fromJson(object.toString(), LeaseDTO.class);
+		long id = leaseDTO1.getId();
+		mvcMock.perform(delete("/home/lease/" + id))
+				.andExpect(status().isOk())
+				.andReturn();
+	}
+
+	@Test
+	void shouldNotDeleteLease() throws Exception{
+		MvcResult response= mvcMock.perform(delete("/home/lease/80"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		Assertions.assertEquals("Alquiler no existe",response.getResponse().getContentAsString());
 	}
 }

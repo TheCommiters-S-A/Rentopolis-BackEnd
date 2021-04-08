@@ -137,6 +137,13 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldNotFindImage() throws Exception{
+		mvcMock.perform(get("/home/picture/1"))
+				.andExpect(status().isNotFound());
+	}
+
+
+	@Test
 	void shouldUpdateUser() throws Exception{
 		UserDTO userDTO= new UserDTO("30","Carlos Perez", "1235","carlos@gmail.com","1235");
 		mvcMock.perform(post("/home/user")
@@ -190,6 +197,4 @@ class RentopolisApplicationTests {
 		String responseBody = response.getResponse().getContentAsString();
 		Assertions.assertEquals("Usuario no existe", responseBody);
 	}
-
-
 }

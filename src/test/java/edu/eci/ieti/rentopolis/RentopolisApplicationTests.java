@@ -33,10 +33,13 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -48,6 +51,8 @@ class RentopolisApplicationTests {
 	private static Gson gson = new Gson();
 
 	private static final String CONNECTION_STRING = "mongodb://%s:%d";
+
+	private static final int ArrayList = 0;
 
 	@Autowired
 	private MongodExecutable mongodExecutable;
@@ -94,6 +99,19 @@ class RentopolisApplicationTests {
 	*/
 
 	@Test
+	void shouldGetUsers() throws Exception{
+		mvcMock.perform(get("/home/users"))
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	void shouldGetProperties() throws Exception{
+		mvcMock.perform(get("/home/properties"))
+				.andExpect(status().isAccepted());
+	}
+
+
+	@Test
 	void shouldAddUser() throws Exception{
 		UserDTO userDTO= new UserDTO("13","Sara Perez", "123","sara@gmail.com","123");
 		mvcMock.perform(post("/home/user")
@@ -135,6 +153,8 @@ class RentopolisApplicationTests {
 		property.setFurniture(true);
 		property.setDescription("");
 		property.setReputation(4);
+		List<String> images = new ArrayList<>();
+		property.setImages(images);
 		PropertyDTO propertyDTO= new PropertyDTO(property);
 		mvcMock.perform(post("/home/property")
 				.contentType(MediaType.APPLICATION_JSON)

@@ -68,7 +68,7 @@ public class RentopolisController {
     @GetMapping("/users")
     public ResponseEntity<Object> getUsers() {
         try {
-            return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.OK);
         } catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

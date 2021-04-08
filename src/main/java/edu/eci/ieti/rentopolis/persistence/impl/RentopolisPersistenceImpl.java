@@ -96,9 +96,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<Property> getAllProperty() throws RentopolisPersistenceException {
-        if (propertyRepository.findAll().isEmpty()) {
-            throw new RentopolisPersistenceException("No hay propiedades");
-        }
         return propertyRepository.findAll();
     }
 

@@ -121,7 +121,7 @@ public class RentopolisController {
 
    @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    public ResponseEntity<Object> addPicture(@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException {
-       rentopolisServices.addPicture(null,title,file);
+       rentopolisServices.addPicture(id,title,file);
        return new ResponseEntity<>(HttpStatus.CREATED);
    }
 
@@ -135,8 +135,7 @@ public class RentopolisController {
         }catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-                    
+        }             
    }
 }
 

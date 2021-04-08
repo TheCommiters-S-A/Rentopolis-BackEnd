@@ -120,7 +120,7 @@ class RentopolisApplicationTests {
 	@Test
 	void shouldAddProperty() throws Exception{
 		Location location= new Location(1,1);
-		Property property= new Property(16,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
+		Property property= new Property(161,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
 		PropertyDTO propertyDTO= new PropertyDTO(property);
 		mvcMock.perform(post("/home/property")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -144,6 +144,23 @@ class RentopolisApplicationTests {
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","null").param("title","image.txt")).andExpect(status().isCreated());
 	}
 
+	/*
+	@Test
+	void shouldAddImageToProperty() throws Exception{
+		Location location= new Location(1,1);
+		Property property= new Property(1611,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
+		PropertyDTO propertyDTO= new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
+								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/property/picture").file(file).param("propertyId","1611").param("id","null").param("title","image.txt")).andExpect(status().isCreated());
+	}
+*/
 	@Test
 	void shouldGetImage() throws Exception{
 		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 

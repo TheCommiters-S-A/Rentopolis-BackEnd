@@ -28,6 +28,10 @@ public class Picture {
         this.title = title;
     }
     
+    public String getId(){
+        return this.id;
+    }
+
     public Binary getImage() {
         return this.image;
     }

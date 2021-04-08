@@ -125,6 +125,12 @@ public class RentopolisController {
        return new ResponseEntity<>(HttpStatus.CREATED);
    }
 
+   @PostMapping(value="/property/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<Object> addPictureToProperty(@RequestParam("propertyId") String propertyId,@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException {
+       rentopolisServices.addPictureToProperty(propertyId,id,title,file);
+       return new ResponseEntity<>(HttpStatus.CREATED);
+   }
+
    @GetMapping("/picture/{id}")
    public ResponseEntity<Object> getPicture(@PathVariable String id, Model model){
        try{

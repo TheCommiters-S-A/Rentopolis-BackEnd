@@ -19,9 +19,6 @@ public class Picture {
     public Picture(String title) {
         this.title = title;
     }
-
-
-    public String getId() {
     
 
     public void setImage(Binary image) {

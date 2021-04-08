@@ -113,7 +113,7 @@ public class RentopolisController {
     }
 
     @DeleteMapping("/property/{id}")
-    public ResponseEntity<?> deleteProperty(@PathVariable long id) {
+    public ResponseEntity<Object> deleteProperty(@PathVariable long id) {
         try {
             rentopolisServices.deleteProperty(id);
             return new ResponseEntity<>(HttpStatus.OK);

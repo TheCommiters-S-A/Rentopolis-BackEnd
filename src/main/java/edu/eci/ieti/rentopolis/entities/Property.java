@@ -157,27 +157,4 @@ public class Property {
     }
 
 
-    @Override
-    public String toString() {
-        return "Property{" +
-                "id=" + id +
-                ", area=" + area +
-                ", price=" + price +
-                ", location=" + location +
-                ", type=" + type +
-                ", numberOfRooms=" + numberOfRooms +
-                ", communityRoom=" + communityRoom +
-                ", furniture=" + furniture +
-                ", description='" + description + '\'' +
-                ", reputation=" + reputation +
-                ", numberOfBathRooms=" + numberOfBathRooms +
-                ", elevator=" + elevator +
-                ", surveillance=" + surveillance +
-                ", gym=" + gym +
-                ", image='" + image + '\'' +
-                ", address='" + address + '\'' +
-                ", neighborhood='" + neighborhood + '\'' +
-                ", stratum='" + stratum + '\'' +
-                '}';
-    }
 }

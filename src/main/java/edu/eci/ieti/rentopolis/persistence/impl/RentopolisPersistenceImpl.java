@@ -54,9 +54,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<User> getAllUsers() throws RentopolisPersistenceException {
-        if (userRepository.findAll().isEmpty()) {
-            throw new RentopolisPersistenceException("No hay usuarios");
-        }
         return userRepository.findAll();
     }
 

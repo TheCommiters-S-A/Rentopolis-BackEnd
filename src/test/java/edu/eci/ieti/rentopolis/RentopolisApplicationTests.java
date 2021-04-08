@@ -88,15 +88,12 @@ class RentopolisApplicationTests {
 		Assertions.assertEquals("Usuario no existe", responseBody);
 	}
 
-	/*
+
 	@Test
-	void shouldNotGetUsers() throws Exception{
-		MvcResult response= mvcMock.perform(get("/home/users"))
-				.andExpect(status().isNotFound()).andReturn();
-		String responseBody = response.getResponse().getContentAsString();
-		Assertions.assertEquals("No hay usuarios", responseBody);
+	void shouldNotGetProperty() throws Exception{
+		mvcMock.perform(get("/home/property/404"))
+				.andExpect(status().isNotFound());
 	}
-	*/
 
 	@Test
 	void shouldGetUsers() throws Exception{

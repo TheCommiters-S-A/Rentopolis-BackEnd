@@ -67,7 +67,7 @@ public interface RentopolisServices {
 
     void addLease(Lease lease);
 
-    void addPicture(MultipartFile file) throws IOException;
+    void addPicture(String id,String title,MultipartFile file) throws IOException;
     Picture getImageById (String id) throws RentopolisServicesException;
 
 }

@@ -128,7 +128,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
    }
 
    @Override
-   public void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException{
+   public void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException, RentopolisPersistenceException{
        this.rentopolisPersistence.addPictureToProperty(propertyId, id,title,file);
    }
 

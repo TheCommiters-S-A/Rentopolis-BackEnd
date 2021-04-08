@@ -156,7 +156,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     } 
 
     @Override
-   public void addPictureToProperty(String propertyId, String id, String title, MultipartFile file) throws IOException{
+   public void addPictureToProperty(String propertyId, String id, String title, MultipartFile file) throws IOException, RentopolisPersistenceException{
        Picture picture = null;
        Property property = null;
        try {
@@ -172,9 +172,9 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     
            propertyRepository.save(property);
     } catch (NumberFormatException e) {
-        picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+        throw new NumberFormatException("No se covertio el numero");
     } catch (RentopolisPersistenceException e) {
-        picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+        throw new RentopolisPersistenceException("Error al buscar la propiedad");
     }
        
    }

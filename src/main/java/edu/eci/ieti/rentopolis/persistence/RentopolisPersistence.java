@@ -40,5 +40,5 @@ public interface RentopolisPersistence {
     void addPicture(String id, String title,MultipartFile file) throws IOException;
 
     Picture getPictureById(String id)throws RentopolisPersistenceException;
-    void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException;
+    void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException , RentopolisPersistenceException;
 }

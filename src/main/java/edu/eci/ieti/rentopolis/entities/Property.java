@@ -179,10 +179,6 @@ public class Property {
         return this.gym;
     }
 
-    public boolean getGym() {
-        return this.gym;
-    }
-
     public void setGym(boolean gym) {
         this.gym = gym;
     }

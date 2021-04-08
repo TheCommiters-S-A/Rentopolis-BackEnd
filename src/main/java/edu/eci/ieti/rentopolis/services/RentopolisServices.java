@@ -70,6 +70,6 @@ public interface RentopolisServices {
 
     void addPicture(String id,String title,MultipartFile file) throws IOException;
     Picture getImageById (String id) throws RentopolisServicesException;
-    void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException, RentopolisPersistenceException, RentopolisPersistenceException;
+    void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException, RentopolisPersistenceException;
 
 }

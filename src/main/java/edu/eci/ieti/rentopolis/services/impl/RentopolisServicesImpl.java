@@ -114,8 +114,8 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
    @Override
-   public void addPicture(MultipartFile file) throws IOException{
-       this.rentopolisPersistence.addPicture(file);
+   public void addPicture(String id, String title,MultipartFile file) throws IOException{
+       this.rentopolisPersistence.addPicture(id,title,file);
    }
 
    @Override

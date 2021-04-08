@@ -133,8 +133,20 @@ class RentopolisApplicationTests {
 		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
 								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file)).andExpect(status().isCreated());
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","2").param("title","image.txt")).andExpect(status().isCreated());
 	}
+
+	@Test
+	void shouldGetImage() throws Exception{
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
+								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","15").param("title","image.txt")).andExpect(status().isCreated());
+
+		mvcMock.perform(get("/home/picture/15"))
+				.andExpect(status().isOk());
+	}
+
 
 	@Test
 	void shouldNotFindImage() throws Exception{

@@ -33,6 +33,30 @@ public class RentopolisController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateUser(@RequestBody UserDTO userDTO, @PathVariable String id) {
+        try {
+            User user = userDTO.convertToEntity(userDTO);
+            rentopolisServices.updateUser(user, id);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String id){
+        try {
+            rentopolisServices.deleteUser(id);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/users")
     public ResponseEntity<Object> getUsers() {
         try {
@@ -95,7 +119,7 @@ public class RentopolisController {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, null, e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

@@ -118,37 +118,90 @@ class RentopolisApplicationTests {
                 .andExpect(status().isCreated()).andDo(print());
     }
 
-//    @Test
-//    void shouldNotDeletePropertyBecauseNotExist() throws Exception {
-//        UserDTO user = new UserDTO("12", "Sara Perez", "123", "sara@gmail.com", "123");
-//        mvcMock.perform(post("/home/user")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(gson.toJson(user)))
-//                .andExpect(status().isCreated());
-//
-//        Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
-//        PropertyDTO propertyDTO = new PropertyDTO(property);
-//
-//        mvcMock.perform(post("/home/property")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(gson.toJson(propertyDTO)))
-//                .andExpect(status().isCreated())
-//                .andReturn();
-//        MvcResult result = mvcMock.perform(get("/home/property/"+ propertyDTO.getId()))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//        String bodyResult = result.getResponse().getContentAsString();
-//        JSONObject object = new JSONArray(bodyResult).getJSONObject(0);
-//
-//        PropertyDTO propertyDTO1 = gson.fromJson(object.toString(), PropertyDTO.class);
-//        long id = propertyDTO1.getId();
-//        MvcResult ans = mvcMock.perform(delete("/home/property/" + id))
-//                .andExpect(status().isNotFound())
-//                .andReturn();
-//        String responseBody = ans.getResponse().getContentAsString();
-//        Assertions.assertEquals("Propiedad no existe", responseBody);
-//    }
 
+	@Test
+	void shouldUpdateUser() throws Exception{
+		UserDTO userDTO= new UserDTO("30","Carlos Perez", "1235","carlos@gmail.com","1235");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+		UserDTO userDTO1 = new UserDTO("30","Carlos Perez", "12345","carlos@gmail.com","12345");
+		MvcResult response= mvcMock.perform(put("/home/"+userDTO1.getId())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO1)))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		Assertions.assertEquals(202, response.getResponse().getStatus());
+	}
+
+	@Test
+	void shouldNotUpdateUser() throws Exception{
+		UserDTO userDTO= new UserDTO("31","David Perez", "12345","david@gmail.com","12345");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+		UserDTO userDTO1 = new UserDTO("31","David Perez", "1234","david@gmail.com","1234");
+		MvcResult response= mvcMock.perform(put("/home/3")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO1)))
+				.andExpect(status().isNotAcceptable())
+				.andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("El id no concuerda con el usuario", responseBody);
+	}
+
+	@Test
+	void shouldDeleteUser() throws Exception{
+		UserDTO userDTO= new UserDTO("35","Juan Jose Perez", "45678","jjose@gmail.com","2342");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated());
+		MvcResult response= mvcMock.perform(delete("/home/"+userDTO.getId()))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		Assertions.assertEquals(202, response.getResponse().getStatus());
+	}
+
+	@Test
+	void shouldNotDeleteUser() throws Exception{
+		MvcResult response= mvcMock.perform(delete("/home/3"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("Usuario no existe", responseBody);
+	}
+
+	@Test
+	void shouldDeleteProperty() throws Exception {
+		Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated())
+				.andReturn();
+		MvcResult result = mvcMock.perform(get("/home/property/"+ propertyDTO.getId()))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		String bodyResult = result.getResponse().getContentAsString();
+		JSONObject object = new JSONObject(bodyResult);
+		PropertyDTO propertyDTO1 = gson.fromJson(object.toString(), PropertyDTO.class);
+		long id = propertyDTO1.getId();
+		mvcMock.perform(delete("/home/property/" + id))
+				.andExpect(status().isOk())
+				.andReturn();
+	}
+
+	@Test
+	void shouldNotDeleteProperty() throws Exception{
+		MvcResult response= mvcMock.perform(delete("/home/property/80"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		Assertions.assertEquals("Propiedad no existe",response.getResponse().getContentAsString());
+	}
 
 
 }

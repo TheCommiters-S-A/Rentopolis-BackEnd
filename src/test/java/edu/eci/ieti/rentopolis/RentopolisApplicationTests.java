@@ -9,8 +9,10 @@ import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
+import edu.eci.ieti.rentopolis.dto.LeaseDTO;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
+import edu.eci.ieti.rentopolis.entities.*;
 import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
@@ -223,6 +225,44 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldNotDeleteLease() throws Exception {
+		MvcResult response = mvcMock.perform(delete("/home/lease/80"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		Assertions.assertEquals("Lease no existe", response.getResponse().getContentAsString());
+	}
+
+	@Test
+	void shouldDeleteLease() throws Exception {
+
+        Property property = new Property();
+        Lessee lessee = new Lessee();
+        Lessor lessor = new Lessor();
+        Lease lease = new Lease(209, property, lessee, lessor, "20/10/2021", "21/12/2030");
+
+        LeaseDTO leaseDTO = new LeaseDTO(lease);
+
+
+        mvcMock.perform(post("/home/lease")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(leaseDTO)))
+                .andExpect(status().isCreated())
+                .andReturn();
+        MvcResult result = mvcMock.perform(get("/home/lease/" + leaseDTO.getId()))
+                .andExpect(status().isAccepted())
+                .andReturn();
+        String bodyResult = result.getResponse().getContentAsString();
+        JSONObject object = new JSONObject(bodyResult);
+
+        LeaseDTO leaseDTO1 = gson.fromJson(object.toString(), LeaseDTO.class);
+        long id = leaseDTO1.getId();
+        mvcMock.perform(delete("/home/lease/" + id))
+                .andExpect(status().isOk())
+                .andReturn();
+	}
+
+
+	@Test
 	void shouldDeleteProperty() throws Exception {
 		Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
 		PropertyDTO propertyDTO = new PropertyDTO(property);
@@ -244,6 +284,16 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldAddProperty() throws Exception {
+		Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+	}
+
+	@Test
 	void shouldNotDeleteProperty() throws Exception{
 		MvcResult response= mvcMock.perform(delete("/home/property/80"))
 				.andExpect(status().isNotFound())
@@ -253,3 +303,4 @@ class RentopolisApplicationTests {
 
 
 }
+

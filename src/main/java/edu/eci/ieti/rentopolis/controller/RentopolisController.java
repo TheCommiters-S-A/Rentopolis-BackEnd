@@ -94,13 +94,8 @@ public class RentopolisController {
     }
 
     @GetMapping("/properties")
-    public ResponseEntity<Object> getProperties() {
-        try {
+    public ResponseEntity<Object> getProperties() throws RentopolisServicesException {
             return new ResponseEntity<>(rentopolisServices.getAllProperty(), HttpStatus.ACCEPTED);
-        } catch (RentopolisServicesException e) {
-            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
     }
 
     @GetMapping("/property/{id}")
@@ -111,13 +106,6 @@ public class RentopolisController {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-    }
-
-    @PostMapping("/lease")
-    public ResponseEntity<Object> addLease(@RequestBody LeaseDTO leaseDTO) {
-        Lease lease = leaseDTO.convertToEntity(leaseDTO);
-        rentopolisServices.addLease(lease);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
@@ -131,6 +119,7 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
 
 
    @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -157,6 +146,35 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }             
    }
+
+
+    @PostMapping("/lease")
+    public ResponseEntity<Object> addLease(@RequestBody LeaseDTO leaseDTO) {
+        Lease lease = leaseDTO.convertToEntity(leaseDTO);
+        rentopolisServices.addLease(lease);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/lease/{id}")
+    public ResponseEntity<Object> getLeaseById(@PathVariable long id) {
+        try {
+            return new ResponseEntity<>(rentopolisServices.getLeaseById(id), HttpStatus.ACCEPTED);
+        } catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/lease/{id}")
+    public ResponseEntity<Object> deleteLease(@PathVariable long id) {
+        try {
+            rentopolisServices.deleteLease(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
 

@@ -2,21 +2,33 @@ package edu.eci.ieti.rentopolis.dto;
 
 import edu.eci.ieti.rentopolis.entities.Lessor;
 import edu.eci.ieti.rentopolis.entities.Lessee;
-import edu.eci.ieti.rentopolis.entities.User;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.entities.Property;
 
-import java.util.Date;
-
-
 
 public class LeaseDTO {
-    public long id;
-    public Property property;
-    public Lessee lessee;
-    public Lessor lessor;
-    public Date startDate;
-    public Date endDate;
+    private long id;
+    private Property property;
+    private Lessee lessee;
+    private Lessor lessor;
+    private String startDate;
+    private String endDate;
+
+
+    public LeaseDTO(Lease lease) {
+        this.id = lease.getId();
+        this.property = lease.getPropety();
+        this.lessee= (Lessee) lease.getLessee();
+        this.lessor = (Lessor) lease.getLessor();
+        this.startDate = lease.getStartDate();
+        this.endDate = lease.getEndDate();
+
+    }
+
+
+    public LeaseDTO() {
+
+    }
 
 
     public Property getProperty(){
@@ -47,19 +59,19 @@ public class LeaseDTO {
         this.lessor = lessor;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

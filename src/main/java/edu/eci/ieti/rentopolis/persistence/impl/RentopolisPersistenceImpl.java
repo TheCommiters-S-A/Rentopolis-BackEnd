@@ -54,9 +54,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<User> getAllUsers() throws RentopolisPersistenceException {
-        if (userRepository.findAll().isEmpty()) {
-            throw new RentopolisPersistenceException("No hay usuarios");
-        }
         return userRepository.findAll();
     }
 
@@ -96,9 +93,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<Property> getAllProperty() throws RentopolisPersistenceException {
-        if (propertyRepository.findAll().isEmpty()) {
-            throw new RentopolisPersistenceException("No hay propiedades");
-        }
         return propertyRepository.findAll();
     }
 
@@ -153,6 +147,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
        }
        pictureRepository.insert(picture);
    }
+
    @Override
    public Picture getPictureById(String id) throws RentopolisPersistenceException{
     Optional<Picture> picture = pictureRepository.findById(id);
@@ -162,6 +157,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
         else{
             throw new RentopolisPersistenceException("La fotografia no existe");
        }
+
 }
 
     @Override
@@ -174,5 +170,32 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
         }
 
     }
+
+    } 
+
+    @Override
+   public void addPictureToProperty(String propertyId, String id, String title, MultipartFile file) throws IOException, RentopolisPersistenceException{
+       Picture picture = null;
+       Property property = null;
+       try {
+        property = getPropertyById(Long.parseLong(propertyId));
+
+        if(id.equals("null")){
+            picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+           }else{
+            picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+           }
+           pictureRepository.insert(picture);    
+           property.addImages(picture.getId());
+    
+           propertyRepository.save(property);
+    } catch (NumberFormatException e) {
+        throw new NumberFormatException("No se covertio el numero");
+    } catch (RentopolisPersistenceException e) {
+        throw new RentopolisPersistenceException("Error al buscar la propiedad");
+    }
+       
+   }
+
 
 }

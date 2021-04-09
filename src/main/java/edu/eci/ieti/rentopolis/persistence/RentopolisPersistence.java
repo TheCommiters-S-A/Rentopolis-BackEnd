@@ -33,7 +33,7 @@ public interface RentopolisPersistence {
 
     List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException;
 
-    void deleteProperty(Property property) throws RentopolisPersistenceException;
+    void deleteProperty(long property) throws RentopolisPersistenceException;
 
     void addLease(Lease lease);
 

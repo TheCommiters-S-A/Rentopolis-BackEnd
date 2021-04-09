@@ -5,8 +5,11 @@
  */
 package edu.eci.ieti.rentopolis.entities;
 
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,6 +19,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Properties")
 public class Property {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private int area;
     private long price;
@@ -30,74 +35,92 @@ public class Property {
     private boolean elevator;
     private boolean surveillance;
     private boolean gym;
+
+    private String image;
+    private String address;
+    private String neighborhood;
+    private int stratum;
+
     private List<String> images;
+
 
 
     public Property() {
     }
 
 
-    public Property(long id, int area, long price, Location location, PropertyType type, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, float reputation) {
+
+    public Property(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
+        this.neighborhood = neighborhood;
+        this.stratum = stratum;
+        this.image = image;
+        this.location = location;
+        this.type = typeProperty;
+        this.address = address;
+        this.gym = gym;
+        this.furniture = furniture;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.description = description;
+        this.numberOfBathRooms = numberOfBathRooms;
+        this.numberOfRooms = numberOfRooms;
+        this.communityRoom = communityRoom;
+        this.area = area;
+        this.price = price;
         this.id = id;
+    }
+
+
+    public Property(int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
         this.area = area;
         this.price = price;
         this.location = location;
-        this.type = type;
+        this.type = typeProperty;
         this.numberOfRooms = numberOfRooms;
+        this.communityRoom = communityRoom;
+        this.description = description;
         this.numberOfBathRooms = numberOfBathRooms;
         this.elevator = elevator;
         this.surveillance = surveillance;
         this.gym = gym;
-        this.communityRoom = communityRoom;
         this.furniture = furniture;
-        this.description = description;
-        this.reputation = reputation;
+        this.image = image;
+        this.address = address;
+        this.neighborhood = neighborhood;
+        this.stratum = stratum;
     }
 
-
-    public long getId() {
-        return this.id;
-    }
 
     public void setId(long id) {
         this.id = id;
     }
-
     public int getArea() {
-        return this.area;
-    }
-
-    public void setArea(int area) {
-        this.area = area;
+        return area;
     }
 
     public long getPrice() {
         return this.price;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
-    }
 
     public Location getLocation() {
         return this.location;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 
     public PropertyType getType() {
         return this.type;
     }
 
-    public void setType(PropertyType type) {
-        this.type = type;
-    }
-
     public int getNumberOfRooms() {
         return this.numberOfRooms;
     }
+
+
+    public int getNumberOfBathRooms() {
+        return numberOfBathRooms;
+    }
+
 
     public void setNumberOfRooms(int numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
@@ -127,24 +150,21 @@ public class Property {
         this.furniture = furniture;
     }
 
+
     public String getDescription() {
         return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public float getReputation() {
         return this.reputation;
     }
 
-    public void setReputation(float reputation) {
-        this.reputation = reputation;
+    public long getId() {
+        return id;
     }
 
-    public int getNumberOfBathRooms() {
-        return this.numberOfBathRooms;
+    public void setReputation(float reputation) {
+        this.reputation = reputation;
     }
 
     public void setNumberOfBathRooms(int numberOfBathRooms) {
@@ -175,6 +195,7 @@ public class Property {
         this.surveillance = surveillance;
     }
 
+
     public boolean isGym() {
         return this.gym;
     }
@@ -190,7 +211,7 @@ public class Property {
     public void setImages(List<String> images) {
         this.images = images;
     }
-    
+
     public  void addImages(String imageId){
         try {
             this.images.add(imageId);

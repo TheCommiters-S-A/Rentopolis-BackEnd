@@ -95,19 +95,7 @@ class RentopolisApplicationTests {
 				.andExpect(status().isNotFound());
 	}
 
-	@Test
-	void shouldGetUsers() throws Exception{
-		mvcMock.perform(get("/home/users"))
-				.andExpect(status().isOk());
-	}
-
-	@Test
-	void shouldGetProperties() throws Exception{
-		mvcMock.perform(get("/home/properties"))
-				.andExpect(status().isAccepted());
-	}
-
-
+	
 	@Test
 	void shouldAddUser() throws Exception{
 		UserDTO userDTO= new UserDTO("13","Sara Perez", "123","sara@gmail.com","123");

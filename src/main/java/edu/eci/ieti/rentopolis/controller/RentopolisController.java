@@ -113,13 +113,6 @@ public class RentopolisController {
         }
     }
 
-    @PostMapping("/lease")
-    public ResponseEntity<Object> addLease(@RequestBody LeaseDTO leaseDTO) {
-        Lease lease = leaseDTO.convertToEntity(leaseDTO);
-        rentopolisServices.addLease(lease);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
    @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    public ResponseEntity<Object> addPicture(@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException {
        rentopolisServices.addPicture(id,title,file);
@@ -144,5 +137,33 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }             
    }
+
+    @PostMapping("/lease")
+    public ResponseEntity<Object> addLease(@RequestBody LeaseDTO leaseDTO) {
+        Lease lease = leaseDTO.convertToEntity(leaseDTO);
+        rentopolisServices.addLease(lease);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/lease/{id}")
+    public ResponseEntity<Object> getLeaseById(@PathVariable long id) {
+        try {
+            return new ResponseEntity<>(rentopolisServices.getLeaseById(id), HttpStatus.ACCEPTED);
+        } catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/lease/{id}")
+    public ResponseEntity<Object> deleteLease(@PathVariable long id) {
+        try {
+            rentopolisServices.deleteLease(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
 

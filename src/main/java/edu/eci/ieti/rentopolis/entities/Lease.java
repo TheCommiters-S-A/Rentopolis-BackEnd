@@ -1,6 +1,5 @@
 package edu.eci.ieti.rentopolis.entities;
 
-import java.util.Date;
 
 
 public class Lease {
@@ -8,13 +7,13 @@ public class Lease {
     private Property property;
     private Lessee lessee;
     private Lessor lessor;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
     public Lease() {
     }
 
-    public Lease(long id, Property property, Lessee lessee, Lessor lessor, Date startDate, Date endDate) {
+    public Lease(long id, Property property, Lessee lessee, Lessor lessor, String startDate, String endDate) {
         this.id = id;
         this.property = property;
         this.lessee = lessee;
@@ -52,19 +51,19 @@ public class Lease {
         this.lessor = lessor;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

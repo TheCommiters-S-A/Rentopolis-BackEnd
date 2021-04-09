@@ -9,8 +9,11 @@ import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
+import edu.eci.ieti.rentopolis.dto.LeaseDTO;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
+import edu.eci.ieti.rentopolis.entities.*;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,10 +21,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import edu.eci.ieti.rentopolis.entities.Location;
-import edu.eci.ieti.rentopolis.entities.Picture;
-import edu.eci.ieti.rentopolis.entities.Property;
-import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -266,4 +265,42 @@ class RentopolisApplicationTests {
 		String responseBody = response.getResponse().getContentAsString();
 		Assertions.assertEquals("Usuario no existe", responseBody);
 	}
+
+	@Test
+	void shouldNotDeleteLease() throws Exception {
+		MvcResult response = mvcMock.perform(delete("/home/lease/80"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		Assertions.assertEquals("Lease no existe", response.getResponse().getContentAsString());
+	}
+
+	@Test
+	void shouldDeleteLease() throws Exception {
+
+        Property property = new Property();
+        Lessee lessee = new Lessee();
+        Lessor lessor = new Lessor();
+        Lease lease = new Lease(209, property, lessee, lessor, "20/10/2021", "21/12/2030");
+
+        LeaseDTO leaseDTO = new LeaseDTO(lease);
+
+
+        mvcMock.perform(post("/home/lease")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(leaseDTO)))
+                .andExpect(status().isCreated())
+                .andReturn();
+        MvcResult result = mvcMock.perform(get("/home/lease/" + leaseDTO.getId()))
+                .andExpect(status().isAccepted())
+                .andReturn();
+        String bodyResult = result.getResponse().getContentAsString();
+        JSONObject object = new JSONObject(bodyResult);
+
+        LeaseDTO leaseDTO1 = gson.fromJson(object.toString(), LeaseDTO.class);
+        long id = 213;
+        mvcMock.perform(delete("/home/lease/" + id))
+                .andExpect(status().isOk())
+                .andReturn();
+	}
+
 }

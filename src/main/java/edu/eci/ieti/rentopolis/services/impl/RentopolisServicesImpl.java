@@ -132,7 +132,25 @@ public class RentopolisServicesImpl implements RentopolisServices {
        this.rentopolisPersistence.addPictureToProperty(propertyId, id,title,file);
    }
 
-   
+
+
+    @Override
+    public Lease getLeaseById(long id) throws RentopolisServicesException {
+        try {
+            return rentopolisPersistence.getLeaseById(id);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void deleteLease(long id) throws RentopolisServicesException {
+        try {
+            rentopolisPersistence.deleteLease(id);
+        } catch (RentopolisPersistenceException e) {
+            throw new RentopolisServicesException(e.getMessage(), e);
+        }
+    }
 
 
 }

@@ -100,7 +100,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public void deleteProperty(Property property) throws RentopolisServicesException {
+    public void deleteProperty(long property) throws RentopolisServicesException {
         try {
             rentopolisPersistence.deleteProperty(property);
         } catch (RentopolisPersistenceException e) {

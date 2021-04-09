@@ -26,6 +26,11 @@ public class LeaseDTO {
     }
 
 
+    public LeaseDTO() {
+
+    }
+
+
     public Property getProperty(){
         return property;
     }

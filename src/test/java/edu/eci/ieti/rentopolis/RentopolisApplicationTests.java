@@ -13,6 +13,7 @@ import edu.eci.ieti.rentopolis.dto.LeaseDTO;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
 import edu.eci.ieti.rentopolis.entities.*;
+import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -21,24 +22,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import edu.eci.ieti.rentopolis.entities.Location;
+import edu.eci.ieti.rentopolis.entities.Property;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import java.util.ArrayList;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.List;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -65,7 +65,7 @@ class RentopolisApplicationTests {
 		mongodExecutable.stop();
 	}
 
-	
+
 	@BeforeEach
 	void setup() throws Exception {
 		String ip = "localhost";
@@ -131,71 +131,29 @@ class RentopolisApplicationTests {
 		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
 	}
 
-	@Test
-	void shouldAddProperty() throws Exception{
-		Location location= new Location(1,1);
-		Property property= new Property();
-		property.setId(6);
-		property.setArea(50); 
-		property.setPrice(5000000); 
-		property.setLocation(location);
-		property.setType(PropertyType.Apartaestudio);
-		property.setNumberOfRooms(4); 
-		property.setNumberOfBathRooms(2);
-		property.setElevator(true);
-		property.setSurveillance(true);
-		property.setGym(false);
-		property.setCommunityRoom(true);
-		property.setFurniture(true);
-		property.setDescription("");
-		property.setReputation(4);
-		List<String> images = new ArrayList<>();
-		property.setImages(images);
-		PropertyDTO propertyDTO= new PropertyDTO(property);
-		mvcMock.perform(post("/home/property")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(propertyDTO)))
-				.andExpect(status().isCreated()).andDo(print());
-	}
 
 	@Test
 	void shouldAddImage() throws Exception{
-		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
-								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
+				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","2").param("title","image.txt")).andExpect(status().isCreated());
 	}
 
 	@Test
 	void shouldAddImage2() throws Exception{
-		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
-								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
+				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","null").param("title","image.txt")).andExpect(status().isCreated());
 	}
 
 
-	@Test
-	void shouldAddImageToProperty() throws Exception{
-
-		Location location= new Location(1,1);
-		Property property= new Property(163,50, 5000000,location, PropertyType.Apartaestudio,4, 2, true, true, false, true, true, "", 4);
-		PropertyDTO propertyDTO= new PropertyDTO(property);
-		mvcMock.perform(post("/home/property")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(propertyDTO)))
-				.andExpect(status().isCreated());
-
-		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
-								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
-		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/property/picture").file(file).param("propertyId","163").param("id","null").param("title","image.txt")).andExpect(status().isCreated());
-	}
 
 	@Test
 	void shouldGetImage() throws Exception{
-		MockMultipartFile file = new MockMultipartFile("file", "image.txt", 
-								MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
+				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","15").param("title","image.txt")).andExpect(status().isCreated());
 
@@ -297,10 +255,42 @@ class RentopolisApplicationTests {
         JSONObject object = new JSONObject(bodyResult);
 
         LeaseDTO leaseDTO1 = gson.fromJson(object.toString(), LeaseDTO.class);
-        long id = 213;
+        long id = leaseDTO1.getId();
         mvcMock.perform(delete("/home/lease/" + id))
                 .andExpect(status().isOk())
                 .andReturn();
 	}
 
+
+
+	void shouldDeleteProperty() throws Exception {
+		Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated())
+				.andReturn();
+		MvcResult result = mvcMock.perform(get("/home/property/"+ propertyDTO.getId()))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		String bodyResult = result.getResponse().getContentAsString();
+		JSONObject object = new JSONObject(bodyResult);
+		PropertyDTO propertyDTO1 = gson.fromJson(object.toString(), PropertyDTO.class);
+		long id = propertyDTO1.getId();
+		mvcMock.perform(delete("/home/property/" + id))
+				.andExpect(status().isOk())
+				.andReturn();
+	}
+
+	@Test
+	void shouldNotDeleteProperty() throws Exception{
+		MvcResult response= mvcMock.perform(delete("/home/property/80"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		Assertions.assertEquals("Propiedad no existe",response.getResponse().getContentAsString());
+	}
+
+
 }
+

@@ -11,6 +11,6 @@ package edu.eci.ieti.rentopolis.entities;
  */
 public enum PropertyType {
 
-    Apartamento, Apartaestudio, Casa, Oficina, Bodega, Lote, Finca, Consultorio
+    Apartamento, Apartaestudio, Casa, Oficina, Bodega, Lote, Finca, Consultorio, Local
     
 }

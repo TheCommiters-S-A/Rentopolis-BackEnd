@@ -64,7 +64,7 @@ public interface RentopolisServices {
 
     List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException;
 
-    void deleteProperty(Property property) throws RentopolisServicesException;
+    void deleteProperty(long property) throws RentopolisServicesException;
 
     void addLease(Lease lease);
 

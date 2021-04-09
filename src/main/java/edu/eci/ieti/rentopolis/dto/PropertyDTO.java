@@ -20,6 +20,10 @@ public class PropertyDTO {
     private boolean furniture;
     private String description;
     private float reputation;
+    private String image;
+    private String address;
+    private String neighborhood;
+    private int stratum;
 
 
     public PropertyDTO() {
@@ -43,124 +47,87 @@ public class PropertyDTO {
         this.reputation = property.getReputation();
     }
 
+
     public long getId() {
         return id;
-    }
-
-    public int getArea() {
-        return area;
-    }
-
-    public int getNumberOfBathRooms() {
-        return numberOfBathRooms;
-    }
-
-    public int getNumberOfRooms() {
-        return numberOfRooms;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public PropertyType getType() {
-        return typeProperty;
-    }
-
-    public float getReputation() {
-        return reputation;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean hasElevator() {
-        return elevator;
-    }
-
-    public boolean hasCommunityRoom() {
-        return communityRoom;
-    }
-
-    public boolean hasFurniture() {
-        return furniture;
-    }
-
-    public boolean hasGym() {
-        return gym;
-    }
-
-    public boolean hasSurveillance() {
-        return surveillance;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public void setArea(int area) {
-        this.area = area;
+    public int getArea() {
+        return area;
     }
 
-    public void setCommunityRoom(boolean communityRoom) {
-        this.communityRoom = communityRoom;
+    public long getPrice() {
+        return price;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setElevator(boolean elevator) {
-        this.elevator = elevator;
+    public PropertyType getTypeProperty() {
+        return typeProperty;
     }
 
-    public void setFurniture(boolean furniture) {
-        this.furniture = furniture;
+    public int getNumberOfRooms() {
+        return numberOfRooms;
     }
 
-    public void setGym(boolean gym) {
-        this.gym = gym;
+    public int getNumberOfBathRooms() {
+        return numberOfBathRooms;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public boolean isElevator() {
+        return elevator;
     }
 
-    public void setNumberOfBathRooms(int numberOfBathRooms) {
-        this.numberOfBathRooms = numberOfBathRooms;
+    public boolean isSurveillance() {
+        return surveillance;
     }
 
-    public void setNumberOfRooms(int numberOfRooms) {
-        this.numberOfRooms = numberOfRooms;
+    public boolean isGym() {
+        return gym;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public boolean isCommunityRoom() {
+        return communityRoom;
     }
 
-    public void setReputation(float reputation) {
-        this.reputation = reputation;
+    public boolean isFurniture() {
+        return furniture;
     }
 
-    public void setSurveillance(boolean surveillance) {
-        this.surveillance = surveillance;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(PropertyType typeProperty) {
-        this.typeProperty = typeProperty;
+    public String getImage() {
+        return image;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public int getStratum() {
+        return stratum;
+    }
+
 
     public Property convertToEntity(PropertyDTO propertyDTO) {
         return new Property(propertyDTO.getId(), propertyDTO.getArea(), propertyDTO.getPrice(),
-                propertyDTO.getLocation(), propertyDTO.getType(), propertyDTO.getNumberOfRooms(),
-                propertyDTO.getNumberOfBathRooms(), propertyDTO.hasElevator(), propertyDTO.hasSurveillance(),
-                propertyDTO.hasGym(), propertyDTO.hasCommunityRoom(), propertyDTO.hasFurniture(),
-                propertyDTO.getDescription(), propertyDTO.getReputation());
+                propertyDTO.getLocation(), propertyDTO.getTypeProperty(), propertyDTO.getNumberOfRooms(),
+                propertyDTO.getNumberOfBathRooms(), propertyDTO.isElevator(), propertyDTO.isSurveillance(),
+                propertyDTO.isGym(), propertyDTO.isCommunityRoom(), propertyDTO.isFurniture(),
+                propertyDTO.getDescription(), propertyDTO.getImage(), propertyDTO.getAddress(), propertyDTO.getNeighborhood()
+                , propertyDTO.getStratum());
     }
 }
 

@@ -115,11 +115,14 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     }
 
     @Override
-    public void deleteProperty(Property property) throws RentopolisPersistenceException {
-        if (propertyRepository.findById(property.getId()).isPresent()) {
+    public void deleteProperty(long id) throws RentopolisPersistenceException {
+        Property property = getPropertyById(id);
+        if (!propertyRepository.findById(property.getId()).isPresent()) {
             throw new RentopolisPersistenceException("Propiedad no existe");
+        } else {
+            propertyRepository.delete(property);
         }
-        propertyRepository.delete(property);
+
     }
 
     @Override

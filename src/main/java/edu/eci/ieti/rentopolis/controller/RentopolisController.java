@@ -113,6 +113,20 @@ public class RentopolisController {
         }
     }
 
+
+    @DeleteMapping("/property/{id}")
+    public ResponseEntity<Object> deleteProperty(@PathVariable long id) {
+        try {
+            rentopolisServices.deleteProperty(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
    @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    public ResponseEntity<Object> addPicture(@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException {
        rentopolisServices.addPicture(id,title,file);
@@ -137,6 +151,7 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }             
    }
+
 
     @PostMapping("/lease")
     public ResponseEntity<Object> addLease(@RequestBody LeaseDTO leaseDTO) {
@@ -165,5 +180,6 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
 }
 

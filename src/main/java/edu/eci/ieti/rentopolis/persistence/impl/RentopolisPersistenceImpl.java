@@ -8,9 +8,20 @@ import edu.eci.ieti.rentopolis.persistence.RentopolisPersistence;
 import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.repository.PropertyRepository;
 import edu.eci.ieti.rentopolis.repository.LeaseRepository;
+import edu.eci.ieti.rentopolis.repository.PictureRepository;
 import edu.eci.ieti.rentopolis.repository.UserRepository;
+import java.io.IOException;
+
+
+
+import org.bson.BsonBinarySubType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import org.bson.types.Binary;
+import org.springframework.web.multipart.MultipartFile;
+
+import edu.eci.ieti.rentopolis.entities.Picture;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +39,9 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     @Autowired
     private LeaseRepository leaseRepository;
 
+    @Autowired
+    private PictureRepository pictureRepository;
+
     @Override
     public User getUserById(String userId) throws RentopolisPersistenceException {
         Optional<User> optional = userRepository.findById(userId);
@@ -40,9 +54,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<User> getAllUsers() throws RentopolisPersistenceException {
-        if (userRepository.findAll().isEmpty()) {
-            throw new RentopolisPersistenceException("No hay usuarios");
-        }
         return userRepository.findAll();
     }
 
@@ -82,9 +93,6 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Override
     public List<Property> getAllProperty() throws RentopolisPersistenceException {
-        if (propertyRepository.findAll().isEmpty()) {
-            throw new RentopolisPersistenceException("No hay propiedades");
-        }
         return propertyRepository.findAll();
     }
 
@@ -122,5 +130,50 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
         leaseRepository.insert(lease);
     }
 
+   @Override
+   public void addPicture(String id, String title, MultipartFile file) throws IOException{
+       Picture picture = null;
+       if(id.equals("null")){
+        picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+       }else{
+        picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+       }
+       pictureRepository.insert(picture);
+   }
+
+   @Override
+   public Picture getPictureById(String id) throws RentopolisPersistenceException{
+    Optional<Picture> picture = pictureRepository.findById(id);
+       if(picture.isPresent()){
+           return picture.get();
+        }
+        else{
+            throw new RentopolisPersistenceException("La fotografia no existe");
+       }
+    } 
+
+    @Override
+   public void addPictureToProperty(String propertyId, String id, String title, MultipartFile file) throws IOException, RentopolisPersistenceException{
+       Picture picture = null;
+       Property property = null;
+       try {
+        property = getPropertyById(Long.parseLong(propertyId));
+
+        if(id.equals("null")){
+            picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+           }else{
+            picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+           }
+           pictureRepository.insert(picture);    
+           property.addImages(picture.getId());
+    
+           propertyRepository.save(property);
+    } catch (NumberFormatException e) {
+        throw new NumberFormatException("No se covertio el numero");
+    } catch (RentopolisPersistenceException e) {
+        throw new RentopolisPersistenceException("Error al buscar la propiedad");
+    }
+       
+   }
 
 }

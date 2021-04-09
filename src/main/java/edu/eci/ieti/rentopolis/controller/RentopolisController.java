@@ -6,14 +6,22 @@ import edu.eci.ieti.rentopolis.dto.UserDTO;
 import edu.eci.ieti.rentopolis.dto.LeaseDTO;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.User;
+import edu.eci.ieti.rentopolis.persistence.RentopolisPersistenceException;
 import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import edu.eci.ieti.rentopolis.entities.Picture;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,7 +68,7 @@ public class RentopolisController {
     @GetMapping("/users")
     public ResponseEntity<Object> getUsers() {
         try {
-            return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.OK);
         } catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -112,6 +120,7 @@ public class RentopolisController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
     @DeleteMapping("/property/{id}")
     public ResponseEntity<Object> deleteProperty(@PathVariable long id) {
         try {
@@ -122,6 +131,32 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+
+   @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<Object> addPicture(@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException {
+       rentopolisServices.addPicture(id,title,file);
+       return new ResponseEntity<>(HttpStatus.CREATED);
+   }
+
+   @PostMapping(value="/property/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<Object> addPictureToProperty(@RequestParam("propertyId") String propertyId,@RequestParam("title") String title,@RequestParam("id") String id,@RequestParam("file") MultipartFile file) throws IOException, RentopolisPersistenceException {
+       rentopolisServices.addPictureToProperty(propertyId,id,title,file);
+       return new ResponseEntity<>(HttpStatus.CREATED);
+   }
+
+   @GetMapping("/picture/{id}")
+   public ResponseEntity<Object> getPicture(@PathVariable String id, Model model){
+       try{
+           Picture picture = rentopolisServices.getImageById(id);
+           model.addAttribute("Title", picture.getTitle());
+           model.addAttribute("image",Base64.getEncoder().encodeToString(picture.getImage().getData()));
+           return new ResponseEntity<>(picture, HttpStatus.OK);
+        }catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }             
+   }
 
 }
 

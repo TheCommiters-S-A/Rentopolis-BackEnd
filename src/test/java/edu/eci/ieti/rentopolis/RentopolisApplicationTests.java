@@ -11,8 +11,7 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 import edu.eci.ieti.rentopolis.dto.PropertyDTO;
 import edu.eci.ieti.rentopolis.dto.UserDTO;
-import edu.eci.ieti.rentopolis.entities.User;
-import org.json.JSONArray;
+import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -23,100 +22,149 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import edu.eci.ieti.rentopolis.entities.Location;
 import edu.eci.ieti.rentopolis.entities.Property;
-import edu.eci.ieti.rentopolis.entities.PropertyType;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class RentopolisApplicationTests {
 
-    @Autowired
-    MockMvc mvcMock;
+	@Autowired
+	MockMvc mvcMock;
 
-    private static Gson gson = new Gson();
+	private static Gson gson = new Gson();
 
-    private static final String CONNECTION_STRING = "mongodb://%s:%d";
+	private static final String CONNECTION_STRING = "mongodb://%s:%d";
 
-    private MongodExecutable mongodExecutable;
-    private MongoTemplate mongoTemplate;
+	private static final int ArrayList = 0;
 
-    @AfterEach
-    void clean() {
-        mongodExecutable.stop();
-    }
+	@Autowired
+	private MongodExecutable mongodExecutable;
+	private MongoTemplate mongoTemplate;
 
-    @BeforeEach
-    void setup() throws Exception {
-        String ip = "localhost";
-        int port = 27017;
-        IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
-                .net(new Net(ip, port, Network.localhostIsIPv6()))
-                .build();
-        MongodStarter starter = MongodStarter.getDefaultInstance();
-        mongodExecutable = starter.prepare(mongodConfig);
-        mongodExecutable.start();
-        mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION_STRING, ip, port)), "test");
-    }
+	@Autowired
+	private WebApplicationContext webApplicationContext;
 
-    @Test
-    void shouldNotGetAUserById() throws Exception {
-        MvcResult response = mvcMock.perform(get("/home/user/14"))
-                .andExpect(status().isNotFound()).andReturn();
-        String responseBody = response.getResponse().getContentAsString();
-        Assertions.assertEquals("Usuario no existe", responseBody);
-    }
+	@AfterEach
+	void clean() {
+		mongodExecutable.stop();
+	}
 
-	/*
+
+	@BeforeEach
+	void setup() throws Exception {
+		String ip = "localhost";
+		int port = 27017;
+		IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
+				.net(new Net(ip, port, Network.localhostIsIPv6()))
+				.build();
+		MongodStarter starter = MongodStarter.getDefaultInstance();
+		mongodExecutable = starter.prepare(mongodConfig);
+		mongodExecutable.start();
+		mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION_STRING, ip, port)), "test");
+	}
+
 	@Test
-	void shouldNotGetUsers() throws Exception{
-		MvcResult response= mvcMock.perform(get("/home/users"))
+	void shouldNotGetAUserById() throws Exception{
+		MvcResult response= mvcMock.perform(get("/home/user/14"))
 				.andExpect(status().isNotFound()).andReturn();
 		String responseBody = response.getResponse().getContentAsString();
-		Assertions.assertEquals("No hay usuarios", responseBody);
+		Assertions.assertEquals("Usuario no existe", responseBody);
 	}
-	*/
 
-    @Test
-    void shouldAddUser() throws Exception {
-        UserDTO userDTO = new UserDTO("13", "Sara Perez", "123", "sara@gmail.com", "123");
-        mvcMock.perform(post("/home/user")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(gson.toJson(userDTO)))
-                .andExpect(status().isCreated()).andDo(print());
-    }
 
-    @Test
-    void shouldGetAUserById() throws Exception {
-        UserDTO userDTO = new UserDTO("12", "Sara Perez", "123", "sara@gmail.com", "123");
-        mvcMock.perform(post("/home/user")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(gson.toJson(userDTO)))
-                .andExpect(status().isCreated());
+	@Test
+	void shouldNotGetProperty() throws Exception{
+		mvcMock.perform(get("/home/property/404"))
+				.andExpect(status().isNotFound());
+	}
 
-        MvcResult response = mvcMock.perform(get("/home/user/12"))
-                .andExpect(status().isAccepted()).andReturn();
-        String responseBody = response.getResponse().getContentAsString();
-        UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
-        Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
-    }
+	@Test
+	void shouldGetUsers() throws Exception{
+		mvcMock.perform(get("/home/users"))
+				.andExpect(status().isOk());
+	}
 
-    @Test
-    void shouldAddProperty() throws Exception {
-        Location location = new Location(1, 1);
-        Property property = new Property(16, 50, 5000000, location, PropertyType.Apartaestudio, 4, 2, true, true, false, true, true, "", 4);
-        PropertyDTO propertyDTO = new PropertyDTO(property);
-        mvcMock.perform(post("/home/property")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(gson.toJson(propertyDTO)))
-                .andExpect(status().isCreated()).andDo(print());
-    }
+	@Test
+	void shouldGetProperties() throws Exception{
+		mvcMock.perform(get("/home/properties"))
+				.andExpect(status().isAccepted());
+	}
+
+
+	@Test
+	void shouldAddUser() throws Exception{
+		UserDTO userDTO= new UserDTO("13","Sara Perez", "123","sara@gmail.com","123");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+	}
+
+	@Test
+	void shouldGetAUserById() throws Exception{
+		UserDTO userDTO= new UserDTO("12","Sara Perez", "123","sara@gmail.com","123");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated());
+
+		MvcResult response= mvcMock.perform(get("/home/user/12"))
+				.andExpect(status().isAccepted()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
+		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
+	}
+
+
+	@Test
+	void shouldAddImage() throws Exception{
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
+				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","2").param("title","image.txt")).andExpect(status().isCreated());
+	}
+
+	@Test
+	void shouldAddImage2() throws Exception{
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
+				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","null").param("title","image.txt")).andExpect(status().isCreated());
+	}
+
+
+
+	@Test
+	void shouldGetImage() throws Exception{
+		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
+				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","15").param("title","image.txt")).andExpect(status().isCreated());
+
+		mvcMock.perform(get("/home/picture/15"))
+				.andExpect(status().isOk());
+	}
+
+
+	@Test
+	void shouldNotFindImage() throws Exception{
+		mvcMock.perform(get("/home/picture/1"))
+				.andExpect(status().isNotFound());
+	}
 
 
 	@Test

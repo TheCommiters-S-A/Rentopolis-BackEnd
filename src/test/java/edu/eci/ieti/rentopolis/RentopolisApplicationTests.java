@@ -266,4 +266,12 @@ class RentopolisApplicationTests {
 		String responseBody = response.getResponse().getContentAsString();
 		Assertions.assertEquals("Usuario no existe", responseBody);
 	}
+
+	@Test
+	void shouldNotDeleteLease() throws Exception {
+		MvcResult response = mvcMock.perform(delete("/home/lease/80"))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		Assertions.assertEquals("Lease no existe", response.getResponse().getContentAsString());
+	}
 }

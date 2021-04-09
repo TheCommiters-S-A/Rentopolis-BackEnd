@@ -144,5 +144,26 @@ public class RentopolisController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }             
    }
+
+    @GetMapping("/lease/{id}")
+    public ResponseEntity<Object> getLeaseById(@PathVariable long id) {
+        try {
+            return new ResponseEntity<>(rentopolisServices.getLeaseById(id), HttpStatus.ACCEPTED);
+        } catch (RentopolisServicesException e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/lease/{id}")
+    public ResponseEntity<Object> deleteLease(@PathVariable long id) {
+        try {
+            rentopolisServices.deleteLease(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
 

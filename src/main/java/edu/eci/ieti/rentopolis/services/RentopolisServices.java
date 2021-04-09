@@ -72,4 +72,7 @@ public interface RentopolisServices {
     Picture getImageById (String id) throws RentopolisServicesException;
     void addPictureToProperty(String propertyId,String id,String title,MultipartFile file) throws IOException, RentopolisPersistenceException;
 
+    void deleteLease(long id) throws RentopolisServicesException;
+
+    Lease getLeaseById(long id) throws RentopolisServicesException;
 }

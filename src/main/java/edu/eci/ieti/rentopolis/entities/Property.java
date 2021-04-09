@@ -30,7 +30,14 @@ public class Property {
     private boolean elevator;
     private boolean surveillance;
     private boolean gym;
+
+    private String image;
+    private String address;
+    private String neighborhood;
+    private int stratum;
+
     private List<String> images;
+
 
 
     public Property() {
@@ -55,12 +62,32 @@ public class Property {
     }
 
 
+    public Property(int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
+        this.area = area;
+        this.price = price;
+        this.location = location;
+        this.type = typeProperty;
+        this.numberOfRooms = numberOfRooms;
+        this.communityRoom = communityRoom;
+        this.description = description;
+        this.numberOfBathRooms = numberOfBathRooms;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.gym = gym;
+        this.furniture = furniture;
+        this.image = image;
+        this.address = address;
+        this.neighborhood = neighborhood;
+        this.stratum = stratum;
+    }
+
     public long getId() {
         return this.id;
     }
 
     public void setId(long id) {
         this.id = id;
+
     }
 
     public int getArea() {

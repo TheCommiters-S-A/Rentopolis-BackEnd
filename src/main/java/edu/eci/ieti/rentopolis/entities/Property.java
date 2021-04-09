@@ -79,7 +79,7 @@ public class Property {
         this.address = address;
         this.neighborhood = neighborhood;
         this.stratum = stratum;
-
+    }
 
     public long getId() {
         return this.id;

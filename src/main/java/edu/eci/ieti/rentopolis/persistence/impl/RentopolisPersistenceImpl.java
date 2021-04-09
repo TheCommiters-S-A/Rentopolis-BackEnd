@@ -171,7 +171,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     }
 
-    } 
+    
 
     @Override
    public void addPictureToProperty(String propertyId, String id, String title, MultipartFile file) throws IOException, RentopolisPersistenceException{

@@ -64,10 +64,6 @@ class RentopolisApplicationTests {
 
 	private static final int ArrayList = 0;
 
-	@Autowired
-	private MongodExecutable mongodExecutable;
-	private MongoTemplate mongoTemplate;
-
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -184,7 +180,7 @@ class RentopolisApplicationTests {
 
 
     @Test
-    void shouldAddProperty() throws Exception {
+    void shouldAddProperty2() throws Exception {
         Location location = new Location(1, 1);
         Property property = new Property(16, 50, 5000000, location, PropertyType.Apartaestudio, 4, 2, true, true, false, true, true, "", 4);
         PropertyDTO propertyDTO = new PropertyDTO(property);
@@ -239,18 +235,6 @@ class RentopolisApplicationTests {
 		mvcMock.perform(get("/home/picture/15"))
 				.andExpect(status().isOk());
 	}
-
-
-    @Test
-    void shouldGetImage() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "image.txt",
-                MediaType.TEXT_PLAIN_VALUE, "prueba archivo".getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id", "15").param("title", "image.txt")).andExpect(status().isCreated());
-
-        mvcMock.perform(get("/home/picture/15"))
-                .andExpect(status().isOk());
-    }
 
 
     @Test

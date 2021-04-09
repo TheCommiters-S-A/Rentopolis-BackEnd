@@ -31,10 +31,6 @@ public interface RentopolisPersistence {
 
     Property getPropertyById(long id) throws RentopolisPersistenceException;
 
-    List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException;
-
-    void deleteProperty(Property property) throws RentopolisPersistenceException;
-
     void addLease(Lease lease);
 
     void addPicture(String id, String title,MultipartFile file) throws IOException;

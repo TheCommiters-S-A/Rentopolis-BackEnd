@@ -106,21 +106,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
             throw new RentopolisPersistenceException("Propiedad no existe");
         }
     }
-
-    @Override
-    public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException {
-        return getAllProperty();
-
-
-    }
-
-    @Override
-    public void deleteProperty(Property property) throws RentopolisPersistenceException {
-        if (propertyRepository.findById(property.getId()).isPresent()) {
-            throw new RentopolisPersistenceException("Propiedad no existe");
-        }
-        propertyRepository.delete(property);
-    }
+    
 
     @Override
     public void addLease(Lease lease) {

@@ -25,13 +25,6 @@ public interface RentopolisServices {
     void addUser(User user);
 
 
-    /**
-     * Trae todos los usuarios registrados
-     *
-     * @return
-     * @throws RentopolisServicesException
-     */
-    List<User> getAllUsers() throws RentopolisServicesException;
 
     /**
      * Trae un usuario por ID
@@ -57,14 +50,6 @@ public interface RentopolisServices {
     void deleteUser(String id) throws RentopolisServicesException;
 
     void addProperty(Property property);
-
-    List<Property> getAllProperty() throws RentopolisServicesException;
-
-    Property getPropertyById(long id) throws RentopolisServicesException;
-
-    List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException;
-
-    void deleteProperty(Property property) throws RentopolisServicesException;
 
     void addLease(Lease lease);
 

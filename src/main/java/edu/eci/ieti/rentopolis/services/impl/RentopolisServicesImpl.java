@@ -29,14 +29,6 @@ public class RentopolisServicesImpl implements RentopolisServices {
         this.rentopolisPersistence.addUser(user);
     }
 
-    @Override
-    public List<User> getAllUsers() throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getAllUsers();
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
 
     @Override
     public User getUserById(String id) throws RentopolisServicesException {
@@ -71,42 +63,6 @@ public class RentopolisServicesImpl implements RentopolisServices {
         this.rentopolisPersistence.addProperty(property);
     }
 
-    @Override
-    public List<Property> getAllProperty() throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getAllProperty();
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-
-    }
-
-    @Override
-    public Property getPropertyById(long id) throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getPropertyById(id);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException {
-        try {
-            return rentopolisPersistence.getPropertyByLessor(lessor);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public void deleteProperty(Property property) throws RentopolisServicesException {
-        try {
-            rentopolisPersistence.deleteProperty(property);
-        } catch (RentopolisPersistenceException e) {
-            throw new RentopolisServicesException(e.getMessage(), e);
-        }
-    }
 
     @Override
     public void addLease(Lease lease) {

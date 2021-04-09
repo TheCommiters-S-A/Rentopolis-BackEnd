@@ -284,6 +284,16 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldAddProperty() throws Exception {
+		Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated()).andDo(print());
+	}
+
+	@Test
 	void shouldNotDeleteProperty() throws Exception{
 		MvcResult response= mvcMock.perform(delete("/home/property/80"))
 				.andExpect(status().isNotFound())

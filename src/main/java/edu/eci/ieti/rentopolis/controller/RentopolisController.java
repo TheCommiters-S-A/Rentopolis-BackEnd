@@ -94,13 +94,8 @@ public class RentopolisController {
     }
 
     @GetMapping("/properties")
-    public ResponseEntity<Object> getProperties() {
-        try {
+    public ResponseEntity<Object> getProperties() throws RentopolisServicesException {
             return new ResponseEntity<>(rentopolisServices.getAllProperty(), HttpStatus.ACCEPTED);
-        } catch (RentopolisServicesException e) {
-            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
     }
 
     @GetMapping("/property/{id}")

@@ -7,12 +7,12 @@ import edu.eci.ieti.rentopolis.entities.Property;
 
 
 public class LeaseDTO {
-    public long id;
-    public Property property;
-    public Lessee lessee;
-    public Lessor lessor;
-    public String startDate;
-    public String endDate;
+    private long id;
+    private Property property;
+    private Lessee lessee;
+    private Lessor lessor;
+    private String startDate;
+    private String endDate;
 
 
     public LeaseDTO(Lease lease) {

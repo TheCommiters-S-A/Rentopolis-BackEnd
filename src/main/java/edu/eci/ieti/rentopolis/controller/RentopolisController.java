@@ -120,6 +120,20 @@ public class RentopolisController {
         }
     }
 
+    @PatchMapping("/property/{id}/reputation")
+    public ResponseEntity<?> updatePropertyReputation(@PathVariable long id, @RequestBody PropertyDTO propertyDTO){
+        try {
+            Property property = propertyDTO.convertToEntity(propertyDTO);
+            if(rentopolisServices.getPropertyById(id).getReputation() != property.getReputation() ){
+                rentopolisServices.modifyPropertyReputation(property);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RentopolisServicesException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
    @PostMapping(value="/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

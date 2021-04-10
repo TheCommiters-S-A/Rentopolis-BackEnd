@@ -200,8 +200,11 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     @Override
     public void updateProperty(Property newProperty) throws RentopolisPersistenceException {
         try{
-            Property current = propertyRepository.findById(newProperty.getId()).orElse(null);
-            if(current != null) propertyRepository.save(newProperty);
+            Property current = getPropertyById(newProperty.getId());
+            if(current != null){
+                propertyRepository.delete(current);
+                propertyRepository.save(newProperty);
+            }
         } catch (Exception e){
             throw new RentopolisPersistenceException("Error actualizando Propiedad");
         }

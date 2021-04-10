@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -68,6 +69,27 @@ public class Property {
         this.area = area;
         this.price = price;
         this.id = id;
+    }
+
+    public Property(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum, float reputation) {
+        this.neighborhood = neighborhood;
+        this.stratum = stratum;
+        this.image = image;
+        this.location = location;
+        this.type = typeProperty;
+        this.address = address;
+        this.gym = gym;
+        this.furniture = furniture;
+        this.elevator = elevator;
+        this.surveillance = surveillance;
+        this.description = description;
+        this.numberOfBathRooms = numberOfBathRooms;
+        this.numberOfRooms = numberOfRooms;
+        this.communityRoom = communityRoom;
+        this.area = area;
+        this.price = price;
+        this.id = id;
+        this.reputation = reputation;
     }
 
 

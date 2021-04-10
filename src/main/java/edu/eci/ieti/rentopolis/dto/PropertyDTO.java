@@ -4,6 +4,7 @@ import edu.eci.ieti.rentopolis.entities.Location;
 import edu.eci.ieti.rentopolis.entities.Property;
 import edu.eci.ieti.rentopolis.entities.PropertyType;
 
+
 public class PropertyDTO {
 
     private long id;
@@ -20,6 +21,15 @@ public class PropertyDTO {
     private boolean furniture;
     private String description;
     private float reputation;
+
+    public float getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(float reputation) {
+        this.reputation = reputation;
+    }
+
     private String image;
     private String address;
     private String neighborhood;
@@ -127,7 +137,7 @@ public class PropertyDTO {
                 propertyDTO.getNumberOfBathRooms(), propertyDTO.isElevator(), propertyDTO.isSurveillance(),
                 propertyDTO.isGym(), propertyDTO.isCommunityRoom(), propertyDTO.isFurniture(),
                 propertyDTO.getDescription(), propertyDTO.getImage(), propertyDTO.getAddress(), propertyDTO.getNeighborhood()
-                , propertyDTO.getStratum());
+                , propertyDTO.getStratum(), propertyDTO.getReputation());
     }
 }
 

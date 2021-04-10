@@ -301,6 +301,92 @@ class RentopolisApplicationTests {
 		Assertions.assertEquals("Propiedad no existe",response.getResponse().getContentAsString());
 	}
 
+	@Test
+	void shouldChangePropertyReputation()throws Exception{
+		Property property = new Property(
+				234,
+				24,
+				new Location(12, 12),
+				PropertyType.Apartaestudio,
+				4,
+				5,
+				false,
+				true,
+				true,
+				false,
+				true,
+				"Hermoso apto en Colina",
+				"foto",
+				"Carrera 13 # 12-12",
+				"Colina",
+				5);
+		property.setReputation(0);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated())
+				.andReturn();
+		MvcResult result = mvcMock.perform(get("/home/property/"+ propertyDTO.getId()))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		String bodyResult = result.getResponse().getContentAsString();
+		JSONObject object = new JSONObject(bodyResult);
+		PropertyDTO propertyDTO1 = gson.fromJson(object.toString(), PropertyDTO.class);
+		long id = propertyDTO1.getId();
+		PropertyDTO newProperty = new PropertyDTO();
+		newProperty.setId(id);
+		newProperty.setReputation(7.5F);
+		MvcResult response= mvcMock.perform(patch("/home/property/"+id+"/reputation")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(newProperty)))
+				.andExpect(status().isOk())
+				.andReturn();
+	}
+
+	@Test
+	void shouldNotChangePropertyReputation()throws Exception{
+		Property property = new Property(
+				234,
+				24,
+				new Location(12, 12),
+				PropertyType.Apartaestudio,
+				4,
+				5,
+				false,
+				true,
+				true,
+				false,
+				true,
+				"Hermoso apto en Colina",
+				"foto",
+				"Carrera 13 # 12-12",
+				"Colina",
+				5);
+		property.setReputation(0);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)))
+				.andExpect(status().isCreated())
+				.andReturn();
+		MvcResult result = mvcMock.perform(get("/home/property/"+ propertyDTO.getId()))
+				.andExpect(status().isAccepted())
+				.andReturn();
+		String bodyResult = result.getResponse().getContentAsString();
+		JSONObject object = new JSONObject(bodyResult);
+		PropertyDTO propertyDTO1 = gson.fromJson(object.toString(), PropertyDTO.class);
+		long id = propertyDTO1.getId();
+		PropertyDTO newProperty = new PropertyDTO();
+		newProperty.setId(id);
+		newProperty.setReputation(0);
+		MvcResult response= mvcMock.perform(patch("/home/property/"+id+"/reputation")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(newProperty)))
+				.andExpect(status().isBadRequest())
+				.andReturn();
+	}
+
 
 }
 

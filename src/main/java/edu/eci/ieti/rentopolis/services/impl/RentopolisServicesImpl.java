@@ -109,6 +109,18 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
+    public void modifyPropertyReputation(Property property) throws RentopolisServicesException {
+        try{
+            Property currentProperty = getPropertyById(property.getId());
+            currentProperty.setReputation(property.getReputation());
+            rentopolisPersistence.updateProperty(currentProperty);
+        }catch (RentopolisPersistenceException e){
+            throw new RentopolisServicesException(e.getMessage());
+        }
+
+    }
+
+    @Override
     public void addLease(Lease lease) {
         this.rentopolisPersistence.addLease(lease);
     }

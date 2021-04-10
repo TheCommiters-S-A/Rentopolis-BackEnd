@@ -45,4 +45,7 @@ public interface RentopolisPersistence {
     Lease getLeaseById(long id) throws RentopolisPersistenceException;
 
     void deleteLease(long id) throws RentopolisPersistenceException;
+
+    void updateProperty(Property newProperty) throws RentopolisPersistenceException;
+
 }

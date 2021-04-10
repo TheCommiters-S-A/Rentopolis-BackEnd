@@ -66,6 +66,8 @@ public interface RentopolisServices {
 
     void deleteProperty(long property) throws RentopolisServicesException;
 
+    void modifyPropertyReputation(Property updatedProperty)throws RentopolisServicesException;
+
     void addLease(Lease lease);
 
     void addPicture(String id,String title,MultipartFile file) throws IOException;

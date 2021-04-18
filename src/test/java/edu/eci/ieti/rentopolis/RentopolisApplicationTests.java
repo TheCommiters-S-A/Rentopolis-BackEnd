@@ -131,6 +131,21 @@ class RentopolisApplicationTests {
 		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
 	}
 
+	@Test
+	void shouldGetAUserByEmail() throws Exception{
+		UserDTO userDTO= new UserDTO("133","Sara Perez", "123","perez@gmail.com","123");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated());
+
+		MvcResult response= mvcMock.perform(get("/home/user/email/perez@gmail.com"))
+				.andExpect(status().isAccepted()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
+		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
+	}
+
 
 	@Test
 	void shouldAddImage() throws Exception{

@@ -152,5 +152,14 @@ public class RentopolisServicesImpl implements RentopolisServices {
         }
     }
 
+   @Override
+   public User getUserByEmail(String email) throws RentopolisServicesException{       
+    try {
+        return rentopolisPersistence.getUserByEmail(email);
+    } catch (RentopolisPersistenceException e) {
+        throw new RentopolisServicesException(e.getMessage(), e);
+    }
+   } 
+
 
 }

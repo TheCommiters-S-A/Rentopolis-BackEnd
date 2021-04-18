@@ -197,4 +197,9 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     }
 
+   @Override
+   public User getUserByEmail(String email) throws RentopolisPersistenceException{
+       return userRepository.findByEmail(email);
+   } 
+
 }

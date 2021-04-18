@@ -75,4 +75,7 @@ public interface RentopolisServices {
     Lease getLeaseById(long id) throws RentopolisServicesException;
 
     void deleteLease(long id) throws RentopolisServicesException;
+
+    User getUserByEmail(String email) throws RentopolisServicesException;
+
 }

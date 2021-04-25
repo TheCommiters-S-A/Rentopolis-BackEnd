@@ -80,6 +80,12 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldNotGetUsers() throws Exception{
+		mvcMock.perform(get("/home/users"))
+				.andExpect(status().isOk());
+	}
+
+	@Test
 	void shouldNotGetAUserById() throws Exception{
 		MvcResult response= mvcMock.perform(get("/home/user/14"))
 				.andExpect(status().isNotFound()).andReturn();
@@ -144,6 +150,12 @@ class RentopolisApplicationTests {
 		String responseBody = response.getResponse().getContentAsString();
 		UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
 		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
+	}
+
+	@Test
+	void shouldNotGetAUserByEmail() throws Exception{
+		MvcResult response= mvcMock.perform(get("/home/user/email/corre@mail.com"))
+				.andExpect(status().isAccepted()).andReturn();
 	}
 
 
@@ -237,6 +249,14 @@ class RentopolisApplicationTests {
 				.andReturn();
 		String responseBody = response.getResponse().getContentAsString();
 		Assertions.assertEquals("Usuario no existe", responseBody);
+	}
+
+	@Test
+	void shouldNotGetALeaseById() throws Exception{
+		MvcResult response= mvcMock.perform(get("/home/lease/14"))
+				.andExpect(status().isNotFound()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("Lease no existe", responseBody);
 	}
 
 	@Test

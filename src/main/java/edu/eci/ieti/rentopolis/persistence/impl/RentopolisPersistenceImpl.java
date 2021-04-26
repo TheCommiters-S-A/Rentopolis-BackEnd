@@ -26,7 +26,6 @@ import edu.eci.ieti.rentopolis.entities.Picture;
 import java.util.List;
 import java.util.Optional;
 
-import javax.print.event.PrintEvent;
 
 
 @Service

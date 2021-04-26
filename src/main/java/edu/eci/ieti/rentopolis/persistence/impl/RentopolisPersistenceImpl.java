@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 
+
 @Service
 public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
@@ -196,5 +197,10 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
         }
 
     }
+
+   @Override
+   public User getUserByEmail(String email) throws RentopolisPersistenceException{
+       return userRepository.findByEmail(email);
+   } 
 
 }

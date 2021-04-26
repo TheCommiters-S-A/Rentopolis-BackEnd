@@ -80,6 +80,12 @@ class RentopolisApplicationTests {
 	}
 
 	@Test
+	void shouldNotGetUsers() throws Exception{
+		mvcMock.perform(get("/home/users"))
+				.andExpect(status().isOk());
+	}
+
+	@Test
 	void shouldNotGetAUserById() throws Exception{
 		MvcResult response= mvcMock.perform(get("/home/user/14"))
 				.andExpect(status().isNotFound()).andReturn();
@@ -131,6 +137,27 @@ class RentopolisApplicationTests {
 		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
 	}
 
+	@Test
+	void shouldGetAUserByEmail() throws Exception{
+		UserDTO userDTO= new UserDTO("133","Sara Perez", "123","perez@gmail.com","123");
+		mvcMock.perform(post("/home/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(userDTO)))
+				.andExpect(status().isCreated());
+
+		MvcResult response= mvcMock.perform(get("/home/user/email/perez@gmail.com"))
+				.andExpect(status().isAccepted()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		UserDTO responseAsUser = gson.fromJson(responseBody, UserDTO.class);
+		Assertions.assertEquals(userDTO.getId(), responseAsUser.getId());
+	}
+
+	@Test
+	void shouldNotGetAUserByEmail() throws Exception{
+		MvcResult response= mvcMock.perform(get("/home/user/email/corre@mail.com"))
+				.andExpect(status().isAccepted()).andReturn();
+	}
+
 
 	@Test
 	void shouldAddImage() throws Exception{
@@ -142,10 +169,16 @@ class RentopolisApplicationTests {
 
 	@Test
 	void shouldAddImage2() throws Exception{
+		Property property = new Property(1234567,234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)));
+
 		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
 				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","null").param("title","image.txt")).andExpect(status().isCreated());
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/property/picture").file(file).param("propertyId","1234567").param("id","23").param("title","image.txt")).andExpect(status().isCreated());
 	}
 
 
@@ -222,6 +255,14 @@ class RentopolisApplicationTests {
 				.andReturn();
 		String responseBody = response.getResponse().getContentAsString();
 		Assertions.assertEquals("Usuario no existe", responseBody);
+	}
+
+	@Test
+	void shouldNotGetALeaseById() throws Exception{
+		MvcResult response= mvcMock.perform(get("/home/lease/14"))
+				.andExpect(status().isNotFound()).andReturn();
+		String responseBody = response.getResponse().getContentAsString();
+		Assertions.assertEquals("Lease no existe", responseBody);
 	}
 
 	@Test

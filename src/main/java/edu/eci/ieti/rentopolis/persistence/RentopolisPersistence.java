@@ -45,4 +45,6 @@ public interface RentopolisPersistence {
     Lease getLeaseById(long id) throws RentopolisPersistenceException;
 
     void deleteLease(long id) throws RentopolisPersistenceException;
+
+    User getUserByEmail(String email) throws RentopolisPersistenceException;
 }

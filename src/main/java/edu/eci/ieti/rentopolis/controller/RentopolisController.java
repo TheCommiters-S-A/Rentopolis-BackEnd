@@ -66,7 +66,7 @@ public class RentopolisController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<Object> getUsers() {
+    public ResponseEntity<Object> getUsers() throws RentopolisPersistenceException {
         try {
             return new ResponseEntity<>(rentopolisServices.getAllUsers(), HttpStatus.OK);
         } catch (RentopolisServicesException e) {
@@ -87,7 +87,7 @@ public class RentopolisController {
     }
 
     @GetMapping("/user/email/{email}")
-    public ResponseEntity<Object> getUserByEmail(@PathVariable String email) throws RentopolisServicesException {
+    public ResponseEntity<Object> getUserByEmail(@PathVariable String email) throws RentopolisServicesException, RentopolisPersistenceException {
         return new ResponseEntity<>(rentopolisServices.getUserByEmail(email), HttpStatus.ACCEPTED);
 
     }
@@ -100,7 +100,7 @@ public class RentopolisController {
     }
 
     @GetMapping("/properties")
-    public ResponseEntity<Object> getProperties() throws RentopolisServicesException {
+    public ResponseEntity<Object> getProperties() throws RentopolisServicesException, RentopolisPersistenceException {
             return new ResponseEntity<>(rentopolisServices.getAllProperty(), HttpStatus.ACCEPTED);
     }
 

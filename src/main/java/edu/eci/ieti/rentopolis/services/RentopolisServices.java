@@ -31,7 +31,7 @@ public interface RentopolisServices {
      * @return
      * @throws RentopolisServicesException
      */
-    List<User> getAllUsers() throws RentopolisServicesException;
+    List<User> getAllUsers() throws RentopolisServicesException, RentopolisPersistenceException;
 
     /**
      * Trae un usuario por ID
@@ -58,7 +58,7 @@ public interface RentopolisServices {
 
     void addProperty(Property property);
 
-    List<Property> getAllProperty() throws RentopolisServicesException;
+    List<Property> getAllProperty() throws RentopolisServicesException, RentopolisPersistenceException;
 
     Property getPropertyById(long id) throws RentopolisServicesException;
 
@@ -76,6 +76,6 @@ public interface RentopolisServices {
 
     void deleteLease(long id) throws RentopolisServicesException;
 
-    User getUserByEmail(String email) throws RentopolisServicesException;
+    User getUserByEmail(String email) throws RentopolisServicesException, RentopolisPersistenceException;
 
 }

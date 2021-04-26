@@ -30,7 +30,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public List<User> getAllUsers() throws RentopolisServicesException {
+    public List<User> getAllUsers() throws RentopolisServicesException, RentopolisPersistenceException {
             return rentopolisPersistence.getAllUsers();
     }
 
@@ -68,7 +68,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public List<Property> getAllProperty() throws RentopolisServicesException {
+    public List<Property> getAllProperty() throws RentopolisServicesException, RentopolisPersistenceException {
             return rentopolisPersistence.getAllProperty();
     }
 
@@ -144,7 +144,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
    @Override
-   public User getUserByEmail(String email) throws RentopolisServicesException{    
+   public User getUserByEmail(String email) throws RentopolisServicesException, RentopolisPersistenceException{    
         return rentopolisPersistence.getUserByEmail(email);
    } 
 

@@ -62,7 +62,7 @@ public class RentopolisController {
         } catch (RentopolisServicesException e) {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        } 
     }
 
     @GetMapping("/users")
@@ -87,13 +87,9 @@ public class RentopolisController {
     }
 
     @GetMapping("/user/email/{email}")
-    public ResponseEntity<Object> getUserByEmail(@PathVariable String email) {
-        try {
-            return new ResponseEntity<>(rentopolisServices.getUserByEmail(email), HttpStatus.ACCEPTED);
-        } catch (RentopolisServicesException e) {
-            Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> getUserByEmail(@PathVariable String email) throws RentopolisServicesException {
+        return new ResponseEntity<>(rentopolisServices.getUserByEmail(email), HttpStatus.ACCEPTED);
+
     }
 
     @PostMapping("/property")

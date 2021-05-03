@@ -93,8 +93,7 @@ public class RentopolisController {
     }
 
     @PostMapping("/property")
-    public ResponseEntity<Object> addProperty(@RequestBody PropertyDTO propertyDTO) {
-        Property property = propertyDTO.convertToEntity(propertyDTO);
+    public ResponseEntity<Object> addProperty(@RequestBody Property property) {
         rentopolisServices.addProperty(property);
         return new ResponseEntity<>(property.getId(),HttpStatus.CREATED);
     }

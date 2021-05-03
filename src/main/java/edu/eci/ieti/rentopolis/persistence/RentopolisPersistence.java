@@ -29,11 +29,11 @@ public interface RentopolisPersistence {
 
     List<Property> getAllProperty() throws RentopolisPersistenceException;
 
-    Property getPropertyById(long id) throws RentopolisPersistenceException;
+    Property getPropertyById(String id) throws RentopolisPersistenceException;
 
     List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisPersistenceException;
 
-    void deleteProperty(long property) throws RentopolisPersistenceException;
+    void deleteProperty(String property) throws RentopolisPersistenceException;
 
     void addLease(Lease lease);
 

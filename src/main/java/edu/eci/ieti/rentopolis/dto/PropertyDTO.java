@@ -6,7 +6,7 @@ import edu.eci.ieti.rentopolis.entities.PropertyType;
 
 public class PropertyDTO {
 
-    private long id;
+    private String id;
     private int area;
     private long price;
     private Location location;
@@ -48,11 +48,11 @@ public class PropertyDTO {
     }
 
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -60,11 +60,11 @@ public interface RentopolisServices {
 
     List<Property> getAllProperty() throws RentopolisServicesException, RentopolisPersistenceException;
 
-    Property getPropertyById(long id) throws RentopolisServicesException;
+    Property getPropertyById(String id) throws RentopolisServicesException;
 
     List<Property> getPropertyByLessor(Lessor lessor) throws RentopolisServicesException;
 
-    void deleteProperty(long property) throws RentopolisServicesException;
+    void deleteProperty(String property) throws RentopolisServicesException;
 
     void addLease(Lease lease);
 

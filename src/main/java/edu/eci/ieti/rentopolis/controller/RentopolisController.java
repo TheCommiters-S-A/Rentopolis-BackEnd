@@ -94,7 +94,9 @@ public class RentopolisController {
 
     @PostMapping("/property")
     public ResponseEntity<Object> addProperty(@RequestBody Property property) {
+        System.out.println("---------------------------"+property.getId()+"-------------------------------");
         rentopolisServices.addProperty(property);
+        System.out.println("---------------------------"+property.getId()+"-------------------------------");
         return new ResponseEntity<>(property.getId(),HttpStatus.CREATED);
     }
 
@@ -104,7 +106,7 @@ public class RentopolisController {
     }
 
     @GetMapping("/property/{id}")
-    public ResponseEntity<Object> getPropertyById(@PathVariable long id) {
+    public ResponseEntity<Object> getPropertyById(@PathVariable String id) {
         try {
             return new ResponseEntity<>(rentopolisServices.getPropertyById(id), HttpStatus.ACCEPTED);
         } catch (RentopolisServicesException e) {
@@ -115,7 +117,7 @@ public class RentopolisController {
 
 
     @DeleteMapping("/property/{id}")
-    public ResponseEntity<Object> deleteProperty(@PathVariable long id) {
+    public ResponseEntity<Object> deleteProperty(@PathVariable String id) {
         try {
             rentopolisServices.deleteProperty(id);
             return new ResponseEntity<>(HttpStatus.OK);

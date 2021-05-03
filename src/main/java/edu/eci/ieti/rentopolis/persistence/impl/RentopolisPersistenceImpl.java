@@ -98,7 +98,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     }
 
     @Override
-    public Property getPropertyById(long id) throws RentopolisPersistenceException {
+    public Property getPropertyById(String id) throws RentopolisPersistenceException {
 
         Optional<Property> optional = propertyRepository.findById(id);
         if (optional.isPresent()) {
@@ -116,7 +116,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
     }
 
     @Override
-    public void deleteProperty(long id) throws RentopolisPersistenceException {
+    public void deleteProperty(String id) throws RentopolisPersistenceException {
         Property property = getPropertyById(id);
         if (!propertyRepository.findById(property.getId()).isPresent()) {
             throw new RentopolisPersistenceException("Propiedad no existe");
@@ -158,7 +158,7 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
        Picture picture = null;
        Property property = null;
        try {
-        property = getPropertyById(Long.parseLong(propertyId));
+        property = getPropertyById(propertyId);
 
         if(id.equals("null")){
             picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));

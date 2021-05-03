@@ -21,7 +21,7 @@ public class Property {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private String id;
     private int area;
     private long price;
     private Location location;
@@ -50,7 +50,7 @@ public class Property {
 
 
 
-    public Property(long id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
+    public Property(String id, int area, long price, Location location, PropertyType typeProperty, int numberOfRooms, int numberOfBathRooms, boolean elevator, boolean surveillance, boolean gym, boolean communityRoom, boolean furniture, String description, String image, String address, String neighborhood, int stratum) {
         this.neighborhood = neighborhood;
         this.stratum = stratum;
         this.image = image;
@@ -91,7 +91,7 @@ public class Property {
     }
 
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
     public int getArea() {
@@ -159,7 +159,7 @@ public class Property {
         return this.reputation;
     }
 
-    public long getId() {
+    public String getId() {
         return this.id;
     }
 

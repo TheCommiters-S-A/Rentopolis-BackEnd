@@ -73,7 +73,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public Property getPropertyById(long id) throws RentopolisServicesException {
+    public Property getPropertyById(String id) throws RentopolisServicesException {
         try {
             return rentopolisPersistence.getPropertyById(id);
         } catch (RentopolisPersistenceException e) {
@@ -91,7 +91,7 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
-    public void deleteProperty(long property) throws RentopolisServicesException {
+    public void deleteProperty(String property) throws RentopolisServicesException {
         try {
             rentopolisPersistence.deleteProperty(property);
         } catch (RentopolisPersistenceException e) {

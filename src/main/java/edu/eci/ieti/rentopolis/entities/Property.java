@@ -160,7 +160,7 @@ public class Property {
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public void setReputation(float reputation) {

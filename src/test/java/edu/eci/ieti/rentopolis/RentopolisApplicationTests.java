@@ -78,7 +78,7 @@ class RentopolisApplicationTests {
 		mongodExecutable.start();
 		mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION_STRING, ip, port)), "test");
 	}
-/*
+
 	@Test
 	void shouldNotGetUsers() throws Exception{
 		mvcMock.perform(get("/home/users"))
@@ -166,22 +166,23 @@ class RentopolisApplicationTests {
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/picture").file(file).param("id","2").param("title","image.txt")).andExpect(status().isCreated());
 	}
-*/
+
 	@Test
 	void shouldAddImage2() throws Exception{
-		Property property = new Property();
-        Lessee lessee = new Lessee();
-        Lessor lessor = new Lessor();
-        Lease lease = new Lease(21111, property, lessee, lessor, "20/10/2021", "21/12/2030");
+		Property property = new Property(1234567,234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		PropertyDTO propertyDTO = new PropertyDTO(property);
+		mvcMock.perform(post("/home/property")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(gson.toJson(propertyDTO)));
 
 		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
 				MediaType.TEXT_PLAIN_VALUE,"prueba archivo".getBytes());
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/property/picture").file(file).param("propertyId","21111").param("id","2").param("title","image.txt")).andExpect(status().isCreated());
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/home/property/picture").file(file).param("propertyId","1234567").param("id","23").param("title","image.txt")).andExpect(status().isCreated());
 	}
 
 
-/*
+
 	@Test
 	void shouldGetImage() throws Exception{
 		MockMultipartFile file = new MockMultipartFile("file", "image.txt",
@@ -341,6 +342,6 @@ class RentopolisApplicationTests {
 		Assertions.assertEquals("Propiedad no existe",response.getResponse().getContentAsString());
 	}
 
-*/
+
 }
 

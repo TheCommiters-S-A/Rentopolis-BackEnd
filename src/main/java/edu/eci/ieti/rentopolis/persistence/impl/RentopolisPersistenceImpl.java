@@ -26,7 +26,6 @@ import edu.eci.ieti.rentopolis.entities.Picture;
 import java.util.List;
 import java.util.Optional;
 
-import javax.print.event.PrintEvent;
 
 
 @Service
@@ -159,30 +158,20 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
        Picture picture = null;
        Property property = null;
        try {
-        System.out.println("1fucckkkkkkk";propertyId);
         property = getPropertyById(Long.parseLong(propertyId));
-        System.out.println("1fucckkkkkkk");
 
         if(id.equals("null")){
-            System.out.println("1fucckkkkkkk");
             picture = new Picture(null,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-            System.out.println("2fucckkkkkkk");
            }else{
-            System.out.println("3fucckkkkkkk");
             picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-            System.out.println("4fucckkkkkkk");
            }
-           System.out.println("5fucckkkkkkk");
            pictureRepository.insert(picture);    
-           System.out.println("6fucckkkkkkk");
            property.addImages(picture.getId());
-           System.out.println("7fucckkkkkkk");
     
            propertyRepository.save(property);
     } catch (NumberFormatException e) {
         throw new NumberFormatException("No se covertio el numero");
     } catch (RentopolisPersistenceException e) {
-        System.out.println(e.getStackTrace());
         throw new RentopolisPersistenceException("Error al buscar la propiedad");
     }
        

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import edu.eci.ieti.rentopolis.entities.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.logging.Level;
@@ -94,9 +95,7 @@ public class RentopolisController {
 
     @PostMapping("/property")
     public ResponseEntity<Object> addProperty(@RequestBody Property property) {
-        System.out.println("---------------------------"+property.getId()+"-------------------------------");
         rentopolisServices.addProperty(property);
-        System.out.println("---------------------------"+property.getId()+"-------------------------------");
         return new ResponseEntity<>(property.getId(),HttpStatus.CREATED);
     }
 

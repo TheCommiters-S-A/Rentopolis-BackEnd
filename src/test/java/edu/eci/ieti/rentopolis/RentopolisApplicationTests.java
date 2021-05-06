@@ -305,7 +305,7 @@ class RentopolisApplicationTests {
 
 	@Test
 	void shouldDeleteProperty() throws Exception {
-		Property property = new Property(234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
+		Property property = new Property("12345678",234, 24, new Location(12, 12), PropertyType.Apartaestudio, 4, 5, false, true, true, false, true, "Hermoso apto en Colina", "foto", "Carrera 13 # 12-12", "Colina", 5);
 		PropertyDTO propertyDTO = new PropertyDTO(property);
 		mvcMock.perform(post("/home/property")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -318,7 +318,7 @@ class RentopolisApplicationTests {
 		String bodyResult = result.getResponse().getContentAsString();
 		JSONObject object = new JSONObject(bodyResult);
 		PropertyDTO propertyDTO1 = gson.fromJson(object.toString(), PropertyDTO.class);
-		long id = propertyDTO1.getId();
+		String id = propertyDTO1.getId();
 		mvcMock.perform(delete("/home/property/" + id))
 				.andExpect(status().isOk())
 				.andReturn();

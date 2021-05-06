@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import org.bson.BsonBinarySubType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 
 import org.bson.types.Binary;
@@ -42,6 +43,9 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
 
     @Autowired
     private PictureRepository pictureRepository;
+
+    @Autowired 
+    GridFsTemplate gridFsTemplate;
 
     @Override
     public User getUserById(String userId) throws RentopolisPersistenceException {
@@ -165,7 +169,8 @@ public class RentopolisPersistenceImpl implements RentopolisPersistence {
            }else{
             picture = new Picture(id,title,new Binary(BsonBinarySubType.BINARY, file.getBytes()));
            }
-           pictureRepository.insert(picture);    
+           pictureRepository.insert(picture);
+           gridFsTemplate.store(file.getInputStream(), picture.getId(), file.getContentType());  
            property.addImages(picture.getId());
     
            propertyRepository.save(property);

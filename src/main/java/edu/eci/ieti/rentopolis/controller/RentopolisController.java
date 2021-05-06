@@ -11,20 +11,26 @@ import edu.eci.ieti.rentopolis.entities.Lease;
 import edu.eci.ieti.rentopolis.services.RentopolisServicesException;
 import edu.eci.ieti.rentopolis.services.RentopolisServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import edu.eci.ieti.rentopolis.entities.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.mongodb.client.gridfs.model.GridFSFile;
 
 @RestController
 @RequestMapping("/home")
@@ -33,6 +39,9 @@ public class RentopolisController {
 
     @Autowired
     private RentopolisServices rentopolisServices;
+
+    @Autowired 
+    GridFsTemplate gridFsTemplate;
 
 
     @PostMapping("/user")
@@ -151,6 +160,15 @@ public class RentopolisController {
             Logger.getLogger(RentopolisController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }             
+   }
+
+   @GetMapping("/picture2/{id}")
+   public ResponseEntity<Object> getPicture2(@PathVariable String id) throws IllegalStateException, IOException{
+    GridFSFile file = gridFsTemplate.findOne(new Query().addCriteria(Criteria.where("filename").is(id)));
+    GridFsResource resource = gridFsTemplate.getResource(file.getFilename());
+    return ResponseEntity.ok()
+        .contentType(MediaType.valueOf(resource.getContentType()))
+        .body(new InputStreamResource(resource.getInputStream()));             
    }
 
 

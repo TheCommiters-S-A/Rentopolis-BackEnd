@@ -100,6 +100,11 @@ public class RentopolisServicesImpl implements RentopolisServices {
     }
 
     @Override
+    public void modifyPropertyReputation(Property updatedProperty) throws RentopolisServicesException {
+
+    }
+
+    @Override
     public void addLease(Lease lease) {
         this.rentopolisPersistence.addLease(lease);
     }
